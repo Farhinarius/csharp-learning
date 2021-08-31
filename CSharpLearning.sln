@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnvironmentInteraction", "EnvironmentInteraction\EnvironmentInteraction.csproj", "{F280474F-5F34-4766-8641-2B6BD4863B63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workspace", "Workspace\Workspace.csproj", "{3182BAEA-C3C0-4BB3-89F6-977EDF6173D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{F280474F-5F34-4766-8641-2B6BD4863B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F280474F-5F34-4766-8641-2B6BD4863B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F280474F-5F34-4766-8641-2B6BD4863B63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3182BAEA-C3C0-4BB3-89F6-977EDF6173D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3182BAEA-C3C0-4BB3-89F6-977EDF6173D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3182BAEA-C3C0-4BB3-89F6-977EDF6173D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3182BAEA-C3C0-4BB3-89F6-977EDF6173D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
