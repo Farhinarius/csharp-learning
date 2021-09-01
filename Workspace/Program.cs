@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using static Workspace.ExecutionHandler;
+using static Workspace.ManipulationMethods;
 
 namespace Workspace
 {
     internal static class Program
     {
         private static void Main(string[] args) =>
-            Execute(ProcessBytesAnotherVers);
+            Execute(ModifyRefTypeCollectionInMethod);
         
         private static void Execute(Action method) => method();
 
@@ -49,7 +50,7 @@ namespace Workspace
             words.ForEach(word => Console.WriteLine(word));
         }
 
-        public static void AnomyousConstructor()
+        public static void AnonymousConstructor()
         {
             Point p1 = new Point(0, 0);
             Point p2 = new Point(10, 20);
@@ -219,9 +220,7 @@ namespace Workspace
             Console.WriteLine("sb has {0} chars.", sb.Length);
             Console.WriteLine();
         }
-        
-        private static int Add(int b1, int b2) => b1 + b2;
-        
+
         public static void ProcessBytes()
         {
             byte bl = 100;
@@ -254,12 +253,81 @@ namespace Workspace
                 Console.WriteLine(ex.Message);
             }
         }
+
+        public static void ArrayElementUsage()
+        {
+            int[] numbers = new int[] {1,2,3,4,5};
+            
+            foreach (var number in numbers)
+                Console.WriteLine($"Array value: {number}");
+            Console.WriteLine();
+            
+            var arrayValue = GetArrayValue(numbers, 1);     // pass copy of array and get copy of array element
+            arrayValue = 0;
+            
+            foreach (var number in numbers)
+                Console.WriteLine($"Array value: {number}");
+            Console.WriteLine();
+        }
+
+        public static void ArrayRefElementUsage()
+        {
+            int[] numbers = new int[] {1,2,3,4,5};
+            foreach (var number in numbers)
+                Console.WriteLine($"Array value: {number}");
+            Console.WriteLine();
+            
+            ref var arrayValue = ref GetRefArrayValue(1, numbers);      // pass copy of the array and get reference to the array element
+            arrayValue = 10;
+            
+            foreach (var number in numbers)
+                Console.WriteLine($"Array value: {number}");
+            Console.WriteLine();
+        }
+
+        public static void RefTypeArrayElementUsage()
+        {
+            Point[] points =
+            {
+                new Point() {X = 1, Y = 1},
+                new Point() {X = 1, Y = 1},
+                new Point() {X = 1, Y = 1},
+                new Point() {X = 1, Y = 1},
+                new Point() {X = 1, Y = 1}
+            };
+
+            var newPoint = GetRefTypeArrayValue(points, 1);
+            newPoint.X = 5; newPoint.Y = 5;
+            
+            foreach (var point in points)
+                Console.WriteLine($"Array value: {point.X} {point.Y}");
+            Console.WriteLine();
+        }
+
+        public static void ModifyRefTypeCollectionInMethod()
+        {
+            Point[] points =
+            {
+                new Point() {X = 1, Y = 1},
+                new Point() {X = 1, Y = 1},
+                new Point() {X = 1, Y = 1},
+                new Point() {X = 1, Y = 1},
+                new Point() {X = 1, Y = 1}
+            };
+
+            var newPoint = GetRefTypeCollection(points, 2);
+            foreach (var point in points)
+                Console.WriteLine($"Array value: {point.X} {point.Y}");
+            Console.WriteLine();
+        }
+        
+        
     }
     
     public class Point
     {
-        public int X { get; }
-        public int Y { get; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
         public Point() {}
 
