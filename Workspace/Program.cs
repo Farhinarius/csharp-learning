@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Workspace.Resources;
 using static Workspace.ExecutionHandler;
 using static Workspace.ManipulationMethods;
 
@@ -256,7 +257,7 @@ namespace Workspace
 
         public static void ArrayElementUsage()
         {
-            int[] numbers = new int[] {1,2,3,4,5};
+            int[] numbers = {1,2,3,4,5};
             
             foreach (var number in numbers)
                 Console.WriteLine($"Array value: {number}");
@@ -272,7 +273,7 @@ namespace Workspace
 
         public static void ArrayRefElementUsage()
         {
-            int[] numbers = new int[] {1,2,3,4,5};
+            int[] numbers = {1,2,3,4,5};
             foreach (var number in numbers)
                 Console.WriteLine($"Array value: {number}");
             Console.WriteLine();
@@ -315,7 +316,7 @@ namespace Workspace
                 new Point() {X = 1, Y = 1}
             };
 
-            var newPoint = GetRefTypeCollection(points, 2);
+            ReplaceValueInArrayOfRefType(ref points, 2);
             foreach (var point in points)
                 Console.WriteLine($"Array value: {point.X} {point.Y}");
             Console.WriteLine();
@@ -323,41 +324,9 @@ namespace Workspace
         
         
     }
+
+    #region Delegate Usage
     
-    public class Point
-    {
-        public int X { get; set; }
-        public int Y { get; set; }
-
-        public Point() {}
-
-        public Point(int x, int y) => (X, Y) = (x, y);
-
-        public void Show()
-        {
-            Console.WriteLine($"X: {X}, Y: {Y}");
-        }
-        public static void Draw(Point p)
-        {
-            // drawline logic with some library
-        }
-
-        public static void Draw(Point p, float thickness)
-        {
-            // drawline with thickness with some logic
-        }
-    }
-
-    public class Point3D : Point
-    {
-        public int Z { get; set; }
-        public Point3D(int x, int y, int z) : base(x, y)
-        {
-            Z = z;
-        }
-    }
-
-    // delegate usage
     internal delegate double Function(double x);
     
     class Multiplier
@@ -389,4 +358,6 @@ namespace Workspace
             Console.WriteLine();
         }
     }
+    
+    #endregion
 }
