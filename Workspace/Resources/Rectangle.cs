@@ -16,10 +16,12 @@ namespace Workspace.Resources
             _rectBottom = bottom;
             _rectRight = right;
         }
-        
+
         public void Display()
         {
-            Console.WriteLine ("String = {0}, Top = {1}, Left = {2}, " +
-                                "Bottom = {3}, Right = {4}", _rectInfo.Info, _rectTop, _rectLeft, _rectBottom, _rectRight);
+            Console.WriteLine("String = {0}, Top = {1}, Left = {2}, " +
+                              "Bottom = {3}, Right = {4}", _rectInfo.Info, _rectTop, _rectLeft, _rectBottom,
+                _rectRight);
+        }
     }
 }

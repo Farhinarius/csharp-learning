@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using Workspace.Resources;
-using static Workspace.ExecutionHandler;
-using static Workspace.ManipulationMethods;
+using Workspace.Learning.MethodsEssence;
 
 namespace Workspace
 {
     internal static class Program
     {
         private static void Main(string[] args) =>
-            Execute(ModifyRefTypeCollectionInMethod);
+            ExecutionHandler.LinqForEach();
+        
+        #region Delegates for execution
         
         private static void Execute(Action method) => method();
 
@@ -21,6 +19,8 @@ namespace Workspace
             method();
             Console.WriteLine($"{Environment.NewLine}Implementation was successful");
         }
+        
+        #endregion
     }
 }
 
@@ -28,66 +28,11 @@ namespace Workspace
 {
     public static class ExecutionHandler
     {
-        public static void Hello()
-        {
-            Console.WriteLine("Hello World!");
-        }
-
-        public static void Input()
-        {
-            Console.WriteLine("Input string: ");
-            var someString = Console.ReadLine();
-            Console.Write(someString);
-        }
-
         public static void LinqForEach()
         {
-            List<string> words = new List<string>();
-            words.Add("Bruce");
-            words.Add("Alfred");
-            words.Add("Tim");
-            words.Add("Richard");
+            List<string> words = new List<string> { "Bruce", "Alfred", "Tim", "Richard"};
 
-            words.ForEach(word => Console.WriteLine(word));
-        }
-
-        public static void AnonymousConstructor()
-        {
-            Point p1 = new Point(0, 0);
-            Point p2 = new Point(10, 20);
-
-            Console.WriteLine($"P1 : {p1.X}, {p1.Y}");
-            Console.WriteLine($"P2 : {p2.X}, {p2.Y}");
-        }
-
-        public static void InheritanceConstructor()
-        {
-            Point3D p3 = new Point3D(10, 10, 10);
-        }
-
-        public static void ParametricPolymorphism()
-        {
-            Point pointToDraw = new Point();
-            Point.Draw(pointToDraw);
-            Point.Draw(pointToDraw, 5.5f);
-        }
-
-        public static void Polymorphism()
-        {
-            Point p4 = new Point(10, 10);
-            Point p5 = new Point3D(1, 2, 3);
-        }
-
-        public static void OverridingPolymorphism()
-        {
-            // Enemy.attack()       ->  virtual method of abstract class
-            // Lizard.attack()      ->  override method for real class
-        } 
-
-        public static void Tuples()
-        {
-            (double Sum, int Count) t2 = (4.5, 3);      // (double, int) t1 = (4.5, 3);
-            Console.WriteLine($"Sum of {t2.Count} elements is {t2.Sum}.");
+            words.ForEach(Console.WriteLine);
         }
 
         public static void DelegateUsage()
@@ -103,231 +48,10 @@ namespace Workspace
             double[] doubles = DelegateExample.Apply(a, m.Multiply);
             DelegateExample.OutputArray(doubles);
         }
-
-        public static void NullableValueTypes()
-        {
-            Point point = null;
-            Point? newPoint = point;
-            
-            newPoint?.Show();       // show nothing
-
-            newPoint = point ?? new Point(2, 2);
-            newPoint?.Show();       // show point (2, 2)
-        }
-
-        public static void DefaultDeclarations()
-        {
-            Console.WriteLine("Default declarations:");
-            
-            int myInt = default;
-            Console.WriteLine(myInt);
-
-            var defaultInt = new int();
-            Console.WriteLine(defaultInt);
-        }
-
-        public static void FormatNumericalData()
-        {
-            Console.WriteLine("The value 9999 in various formats: ");
-            Console.WriteLine("c format: {0:c}", 99999);
-            Console.WriteLine("d9 format: {0:d9}", 99999);
-            Console.WriteLine("f3 format: {0:f3}", 99999);
-            Console.WriteLine("n format: {0:n}", 99999);
-            
-            Console.WriteLine ( "Е format: {0:Е}", 99999);
-            Console.WriteLine ("е format: {0:е}", 99999);
-            Console.WriteLine("X format: {0:X}", 99999);
-            Console.WriteLine("x format: {0:x}", 99999);
-            
-            var output = $"{99999:X}";
-            Console.WriteLine(output);
-        }
-
-        public static void CharFunctionality()
-        {
-            Console.WriteLine("=> char type Functionality:");
-            char myChar = 'a';
-            
-            Console.WriteLine("char.IsDigit ( 'a') : {0}", char.IsDigit(myChar));
-            Console.WriteLine("char.IsLetter ( 'a ’ ) : {0}", char.IsLetter(myChar));
-            Console.WriteLine("char.IsWhiteSpace('Hello There’, 5): {0}", char.IsWhiteSpace("Hello There", 5));
-            Console.WriteLine("char.IsWhiteSpace('Hello There', 6): {0}", char.IsWhiteSpace("Hello There", 6));
-            Console.WriteLine("char.IsPunctuation(’?'): {0}", char.IsPunctuation('?'));
-            
-            Console.WriteLine();
-        }
-        
-        public static void ParseFromStrings()
-        {
-            Console.WriteLine("=> Data type parsing:");
-            
-            bool b = bool.Parse("True");
-            Console.WriteLine ("Value of b: {0} ", b) ; // Вывод значения b
-            
-            double d = double.Parse ("99.884") ;
-            Console.WriteLine ("Value of d: {0} ", d) ; // Вывод значения d
-            
-            int i = int.Parse ( "8") ;
-            Console.WriteLine ("Value of l: {0}", i) ; // Вывод значения i
-            
-            char c = Char.Parse ( "w" ) ;
-            Console.WriteLine ("Value of c: {0}" , c) ; // Вывод значения с
-            
-            Console.WriteLine();
-        }
-        
-        public static void ParseFromStringsWithTryParse()
-        {
-            Console.WriteLine ("=> Data type parsing with TryParse:");
-            
-            if ( bool.TryParse("True", out bool b) ) ;
-            {
-                Console.WriteLine("Value of b: {0}", b);
-            }
-            
-            string value = "Hello";
-            if ( double.TryParse(value, out double d) )
-            {
-                Console.WriteLine("Value of d: {0}", d);
-            }
-            else
-            {
-                Console.WriteLine("Failed to convert the input ({0}) to a double", value);
-            }
-            
-            Console.WriteLine();
-        }
-
-        public static void StringAreImmutable()
-        {
-            var s1 = "Welcome";
-            var s2 = s1;        // s1 returns copy
-            s1 = "Salam";            // changes s1 but allocates new memory
-            Console.WriteLine(s2);
-        }
-        
-        public static void StringBuilderClassUsage()
-        {
-            Console.WriteLine("=> Using the StringBuilder:");
-            StringBuilder sb = new StringBuilder("**** Fantastic Games ****");
-            sb.Append("\n");
-            sb.AppendLine("Half Life");
-            sb.AppendLine("Morrowind");
-            sb.AppendLine("Deus Ex" + "2");
-            sb.AppendLine("System Shock");
-            Console.WriteLine(sb.ToString());
-            sb.Replace("2", " Invisible War");
-            Console.WriteLine(sb.ToString());
-            Console.WriteLine("sb has {0} chars.", sb.Length);
-            Console.WriteLine();
-        }
-
-        public static void ProcessBytes()
-        {
-            byte bl = 100;
-            byte b2 = 250;
-            try
-            {
-                byte sum = checked((byte) Add(bl, b2));
-                Console.WriteLine("sum = {0}", sum);
-            }
-            catch (OverflowException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-        
-        public static void ProcessBytesAnotherVers()
-        {
-            byte b1 = 250;
-            byte b2 = 100;
-            try
-            {
-                checked
-                {
-                    byte sum = (byte)Add(b1, b2);
-                    Console.WriteLine("sum = {0}", sum);
-                }
-            }
-            catch (OverflowException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        public static void ArrayElementUsage()
-        {
-            int[] numbers = {1,2,3,4,5};
-            
-            foreach (var number in numbers)
-                Console.WriteLine($"Array value: {number}");
-            Console.WriteLine();
-            
-            var arrayValue = GetArrayValue(numbers, 1);     // pass copy of array and get copy of array element
-            arrayValue = 0;
-            
-            foreach (var number in numbers)
-                Console.WriteLine($"Array value: {number}");
-            Console.WriteLine();
-        }
-
-        public static void ArrayRefElementUsage()
-        {
-            int[] numbers = {1,2,3,4,5};
-            foreach (var number in numbers)
-                Console.WriteLine($"Array value: {number}");
-            Console.WriteLine();
-            
-            ref var arrayValue = ref GetRefArrayValue(1, numbers);      // pass copy of the array and get reference to the array element
-            arrayValue = 10;
-            
-            foreach (var number in numbers)
-                Console.WriteLine($"Array value: {number}");
-            Console.WriteLine();
-        }
-
-        public static void RefTypeArrayElementUsage()
-        {
-            Point[] points =
-            {
-                new Point() {X = 1, Y = 1},
-                new Point() {X = 1, Y = 1},
-                new Point() {X = 1, Y = 1},
-                new Point() {X = 1, Y = 1},
-                new Point() {X = 1, Y = 1}
-            };
-
-            var newPoint = GetRefTypeArrayValue(points, 1);
-            newPoint.X = 5; newPoint.Y = 5;
-            
-            foreach (var point in points)
-                Console.WriteLine($"Array value: {point.X} {point.Y}");
-            Console.WriteLine();
-        }
-
-        public static void ModifyRefTypeCollectionInMethod()
-        {
-            Point[] points =
-            {
-                new Point() {X = 1, Y = 1},
-                new Point() {X = 1, Y = 1},
-                new Point() {X = 1, Y = 1},
-                new Point() {X = 1, Y = 1},
-                new Point() {X = 1, Y = 1}
-            };
-
-            ReplaceValueInArrayOfRefType(ref points, 2);
-            foreach (var point in points)
-                Console.WriteLine($"Array value: {point.X} {point.Y}");
-            Console.WriteLine();
-        }
-        
         
     }
 
     #region Delegate Usage
-    
-    internal delegate double Function(double x);
     
     class Multiplier
     {
@@ -337,8 +61,10 @@ namespace Workspace
 
         public double Multiply(double x) => x * _factor;
     }
-
-    class DelegateExample
+    
+    internal delegate double Function(double x);
+    
+    internal static class DelegateExample
     {
         public static double[] Apply(double[] a, Function f)
         {

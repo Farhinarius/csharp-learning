@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace Workspace.Resources
+
+namespace Workspace.Learning.ObjectsEssence.Resources
 {
     public class Point
     {
@@ -9,9 +10,13 @@ namespace Workspace.Resources
 
         public Point() {}
 
-        public Point(int x, int y) => (X, Y) = (x, y);
+        public Point(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
 
-        public void Show()
+        public void Display()
         {
             Console.WriteLine($"X: {X}, Y: {Y}");
         }

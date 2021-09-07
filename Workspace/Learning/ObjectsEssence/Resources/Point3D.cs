@@ -1,4 +1,5 @@
-﻿namespace Workspace.Resources
+﻿
+namespace Workspace.Learning.ObjectsEssence.Resources
 {
     public class Point3D : Point
     {
