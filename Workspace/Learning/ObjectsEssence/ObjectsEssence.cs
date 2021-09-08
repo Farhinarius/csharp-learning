@@ -4,6 +4,13 @@ namespace Workspace.Learning.ObjectsEssence
 {
     public static class ObjectsEssence
     {
+        // for better understanding of this methods you need to check classes inside
+        public static void ChainConstructorWithDefaultParameters()
+        {
+            Motorcycle m = new Motorcycle(5);
+            m.Display();
+        }
+        
         public static void InheritanceConstructor()
         {
             Point3D p3 = new Point3D(10, 10, 10);

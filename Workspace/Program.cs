@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Workspace.Learning.MethodsEssence;
+using Workspace.Learning.ObjectsEssence;
 
 namespace Workspace
 {
     internal static class Program
     {
         private static void Main(string[] args) =>
-            ExecutionHandler.LinqForEach();
-        
+            ObjectsEssence.ChainConstructorWithDefaultParameters();
+
         #region Delegates for execution
         
         private static void Execute(Action method) => method();
