@@ -1,4 +1,5 @@
 using Workspace.Learning.ObjectsEssence.Resources;
+using Workspace.Learning.ObjectsEssence.Resources.Enemies;
 
 namespace Workspace.Learning.ObjectsEssence
 {
@@ -31,8 +32,18 @@ namespace Workspace.Learning.ObjectsEssence
 
         public static void OverridingPolymorphism()
         {
-            // Enemy.attack()       ->  virtual method of abstract class
-            // Lizard.attack()      ->  overrided method for real class
+            var enemies = new Enemy[3]; // can create array of abstract polymorphic interfaces
+
+            enemies[0] = new Lizard();
+            enemies[1] = new Spider();
+            enemies[2] = new Lizard(5, 4);
+
+            foreach (var enemy in enemies)
+                enemy.Attack();
+            
+
+            // Enemy.attack()       ->  virtual method of abstract class (can not be called)
+            // Lizard.attack()      ->  overridden method of real class
         } 
     }
 }

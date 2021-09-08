@@ -8,7 +8,7 @@ namespace Workspace
     internal static class Program
     {
         private static void Main(string[] args) =>
-            ObjectsEssence.ChainConstructorWithDefaultParameters();
+            ObjectsEssence.OverridingPolymorphism();
 
         #region Delegates for execution
         
