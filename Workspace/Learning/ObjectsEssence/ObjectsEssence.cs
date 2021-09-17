@@ -11,6 +11,52 @@ namespace Workspace.Learning.ObjectsEssence
             Motorcycle m = new Motorcycle(5);
             m.Display();
         }
+
+        public static void UsingDifferentInitialization()
+        {
+            // set up manually
+            Point p = new Point();
+            p.X = 10;
+            p.Y = 15;
+            p.Display();
+            
+            // programmer defined constructor 
+            Point p2 = new Point(5, 5);
+            p.Display();
+            
+            // object initializer
+            Point p3 = new Point
+            {
+                X = 3,
+                Y = 3
+            };
+            
+            p3.Display();
+        }
+
+        public static void InitializerBehavioursWithConstructors()
+        {
+            // initializer without constructor
+            Point p = new Point
+            {
+                X = 3,
+                Y = 3
+            };
+            
+            // initializer with default constructor
+            Point pD = new Point()
+            {
+                X = 5,
+                Y = 10
+            };
+            
+            // initializer + constructor syntax
+            Point pC = new Point(Point.Color.Blue)
+            {
+                X = 15,
+                Y = 10
+            };
+        }
         
         public static void InheritanceConstructor()
         {
@@ -44,6 +90,6 @@ namespace Workspace.Learning.ObjectsEssence
 
             // Enemy.attack()       ->  virtual method of abstract class (can not be called)
             // Lizard.attack()      ->  overridden method of real class
-        } 
+        }
     }
 }
