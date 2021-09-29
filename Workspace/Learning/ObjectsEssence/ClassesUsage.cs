@@ -1,9 +1,11 @@
+using System;
+using System.Collections;
 using Workspace.Learning.ObjectsEssence.Resources;
 using Workspace.Learning.ObjectsEssence.Resources.Enemies;
 
 namespace Workspace.Learning.ObjectsEssence
 {
-    public static class ObjectsEssence
+    public static class ClassesUsage
     {
         // for better understanding of this methods you need to check classes inside
         public static void ChainConstructorWithDefaultParameters()
@@ -91,5 +93,46 @@ namespace Workspace.Learning.ObjectsEssence
             // Enemy.attack()       ->  virtual method of abstract class (can not be called)
             // Lizard.attack()      ->  overridden method of real class
         }
+        
+        public static void TypeCasting()
+        {
+            Enemy enemy1 = new Lizard();
+            Lizard lizard = enemy1 as Lizard;
+
+            Enemy.Upgrade(enemy1);
+        }
+
+        public static void UseEnumerator()
+        {
+            Garage garage = new Garage();
+            var e = ((IEnumerable)garage).GetEnumerator();
+
+            for (var i = 0; i < garage.Length; i++)
+            {
+                e.MoveNext();
+                var motorcycle = (Motorcycle) e.Current;
+                motorcycle?.Display();
+            }
+
+            // ???
+            // for (int i = 0; i < garage.Length; i++)
+            // {
+            //     var enumerator = garage.GetEnumerator();
+            //     var motorcycle = (Motorcycle) enumerator;
+            //     motorcycle?.Display();
+            // }
+            
+        }
+
+        public static void UseEnumeratorWithYield()
+        {
+            var garage = new Garage();
+
+            foreach (var motorcycle in garage)
+            {
+                (motorcycle as Motorcycle)?.Display();
+            }
+        }
+        
     }
 }

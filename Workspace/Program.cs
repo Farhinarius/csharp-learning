@@ -8,7 +8,7 @@ namespace Workspace
     internal static class Program
     {
         private static void Main(string[] args) =>
-            ObjectsEssence.OverridingPolymorphism();
+            ClassesUsage.UseEnumeratorWithYield();
 
         #region Delegates for execution
         

@@ -16,6 +16,26 @@ namespace Workspace.Learning.ObjectsEssence.Resources.Enemies
 
         public abstract void Attack();
 
-
+        // type check example
+        public static void Upgrade(Enemy enemy)
+        {
+            // non empty variable case
+            // switch (enemy)
+            // {
+            //     case Lizard l:
+            //         break;
+            //     case Spider s:
+            //         break;
+            // }
+            
+            // empty variables case
+            switch (enemy)
+            {
+                case Lizard _:
+                    break;
+                case Spider _:
+                    break;
+            }
+        }
     }
 }
