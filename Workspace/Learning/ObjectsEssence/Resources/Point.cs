@@ -9,9 +9,9 @@ namespace Workspace.Learning.ObjectsEssence.Resources
 
         public enum Color
         {
-            Reg,
-            Green,
-            Blue
+            red,
+            green,
+            blue
         }
         
         #endregion
@@ -19,7 +19,7 @@ namespace Workspace.Learning.ObjectsEssence.Resources
         public int X { get; set; }
         public int Y { get; set; }
 
-        public Color color;
+        private Color _color;
 
         public Point() {}
 
@@ -31,7 +31,7 @@ namespace Workspace.Learning.ObjectsEssence.Resources
 
         public Point(Color color)
         {
-            this.color = color;
+            _color = color;
         }
         
         public void Display()

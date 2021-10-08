@@ -4,7 +4,7 @@ namespace Workspace.Learning.ObjectsEssence.Resources.Enemies
     {
         protected float _health;
 
-        protected float _defaultAttackDamage;
+        protected readonly float _defaultAttackDamage;
 
         protected Enemy(float health = 3, float defaultAttackDamage = 1)
         {

@@ -50,7 +50,7 @@ namespace Workspace.Learning.ObjectsEssence.Resources
 
         // Enumerators are positioned before the first element
         // until the first MoveNext() call.
-        int position = -1;
+        private int _position = -1;
 
         public MotorcycleEnum(Motorcycle[] list)
         {
@@ -59,13 +59,13 @@ namespace Workspace.Learning.ObjectsEssence.Resources
 
         public bool MoveNext()
         {
-            position++;
-            return (position < _motorcycles.Length);
+            _position++;
+            return (_position < _motorcycles.Length);
         }
 
         public void Reset()
         {
-            position = -1;
+            _position = -1;
         }
 
         object IEnumerator.Current => Current;
@@ -76,7 +76,7 @@ namespace Workspace.Learning.ObjectsEssence.Resources
             {
                 try
                 {
-                    return _motorcycles[position];
+                    return _motorcycles[_position];
                 }
                 catch (IndexOutOfRangeException)
                 {
