@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Workspace.Learning.GenericsEssence;
 using Workspace.Learning.MethodsEssence;
 using Workspace.Learning.ObjectsEssence;
 
@@ -8,7 +9,7 @@ namespace Workspace
     internal static class Program
     {
         private static void Main(string[] args) =>
-            ClassesUsage.UseEnumeratorWithYield();
+            GenericsUsage.WorkWithObservableCollection();
 
         #region Delegates for execution
         
