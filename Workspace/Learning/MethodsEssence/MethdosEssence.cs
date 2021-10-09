@@ -74,7 +74,7 @@ namespace Workspace.Learning.MethodsEssence
             v1.Display();
             v2.Display();
 
-            v1.x = 100;
+            v1.X = 100;
             Console.WriteLine("=> Changed v1.x");
             v1.Display();
             v2.Display();

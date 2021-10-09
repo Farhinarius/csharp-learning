@@ -9,9 +9,9 @@ namespace Workspace.Learning.ObjectsEssence.Resources
 
         public enum Color
         {
-            red,
-            green,
-            blue
+            Red,
+            Green,
+            Blue
         }
         
         #endregion

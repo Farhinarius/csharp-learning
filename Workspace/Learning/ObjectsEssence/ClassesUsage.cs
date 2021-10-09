@@ -53,7 +53,7 @@ namespace Workspace.Learning.ObjectsEssence
             };
             
             // initializer + constructor syntax
-            Point pC = new Point(Point.Color.blue)
+            Point pC = new Point(Point.Color.Blue)
             {
                 X = 15,
                 Y = 10

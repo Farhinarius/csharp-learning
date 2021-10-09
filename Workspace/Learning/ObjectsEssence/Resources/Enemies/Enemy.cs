@@ -2,17 +2,17 @@ namespace Workspace.Learning.ObjectsEssence.Resources.Enemies
 {
     public abstract class Enemy
     {
-        protected float _health;
+        protected float Health;
 
-        protected readonly float _defaultAttackDamage;
+        protected readonly float DefaultAttackDamage;
 
         protected Enemy(float health = 3, float defaultAttackDamage = 1)
         {
-            _health = health;
-            _defaultAttackDamage = defaultAttackDamage;
+            Health = health;
+            DefaultAttackDamage = defaultAttackDamage;
         }
 
-        public virtual void Heal(float amount = 1) => _health += amount;
+        public virtual void Heal(float amount = 1) => Health += amount;
 
         public abstract void Attack();
 

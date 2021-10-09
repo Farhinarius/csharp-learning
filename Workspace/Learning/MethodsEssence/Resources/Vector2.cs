@@ -4,18 +4,18 @@ namespace Workspace.Learning.MethodsEssence.Resources
 {
     public struct Vector2
     {
-        public int x;
-        public int y;
+        public int X;
+        public int Y;
         
         public Vector2(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            this.X = x;
+            this.Y = y;
         }
         
         public void Display()
         {
-            Console.WriteLine($"X: {x}, Y: {x}");
+            Console.WriteLine($"X: {X}, Y: {X}");
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Workspace.Learning.ObjectsEssence.Resources
     // When you implement IEnumerable, you must also implement IEnumerator.
     public class MotorcycleEnum : IEnumerator
     {
-        public Motorcycle[] _motorcycles;
+        public Motorcycle[] Motorcycles;
 
         // Enumerators are positioned before the first element
         // until the first MoveNext() call.
@@ -54,13 +54,13 @@ namespace Workspace.Learning.ObjectsEssence.Resources
 
         public MotorcycleEnum(Motorcycle[] list)
         {
-            _motorcycles = list;
+            Motorcycles = list;
         }
 
         public bool MoveNext()
         {
             _position++;
-            return (_position < _motorcycles.Length);
+            return (_position < Motorcycles.Length);
         }
 
         public void Reset()
@@ -76,7 +76,7 @@ namespace Workspace.Learning.ObjectsEssence.Resources
             {
                 try
                 {
-                    return _motorcycles[_position];
+                    return Motorcycles[_position];
                 }
                 catch (IndexOutOfRangeException)
                 {
