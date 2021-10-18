@@ -9,7 +9,7 @@ namespace Workspace
     internal static class Program
     {
         private static void Main(string[] args) =>
-            GenericsUsage.WorkWithObservableCollection();
+            GenericsUsage.TestGenericSwap();
 
         #region Delegates for execution
         

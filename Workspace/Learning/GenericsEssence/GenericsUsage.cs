@@ -90,5 +90,21 @@ namespace Workspace.Learning.GenericsEssence
 
             }
         }
+
+        public static void TestGenericSwap()
+        {
+            float a = 5f;
+            float b = 4f;
+            
+            Swap(ref a, ref b); // or Spaw<Type>(a, b)     
+
+        }
+
+        private static void Swap<T>(ref T a, ref T b)
+        {
+            var temp = a;
+            a = b;
+            b = temp;
+        }
     }
 }
