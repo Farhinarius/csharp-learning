@@ -21,11 +21,16 @@ namespace Workspace.Learning.Basics
         {
             Console.WriteLine("Default declarations:");
             
-            int myInt = default;
-            Console.WriteLine(myInt);
-
-            var defaultInt = new int();
-            Console.WriteLine(defaultInt);
+            // compile error without specification of value
+            // int myInt;
+            // Console.WriteLine($"Value of var myInt is {myInt} and type of {myInt.GetType()}");
+            
+            int defaultInt = default;
+            Console.WriteLine($"Value of var defaultInt is {defaultInt} and type of {defaultInt.GetType()}");
+            
+            // use case of internal standard constructor
+            var allocatedInt = new int();
+            Console.WriteLine($"Value of var allocatedInt is {allocatedInt} and type of {allocatedInt.GetType()}");
         }
         
         public static void FormatNumericalData()
@@ -82,7 +87,7 @@ namespace Workspace.Learning.Basics
         {
             Console.WriteLine ("=> Data type parsing with TryParse:");
             
-            if ( bool.TryParse("True", out bool b) ) ;
+            if ( bool.TryParse("True", out bool b) )
             {
                 Console.WriteLine("Value of b: {0}", b);
             }
@@ -158,9 +163,6 @@ namespace Workspace.Learning.Basics
                 Console.WriteLine(ex.Message);
             }
         }
-        
-        
-        
         
     }
 }

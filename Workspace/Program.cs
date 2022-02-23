@@ -1,33 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Workspace.Learning.Basics;
 using Workspace.Learning.GenericsEssence;
 using Workspace.Learning.MethodsEssence;
 using Workspace.Learning.ObjectsEssence;
+using Workspace.Learning.ObjectsEssence.Resources;
 
 namespace Workspace
 {
     internal static class Program
     {
-        private static void Main(string[] args) =>
-            GenericsUsage.TestGenericSwap();
-
-        #region Delegates for execution
-        
-        private static void Execute(Action method) => method();
-
-        private static void ExecuteWithLineSpace(Action method)
+        private static void Main(string[] args)
         {
-            Console.WriteLine($"{Environment.NewLine}");
-            method();
-            Console.WriteLine($"{Environment.NewLine}Implementation was successful");
+            string s1 = "Fara";
+            
+            for (int i = 0; i < int.MaxValue; i++)
+            {
+                var s2 = s1;
+                Console.WriteLine(s2);
+            }
+            
         }
-        
-        #endregion
     }
 }
 
 namespace Workspace
 {
+
     public static class ExecutionHandler
     {
         public static void LinqForEach()

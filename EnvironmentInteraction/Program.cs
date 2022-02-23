@@ -2,7 +2,7 @@
 
 namespace EnvironmentInteraction
 {
-    class Program
+    public static class Program
     {
         private static int Main(string[] args)
         {
