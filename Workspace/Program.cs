@@ -13,14 +13,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            string s1 = "Fara";
-            
-            for (int i = 0; i < int.MaxValue; i++)
-            {
-                var s2 = s1;
-                Console.WriteLine(s2);
-            }
-            
+            MethodsEssence.ArrayChangingUseCase();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Workspace.Learning.MethodsEssence.Resources;
 using Workspace.Learning.ObjectsEssence.Resources;
 
@@ -31,8 +32,20 @@ namespace Workspace.Learning.MethodsEssence
             points[index] = new Point() {X = 3, Y = 3};
         }
         
+        // array type is always reference type
+        private static void ChangeValueTypeArrayElement(int[] array, int index, int valueToSet)
+        {
+            array[index] = valueToSet;          // values is changing in memory of the array
+        }
+
+        private static void ChangeRefTypeArrayElement(Point[] points, int index, params int[] valuesToSet)
+        {
+            points[index].X = valuesToSet[0];   // values is changing in memory of the array
+            points[index].Y = valuesToSet[1];
+        }
+
         #endregion
-        
+
         #region Public 
         
         public static void ArrayElementUsage()
@@ -118,14 +131,39 @@ namespace Workspace.Learning.MethodsEssence
         {
             Point[] points =
             {
-                new Point() {X = 1, Y = 1},
-                new Point() {X = 1, Y = 1},
-                new Point() {X = 1, Y = 1},
-                new Point() {X = 1, Y = 1},
-                new Point() {X = 1, Y = 1}
+                new Point {X = 1, Y = 1},
+                new Point {X = 1, Y = 1},
+                new Point {X = 1, Y = 1},
+                new Point {X = 1, Y = 1},
+                new Point {X = 1, Y = 1}
             };
 
             ReplaceValueInArrayOfRefType(ref points, 2);
+            foreach (var point in points)
+                Console.WriteLine($"Array value: {point.X} {point.Y}");
+            Console.WriteLine();
+        }
+        
+        public static void ArrayChangingUseCase()
+        {
+            int[] numbers = {1, 2, 3, 4, 5, 6};
+            
+            ChangeValueTypeArrayElement(numbers, 1, 10);
+            
+            foreach (var number in numbers)
+                Console.WriteLine($"Array value: {number}");
+            Console.WriteLine();
+            
+            Point[] points =
+            {
+                new Point {X = 1, Y = 1},
+                new Point {X = 1, Y = 1},
+                new Point {X = 1, Y = 1},
+                new Point {X = 1, Y = 1},
+                new Point {X = 1, Y = 1}
+            };
+            
+            ChangeRefTypeArrayElement(points, 1, 2, 3);
             foreach (var point in points)
                 Console.WriteLine($"Array value: {point.X} {point.Y}");
             Console.WriteLine();
