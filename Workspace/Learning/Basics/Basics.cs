@@ -129,8 +129,17 @@ namespace Workspace.Learning.Basics
             Console.WriteLine();
         }
 
+        public static void WorkWithStringBuilder()
+        {
+            StringBuilder sb = new StringBuilder(128);
+            sb.Append("This is line");
+            Console.WriteLine(sb);
+            sb.Replace("is", "the");
+            Console.WriteLine(sb);
+        }
+
         private static int Add(int b1, int b2) => b1 + b2;
-        
+
         public static void ProcessBytes()
         {
             byte bl = 100;
