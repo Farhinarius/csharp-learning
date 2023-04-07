@@ -13,7 +13,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            MethodsEssence.ArrayChangingUseCase();
+            MethodsEssence.ArrayElementUsage();
         }
     }
 }

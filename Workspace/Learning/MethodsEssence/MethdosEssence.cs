@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Net.NetworkInformation;
 using Workspace.Learning.MethodsEssence.Resources;
 using Workspace.Learning.ObjectsEssence.Resources;
 
@@ -8,16 +9,18 @@ namespace Workspace.Learning.MethodsEssence
     public static class MethodsEssence
     {
         #region Private
-        
-        // returns copy, array of value types
+
+        // pass copy of array address, returns copy of array element
         private static int GetArrayValue(int[] array, int index) => array[index];
 
+        // pass copy of array address and copy of value type int, returns reference to array value
+        // (returns address to altered array element)
         private static ref int GetRefArrayValue(int index, params int[] intValues)
         {
             intValues[index] = 0;
             return ref intValues[index];
         }
-        
+
         // pass copy of reference, returns copy of reference (address in memory), array of reference types
         private static Point GetRefTypeArrayValue(Point[] points, int index)
         {
@@ -56,10 +59,39 @@ namespace Workspace.Learning.MethodsEssence
                 Console.WriteLine($"Array value: {number}");
             Console.WriteLine();
             
-            var arrayValue = GetArrayValue(numbers, 1);     // pass copy of array and get copy of array element
+            var arrayValue = GetArrayValue(numbers, 1);     // pass copy of array address and get copy of array element
             arrayValue = 0;
+
+            arrayValue = numbers[0];
+            arrayValue = 100;
+
+            foreach (var number in numbers)
+                Console.WriteLine($"Array value: {number}");
+            Console.WriteLine();
+            
+            // copy address of array. Two arrays points to the same memory address
+            var newNumbers = numbers;
+            numbers[0] = 100;
             
             foreach (var number in numbers)
+                Console.WriteLine($"Array value: {number}");
+            Console.WriteLine();
+            
+            foreach (var number in newNumbers)
+                Console.WriteLine($"Array value: {number}");
+            Console.WriteLine();
+            
+            // copying values of array to another
+            int[] copiedNumbers = new int[5];
+            numbers.CopyTo(copiedNumbers, 0);
+            
+            numbers[0] = 1;
+
+            foreach (var number in numbers)
+                Console.WriteLine($"Array value: {number}");
+            Console.WriteLine();
+            
+            foreach (var number in copiedNumbers)
                 Console.WriteLine($"Array value: {number}");
             Console.WriteLine();
         }
@@ -168,7 +200,19 @@ namespace Workspace.Learning.MethodsEssence
                 Console.WriteLine($"Array value: {point.X} {point.Y}");
             Console.WriteLine();
         }
-        
+
+        public static void CheckReferencedValueTypeCapabilities()
+        {
+            (int a, int b) tuple = (5, 5);
+            var changeTupleMemberAsRef = (ref int a) =>
+            {
+                a = -a;
+            };
+            changeTupleMemberAsRef(ref tuple.a);
+            
+            Console.WriteLine(tuple);           
+        }
+
         #endregion
     }
 }

@@ -133,6 +133,16 @@ namespace Workspace.Learning.ObjectsEssence
                 (motorcycle as Motorcycle)?.Display();
             }
         }
+
+        public static void InitModificatorUsage()
+        {
+            var p = new Person
+            {
+                Name = "Karl"
+            };
+
+            // p.Name = "Faarara"; -- cannot assign value in property Name
+        }
         
     }
 }
