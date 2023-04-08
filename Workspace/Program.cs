@@ -13,7 +13,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            MethodsEssence.ArrayElementUsage();
+            MethodsEssence.TestCalcAverage();
         }
     }
 }

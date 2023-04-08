@@ -47,6 +47,14 @@ namespace Workspace.Learning.MethodsEssence
             points[index].Y = valuesToSet[1];
         }
 
+        private static double CalculateAverage(params double[] values) => values.Sum() / values.Length;
+        
+        
+        // implementation order of positioned, named and default arguments:
+        // 1. positioned arguments
+        // 2. named arguments
+        // 3. default arguments
+
         #endregion
 
         #region Public 
@@ -211,6 +219,11 @@ namespace Workspace.Learning.MethodsEssence
             changeTupleMemberAsRef(ref tuple.a);
             
             Console.WriteLine(tuple);           
+        }
+
+        public static void TestCalcAverage()
+        {
+            Console.WriteLine(CalculateAverage(1,2,3,4));
         }
 
         #endregion
