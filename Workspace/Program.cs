@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Workspace.Learning;
 using Workspace.Learning.Basics;
 using Workspace.Learning.GenericsEssence;
 using Workspace.Learning.MethodsEssence;
@@ -13,7 +14,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            MethodsEssence.TestCalcAverage();
+            NullableTypes.NullableTypeExample();
         }
     }
 }

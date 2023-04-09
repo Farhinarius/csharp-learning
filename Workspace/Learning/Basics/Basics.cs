@@ -384,8 +384,8 @@ namespace Workspace.Learning.Basics
             }
             Console.WriteLine("\n");
 
-            Range г = 0..2;
-            foreach (var itm in gothicBands[г])
+            Range r = 0..2;
+            foreach (var itm in gothicBands[r])
             {
                 Console.Write(itm + ", ");
             }

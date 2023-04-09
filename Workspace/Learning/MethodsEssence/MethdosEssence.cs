@@ -9,30 +9,42 @@ namespace Workspace.Learning.MethodsEssence
     public static class MethodsEssence
     {
         #region Private
-
-        // pass copy of array address, returns copy of array element
-        private static int GetArrayValue(int[] array, int index) => array[index];
-
-        // pass copy of array address and copy of value type int, returns reference to array value
-        // (returns address to altered array element)
-        private static ref int GetRefArrayValue(int index, params int[] intValues)
+        
+        // pass a copy of variable into function
+        private static int SendValueTypeArgumentByValue(int x, int y)
         {
-            intValues[index] = 0;
-            return ref intValues[index];
+            int ans = x + y;
+            // Вызывающий код не увидит эти изменения,
+            // т.к. модифицируется копия исходных данных,
+            x = 10000;
+            y = 88888;
+            return ans;
         }
-
-        // pass copy of reference, returns copy of reference (address in memory), array of reference types
-        private static Point GetRefTypeArrayValue(Point[] points, int index)
+        
+        // pass a reference of variable into function 
+        private static int SendValueTypeArgumentByRef(ref int x, ref int y)
         {
-            points[index] = new Point() {X = 0, Y = 0};         // can't create new address for Point class
-            return points[index];
+            int ans = x + y;
+            // вызываютщий код получит изменённые переменные
+            x = 10000;
+            y = 88888;      
+            return ans;
+        }
+        
+        // pass copy of reference, returns copy of reference (address in memory), array of reference types
+        private static Point SendRefTypeArgumentByValue(Point point)
+        {
+            point.X = 5;                                // can alter values of array
+            point.Y = 5;
+            point = new Point() {X = 0, Y = 0};         // can't create new address for Point class
+            return point;
         }
         
         
         // pass a reference to a reference type, can create new address for Point class
-        private static void ReplaceValueInArrayOfRefType(ref Point[] points, int index)
+        private static void SendRefTypeArgumentByRef(ref Point point)
         {
-            points[index] = new Point() {X = 3, Y = 3};
+            point = new Point() {X = 3, Y = 3};
         }
         
         // array type is always reference type
@@ -46,9 +58,22 @@ namespace Workspace.Learning.MethodsEssence
             points[index].X = valuesToSet[0];   // values is changing in memory of the array
             points[index].Y = valuesToSet[1];
         }
-
-        private static double CalculateAverage(params double[] values) => values.Sum() / values.Length;
         
+        private static void UsingInOutParametersModificator(in int x, in int y, out int ans)
+        {
+            // Ошибка CS8331 Cannot assign to variable
+            // because it is a readonly variable
+            // х = 10000;
+            // у = 88888;
+            ans = x + y;
+        }
+        
+        private static double CalculateAverage(params double[] values) => values.Sum() / values.Length;
+
+        private static ref int GetRefValue(ref int var)
+        {
+            return ref var;
+        }
         
         // implementation order of positioned, named and default arguments:
         // 1. positioned arguments
@@ -66,8 +91,8 @@ namespace Workspace.Learning.MethodsEssence
             foreach (var number in numbers)
                 Console.WriteLine($"Array value: {number}");
             Console.WriteLine();
-            
-            var arrayValue = GetArrayValue(numbers, 1);     // pass copy of array address and get copy of array element
+
+            var arrayValue = numbers[1];
             arrayValue = 0;
 
             arrayValue = numbers[0];
@@ -111,7 +136,7 @@ namespace Workspace.Learning.MethodsEssence
                 Console.WriteLine($"Array value: {number}");
             Console.WriteLine();
             
-            ref var arrayValue = ref GetRefArrayValue(1, numbers);      // pass copy of the array and get reference to the array element
+            ref var arrayValue = ref GetRefValue(ref numbers[1]);      // pass copy of the array and get reference to the array element
             arrayValue = 10;
             
             foreach (var number in numbers)
@@ -159,7 +184,7 @@ namespace Workspace.Learning.MethodsEssence
                 new Point() {X = 1, Y = 1}
             };
 
-            var newPoint = GetRefTypeArrayValue(points, 1);
+            var newPoint = SendRefTypeArgumentByValue(points[1]);
             newPoint.X = 5; newPoint.Y = 5;
             
             foreach (var point in points)
@@ -178,7 +203,7 @@ namespace Workspace.Learning.MethodsEssence
                 new Point {X = 1, Y = 1}
             };
 
-            ReplaceValueInArrayOfRefType(ref points, 2);
+            SendRefTypeArgumentByRef(ref points[2]);
             foreach (var point in points)
                 Console.WriteLine($"Array value: {point.X} {point.Y}");
             Console.WriteLine();
@@ -224,6 +249,12 @@ namespace Workspace.Learning.MethodsEssence
         public static void TestCalcAverage()
         {
             Console.WriteLine(CalculateAverage(1,2,3,4));
+        }
+
+        public static void TestInOutParametersMethod()
+        {
+            UsingInOutParametersModificator(1,2, out int ans);
+            Console.WriteLine(ans);
         }
 
         #endregion
