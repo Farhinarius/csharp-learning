@@ -31,4 +31,19 @@ public static class RecordsUsage
         Console.WriteLine($"CarRecords are the same? {ourOtherCar.Equals(myCarRecord)}");
         Console.WriteLine($"CarRecords are the same? {ReferenceEquals(ourOtherCar, myCarRecord)}");
     }
+
+    public static void TestRecordInheritance()
+    {
+        PositionalCar pc = new PositionalCar("Honda", "Pilot", "Blue");
+        PositionalMiniVan pm = new PositionalMiniVan("Honda", "Pilot", "Blue");
+        Console.WriteLine($"Checking PositionalMiniVan is-а PositionalCar: {pm is PositionalCar}");
+    }
+
+    public static void TestInheritedRecordEquality()
+    {
+        PositionalCar positionalCar = new PositionalCar("Honda", "Pilot", "Blue");
+        PositionalMiniVan positionalMiniVan = new PositionalMiniVan("Honda", "Pilot", "Blue");
+        Console.WriteLine($"MotorCycle and Scooter are equal: {Equals(positionalCar, positionalMiniVan)}");
+
+    }
 }

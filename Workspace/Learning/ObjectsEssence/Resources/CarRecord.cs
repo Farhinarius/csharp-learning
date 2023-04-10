@@ -18,3 +18,8 @@ namespace Workspace.Learning.ObjectsEssence.Resources;
 
 // this declaration is abbreviation of declaration above. Create a entity with two immutable fields. Init them from constructor
 public record CarRecord(string Make, string Model, string Color);
+
+// record inheritance
+public record PositionalCar(string Make, string Model, string Color);
+public record PositionalMiniVan(string Make, string Model, string Color)
+    : PositionalCar(Make, Model, Color);
