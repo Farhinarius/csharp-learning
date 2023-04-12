@@ -129,7 +129,7 @@ namespace Workspace.Learning.ObjectsEssence
             {
                 switch (enemy)
                 {
-                    case Lizard l: 
+                    case Lizard l when l.AttackDamage > 1: 
                         Console.WriteLine($"This is {l.GetType()}");
                         break;
                     case Spider s:
@@ -141,6 +141,22 @@ namespace Workspace.Learning.ObjectsEssence
             PatternMatching(new Lizard());
             PatternMatching(new Spider());
         }
+        
+        // public class Object
+        // {
+        //     // Виртуальные члены.
+        //     public virtual bool Equals(object obj);
+        //     protected virtual void Finalize();
+        //     public virtual int GetHashCode();
+        //     public virtual string ToStringO ;
+        //     // Невиртуальные члены уровня экземпляра.
+        //     public Type GetTyp() ;
+        //     protected object MemberwiseClone();
+        //     // Статические члены.
+        //     public static bool Equals(object objA, object objB);
+        //     public static bool ReferenceEquals(object objA, object objB);
+        // }
+
 
         /////////////////////////////////////////////////////////////////////////////////////
 
