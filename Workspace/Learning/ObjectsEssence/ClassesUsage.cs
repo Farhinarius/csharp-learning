@@ -93,14 +93,56 @@ namespace Workspace.Learning.ObjectsEssence
             // Enemy.attack()       ->  virtual method of abstract class (can not be called)
             // Lizard.attack()      ->  overridden method of real class
         }
-        
-        public static void TypeCasting()
-        {
-            Enemy enemy1 = new Lizard();
-            Lizard lizard = enemy1 as Lizard;
 
-            Enemy.Upgrade(enemy1);
+        public static void CastingClassInstances()
+        {
+            object lizard = new Lizard();
+            Enemy spider = new Spider();
+
+            void ModifyAttack(Enemy enemy)
+            {
+                enemy.LevelUp(enemy.MaxHealth, enemy.AttackDamage + 1);
+            }
+            
+            ModifyAttack(spider);               // pass inherited object with base class type
+            ModifyAttack((Enemy)lizard);        // cast object type to base class of enemies
         }
+        
+        public static void AsCasting()
+        {
+            Enemy newEnemy = new Lizard();
+            Lizard lizard = newEnemy as Lizard;
+        }
+
+        public static void IsCasting()
+        {
+            Enemy newEnemy = new Spider();
+            if (newEnemy is Spider spider)
+            {
+                Console.WriteLine("Specified enemy is spider!!!");
+            }
+        }
+
+        public static void ExecuteTypeMatchingForEnemy()
+        {
+            void PatternMatching(Enemy enemy)
+            {
+                switch (enemy)
+                {
+                    case Lizard l: 
+                        Console.WriteLine($"This is {l.GetType()}");
+                        break;
+                    case Spider s:
+                        Console.WriteLine($"This is {s.GetType()}");
+                        break;
+                }
+            }
+            
+            PatternMatching(new Lizard());
+            PatternMatching(new Spider());
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////////
 
         public static void UseEnumerator()
         {

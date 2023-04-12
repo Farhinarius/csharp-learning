@@ -2,40 +2,27 @@ namespace Workspace.Learning.ObjectsEssence.Resources.Enemies
 {
     public abstract class Enemy
     {
-        protected float Health;
+        public float Health { get; private set; }
 
-        protected readonly float DefaultAttackDamage;
+        public float MaxHealth { get; private set; }
 
-        protected Enemy(float health = 3, float defaultAttackDamage = 1)
+        public float AttackDamage { get; private set; }
+
+        protected Enemy(float health = 3, float attackDamage = 1)
         {
             Health = health;
-            DefaultAttackDamage = defaultAttackDamage;
+            AttackDamage = attackDamage;
         }
 
-        public virtual void Heal(float amount = 1) => Health += amount;
+        public virtual void Heal(float amount = 1) => Health += amount;                 // can be overriden - standard implementation 
 
-        public abstract void Attack();
-
-        // type check example
-        public static void Upgrade(Enemy enemy)
+        public abstract void Attack();      // must be overriden - protocol
+        
+        public virtual void LevelUp(float updatedMaxHealth, float updatedAttackDamage)  // can be overriden - standard implementation 
         {
-            // non empty variable case
-            // switch (enemy)
-            // {
-            //     case Lizard l:
-            //         break;
-            //     case Spider s:
-            //         break;
-            // }
-            
-            // empty variables case
-            switch (enemy)
-            {
-                case Lizard _:
-                    break;
-                case Spider _:
-                    break;
-            }
+            MaxHealth = updatedMaxHealth;
+            AttackDamage = updatedAttackDamage;
         }
+        
     }
 }
