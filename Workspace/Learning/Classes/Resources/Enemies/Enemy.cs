@@ -1,4 +1,4 @@
-namespace Workspace.Learning.ObjectsEssence.Resources.Enemies
+namespace Workspace.Learning.Classes.Resources.Enemies
 {
     public abstract class Enemy
     {

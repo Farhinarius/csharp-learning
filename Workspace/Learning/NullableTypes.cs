@@ -1,5 +1,5 @@
 using System;
-using Workspace.Learning.ObjectsEssence.Resources;
+using Workspace.Learning.Classes.Resources;
 using Workspace.Resources;
 
 namespace Workspace.Learning

@@ -1,12 +1,11 @@
 using System;
 using System.Linq;
-using System.Net.NetworkInformation;
-using Workspace.Learning.MethodsEssence.Resources;
-using Workspace.Learning.ObjectsEssence.Resources;
+using Workspace.Learning.Classes.Resources;
+using Workspace.Learning.Methods.Resources;
 
-namespace Workspace.Learning.MethodsEssence
+namespace Workspace.Learning.Methods
 {
-    public static class MethodsEssence
+    public static class MethodsUsage
     {
         #region Private
         

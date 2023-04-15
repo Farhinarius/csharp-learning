@@ -2,12 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Linq;
-using Workspace.Learning.GenericsEssence.Resources;
-using Workspace.Learning.ObjectsEssence.Resources;
-using Workspace.Learning.ObjectsEssence.Resources.Enemies;
+using Workspace.Learning.Classes.Resources;
+using Workspace.Learning.Classes.Resources.Enemies;
+using Workspace.Learning.Generics.Resources;
 
-namespace Workspace.Learning.GenericsEssence
+namespace Workspace.Learning.Generics
 {
     public static class GenericsUsage
     {

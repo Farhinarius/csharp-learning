@@ -1,6 +1,6 @@
 using System;
 
-namespace Workspace.Learning.GenericsEssence.Resources
+namespace Workspace.Learning.Generics.Resources
 {
     public class Airplane
     {

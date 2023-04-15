@@ -1,7 +1,7 @@
 using System;
-using Workspace.Learning.ObjectsEssence.Resources;
+using Workspace.Learning.Classes.Resources;
 
-namespace Workspace.Learning.ObjectsEssence;
+namespace Workspace.Learning.Classes;
 
 public static class RecordsUsage
 {

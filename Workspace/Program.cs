@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Workspace.Learning;
 using Workspace.Learning.Basics;
-using Workspace.Learning.GenericsEssence;
-using Workspace.Learning.MethodsEssence;
-using Workspace.Learning.ObjectsEssence;
-using Workspace.Learning.ObjectsEssence.Resources;
+using Workspace.Learning.Exceptions;
 
 namespace Workspace
 {
@@ -14,7 +11,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            NullableTypes.NullableTypeExample();
+            ExceptionHandling.CallTypicalExceptionHandlingCase();
         }
     }
 }

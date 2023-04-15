@@ -1,6 +1,4 @@
-using System;
-
-namespace Workspace.Learning.ObjectsEssence.Resources;
+namespace Workspace.Learning.Classes.Resources;
 
 // record CarRecord
 // {

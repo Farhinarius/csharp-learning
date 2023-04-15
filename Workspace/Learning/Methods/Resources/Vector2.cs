@@ -1,6 +1,6 @@
 using System;
 
-namespace Workspace.Learning.MethodsEssence.Resources
+namespace Workspace.Learning.Methods.Resources
 {
     public struct Vector2
     {

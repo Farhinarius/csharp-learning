@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Workspace.Learning.ObjectsEssence.Resources
+namespace Workspace.Learning.Classes.Resources
 {
     public class Garage : IEnumerable
     {

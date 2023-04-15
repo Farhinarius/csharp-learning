@@ -1,6 +1,6 @@
 using System;
 
-namespace Workspace.Learning.ObjectsEssence.Resources.Enemies
+namespace Workspace.Learning.Classes.Resources.Enemies
 {
     public class Lizard : Enemy
     {

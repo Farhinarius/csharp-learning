@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace Workspace.Learning.ObjectsEssence.Resources
+namespace Workspace.Learning.Classes.Resources
 {
     public static class RandomString
     {

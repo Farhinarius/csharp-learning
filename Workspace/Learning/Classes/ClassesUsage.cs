@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
-using Workspace.Learning.ObjectsEssence.Resources;
-using Workspace.Learning.ObjectsEssence.Resources.Enemies;
+using Workspace.Learning.Classes.Resources;
+using Workspace.Learning.Classes.Resources.Enemies;
 
-namespace Workspace.Learning.ObjectsEssence
+namespace Workspace.Learning.Classes
 {
     public static class ClassesUsage
     {
