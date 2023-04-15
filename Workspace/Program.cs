@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Workspace.Learning;
-using Workspace.Learning.Basics;
-using Workspace.Learning.Exceptions;
+using Workspace.Learning.Classes;
 
 namespace Workspace
 {
@@ -11,7 +8,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            ExceptionHandling.CallTypicalExceptionHandlingCase();
+            InterfacesUsage.TestFiguresInterfaces();
         }
     }
 }
