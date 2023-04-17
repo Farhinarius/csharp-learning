@@ -23,4 +23,6 @@ class Square : Shape, IRegularPointy
     public int NumberOfSides { get; set; } = 4;
 
     // Обратите внимание, что свойство Perimeter не реализовано.
+    
+    
 }

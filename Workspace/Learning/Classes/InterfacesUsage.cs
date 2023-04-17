@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Workspace.Learning.Classes.Resources.Figures;
 using Workspace.Learning.Classes.Resources.Figures.Interfaces;
 
@@ -9,6 +11,23 @@ public static class InterfacesUsage
     private static object Clone(ICloneable objectToClone)
     {
         return objectToClone.Clone();
+    }
+
+    private static void PassInterfaceTypeAsParameter(IDraw3d volumeFigure)
+    {
+        volumeFigure.Draw3d();         // can be anything that implement IDraw3d 
+    }
+
+    private static IPointy ReturnInterfaceType(IEnumerable<Shape> shapes)
+    {
+        foreach (Shape s in shapes)
+        {
+            if (s is IPointy ip)
+            {
+                return ip;
+            }
+        }
+        return null;
     }
     
     public static void CloneableExample()
@@ -35,6 +54,31 @@ public static class InterfacesUsage
                 Console.WriteLine($"Perimeter of {figure.PetName} is {regularPointy.Perimeter}");
             }
         }
+    }
+
+    public static void TestInterfaceAsParameter()
+    {
+        PassInterfaceTypeAsParameter(new Hexagon());
+        PassInterfaceTypeAsParameter(new Circle());
+        
+        Shape[] myShapes = { new Hexagon(), new Circle(),
+            new Triangle("Joe"), new Circle("JoJo") } ;
+        foreach (var t in myShapes)
+        {
+            // Можно ли нарисовать эту фигуру в трехмерном виде?
+            if (t is IDraw3d s)
+            {
+                PassInterfaceTypeAsParameter(s);
+            }
+        }
+    }
+
+    public static void TestExplicitInterfaceImplementation()
+    {
+        Octagon octagon = new Octagon();
+        ((IDrawToForm)octagon).Draw();
+        ((IDrawToMemory)octagon).Draw();
+        ((IDrawToPrinter)octagon).Draw();
     }
     
     

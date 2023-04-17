@@ -3,7 +3,7 @@ using Workspace.Learning.Classes.Resources.Figures.Interfaces;
 
 namespace Workspace.Learning.Classes.Resources.Figures;
 
-public class Hexagon : Shape, IPointy
+public class Hexagon : Shape, IPointy, IDraw3d
 {
     public Hexagon() {}
 
@@ -15,4 +15,8 @@ public class Hexagon : Shape, IPointy
     }
 
     public byte Points => 6;
+    public void Draw3d()
+    {
+        Console.WriteLine("Draw 3d Hexagon!");
+    }
 }
