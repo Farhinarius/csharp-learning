@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Workspace.Learning.Classes.Resources;
 using Workspace.Learning.Classes.Resources.Figures;
 using Workspace.Learning.Classes.Resources.Figures.Interfaces;
 
@@ -114,4 +116,35 @@ public static class InterfacesUsage
         Console.WriteLine($"Time to draw: {((IDrawable) bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
         Console.WriteLine($"Time to draw: {((IAdvancedDrawable) bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
     }
+    
+    public static void UseEnumerator()
+    {
+        Garage garage = new Garage();
+        foreach (var car in garage)
+        {
+            ((Motorcycle) car)?.Display();
+        }
+
+        var e = ((IEnumerable)garage).GetEnumerator();
+        for (var i = 0; i < garage.Length; i++)
+        {
+            e.MoveNext();
+            var motorcycle = (Motorcycle) e.Current;
+            motorcycle?.Display();
+        }
+        
+        
+    }
+
+    public static void UseEnumeratorWithYield()
+    {
+        var garage = new Garage();
+
+        foreach (var motorcycle in garage)
+        {
+            (motorcycle as Motorcycle)?.Display();
+        }
+    }
+    
+    
 }

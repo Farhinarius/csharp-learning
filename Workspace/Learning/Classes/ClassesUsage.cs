@@ -157,41 +157,6 @@ namespace Workspace.Learning.Classes
         //     public static bool ReferenceEquals(object objA, object objB);
         // }
 
-
-        /////////////////////////////////////////////////////////////////////////////////////
-
-        public static void UseEnumerator()
-        {
-            Garage garage = new Garage();
-            var e = ((IEnumerable)garage).GetEnumerator();
-
-            for (var i = 0; i < garage.Length; i++)
-            {
-                e.MoveNext();
-                var motorcycle = (Motorcycle) e.Current;
-                motorcycle?.Display();
-            }
-
-            // ???
-            // for (int i = 0; i < garage.Length; i++)
-            // {
-            //     var enumerator = garage.GetEnumerator();
-            //     var motorcycle = (Motorcycle) enumerator;
-            //     motorcycle?.Display();
-            // }
-            
-        }
-
-        public static void UseEnumeratorWithYield()
-        {
-            var garage = new Garage();
-
-            foreach (var motorcycle in garage)
-            {
-                (motorcycle as Motorcycle)?.Display();
-            }
-        }
-
         public static void InitModificatorUsage()
         {
             var p = new Person

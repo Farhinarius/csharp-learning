@@ -5,7 +5,7 @@ namespace Workspace.Learning.Classes.Resources
 {
     public class Garage : IEnumerable
     {
-        private Motorcycle[] _motorcycles = new Motorcycle[4];
+        private readonly Motorcycle[] _motorcycles = new Motorcycle[4];
 
         public int Length => _motorcycles.Length;
         
@@ -15,6 +15,7 @@ namespace Workspace.Learning.Classes.Resources
             _motorcycles[1] = new Motorcycle("Kurawa", 110);
             _motorcycles[2] = new Motorcycle("Sirogawa", 150);
             _motorcycles[3] = new Motorcycle("Kazekawa", 170);
+            _motorcycles[4] = new Motorcycle("Ducati");
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -23,19 +24,19 @@ namespace Workspace.Learning.Classes.Resources
             return _motorcycles.GetEnumerator();
         }
 
-        // public MotorcycleEnum GetEnumerator()
-        // {
-        //     // or can manually implement IEnumerator
-        //     return new MotorcycleEnum(_motorcycles);
-        // }
-
         public IEnumerator GetEnumerator()
         {
-            for (var i = 0; i < _motorcycles.Length; i++)
+            foreach (var m in _motorcycles)
             {
-                yield return _motorcycles[i];
+                yield return m;
             }
         }
+        
+        // or can manually implement IEnumerator
+        // public MotorcycleEnum GetEnumerator()
+        // {
+        //     return new MotorcycleEnum(_motorcycles);
+        // }
         
         // IEnumerator implementation 
         // public object Current => ((IEnumerable) this).GetEnumerator().Current;
