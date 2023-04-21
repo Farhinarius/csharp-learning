@@ -73,13 +73,45 @@ public static class InterfacesUsage
         }
     }
 
+    public static void TestArrayOfInterfaceTypes()
+    {
+        IPointy[] pointyFigures = { new Hexagon(), new Square(), new Triangle() };
+        foreach (var pf in pointyFigures)
+        {
+            Console.WriteLine($"Figure {pf.GetType()} has {pf.Points} number of points ");
+        }
+    }
+
     public static void TestExplicitInterfaceImplementation()
     {
         Octagon octagon = new Octagon();
-        ((IDrawToForm)octagon).Draw();
-        ((IDrawToMemory)octagon).Draw();
-        ((IDrawToPrinter)octagon).Draw();
+        ((IDrawToForm)octagon).Draw();      // 1
+        (octagon as IDrawToMemory).Draw();  // 2
+        if (octagon is IDrawToPrinter printedOctagon) // 3
+        {
+            printedOctagon.Draw();
+        }
     }
-    
-    
+
+    public static void TestHierarchyOfInterfacesWithBitmapImageClass()
+    {
+        BitmapImage bitmapImage = new BitmapImage();
+        bitmapImage.Draw();
+        bitmapImage.DrawInBoundingBox(10,10,100,100);
+        bitmapImage.DrawUpsideDown();
+        // instance of BitmapImage do not have access to TimeToDraw standard implementation of interface member
+        // bitmapImage.TimeToDraw -> Compile error occured
+        if (bitmapImage is IAdvancedDrawable advancedDrawable)
+        {
+            advancedDrawable.DrawUpsideDown();
+            Console.WriteLine($"Time to draw: {advancedDrawable.TimeToDraw() }");   // only interface casted type can reach inherited interface type  
+        }
+        
+        // if class implement standard interface member, then after call of implemented member either on class, or on interface every time
+        // will be called implementation of that member
+        Console.WriteLine("Calling Implemented TimeToDraw");
+        Console.WriteLine($"Time to draw: {bitmapImage.TimeToDraw()}");         // implementation inside BitmapImage  
+        Console.WriteLine($"Time to draw: {((IDrawable) bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
+        Console.WriteLine($"Time to draw: {((IAdvancedDrawable) bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
+    }
 }
