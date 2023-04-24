@@ -5,7 +5,7 @@ namespace Workspace.Learning.Classes.Resources
 {
     public class Garage : IEnumerable
     {
-        private readonly Motorcycle[] _motorcycles = new Motorcycle[4];
+        private readonly Motorcycle[] _motorcycles = new Motorcycle[5];
 
         public int Length => _motorcycles.Length;
         
@@ -29,6 +29,22 @@ namespace Workspace.Learning.Classes.Resources
             foreach (var m in _motorcycles)
             {
                 yield return m;
+            }
+        }
+
+        public IEnumerator CustomEnumeration()
+        {
+            foreach (var m in _motorcycles)
+            {
+                yield return m;
+            }
+        }
+
+        public IEnumerator GetFieldEnumerator()
+        {
+            foreach (var motorcycle in _motorcycles)
+            {
+                yield return motorcycle.Cost;
             }
         }
         

@@ -1,9 +1,11 @@
 ﻿
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Workspace.Learning.Classes.Resources
 {
-    public class Point3D : Point
+    public class Point3D : Point, IEnumerable<int>
     {
         public int Z { get; set; }
 
@@ -17,6 +19,18 @@ namespace Workspace.Learning.Classes.Resources
         {
             base.Draw();
             Console.WriteLine($"Z: {Z}");
+        }
+
+        public IEnumerator<int> GetEnumerator()
+        {
+            yield return X;
+            yield return Y;
+            yield return Z;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

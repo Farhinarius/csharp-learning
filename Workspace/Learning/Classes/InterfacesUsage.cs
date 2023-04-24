@@ -117,12 +117,12 @@ public static class InterfacesUsage
         Console.WriteLine($"Time to draw: {((IAdvancedDrawable) bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
     }
     
-    public static void UseEnumerator()
+    public static void UseEnumeratorExplicitly()
     {
         Garage garage = new Garage();
-        foreach (var car in garage)
+        foreach (var motorcycle in garage)
         {
-            ((Motorcycle) car)?.Display();
+            (motorcycle as Motorcycle)?.Display();
         }
 
         var e = ((IEnumerable)garage).GetEnumerator();
@@ -132,19 +132,21 @@ public static class InterfacesUsage
             var motorcycle = (Motorcycle) e.Current;
             motorcycle?.Display();
         }
-        
-        
     }
 
-    public static void UseEnumeratorWithYield()
+    // TODO: need to clarify usage of yield operator 
+    public static void EnumerateByField()
     {
-        var garage = new Garage();
+        Garage garage = new Garage();
 
-        foreach (var motorcycle in garage)
+        var motoCosts = new List<float>();
+
+        var costEnumerator = garage.GetFieldEnumerator();
+        for (int i = 0; i < garage.Length; i++)
         {
-            (motorcycle as Motorcycle)?.Display();
+            costEnumerator.MoveNext();
+            Console.WriteLine(costEnumerator.Current);
         }
     }
-    
     
 }
