@@ -148,5 +148,14 @@ public static class InterfacesUsage
             Console.WriteLine(costEnumerator.Current);
         }
     }
+
+    public static void EnumeratePointClass()
+    {
+        Point3D p3d = new Point3D(1, 2, 3);
+        foreach (var point in p3d)
+        {
+            Console.WriteLine($"Point value: {point}");
+        }
+    }
     
 }
