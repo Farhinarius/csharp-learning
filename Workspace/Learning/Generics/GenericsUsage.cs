@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Workspace.Learning.Classes.Resources;
 using Workspace.Learning.Classes.Resources.Enemies;
+using Workspace.Learning.Classes.Resources.Vehicles;
 using Workspace.Learning.Generics.Resources;
 
 namespace Workspace.Learning.Generics

@@ -5,6 +5,7 @@ using System.Linq;
 using Workspace.Learning.Classes.Resources;
 using Workspace.Learning.Classes.Resources.Figures;
 using Workspace.Learning.Classes.Resources.Figures.Interfaces;
+using Workspace.Learning.Classes.Resources.Vehicles;
 
 namespace Workspace.Learning.Classes;
 
@@ -116,30 +117,45 @@ public static class InterfacesUsage
         Console.WriteLine($"Time to draw: {((IDrawable) bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
         Console.WriteLine($"Time to draw: {((IAdvancedDrawable) bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
     }
-    
-    public static void UseEnumeratorExplicitly()
+
+    public static void UseEnumeratorImplicitly()
     {
         Garage garage = new Garage();
-        foreach (var motorcycle in garage)
+        foreach (var vehicle in garage)
         {
-            (motorcycle as Motorcycle)?.Display();
+            (vehicle as Vehicle)?.Display();
         }
+    }
+    
+    public static void UseEnumeratorExplicitlyWithExplicitInterfaceImplementation()
+    {
+        Garage garage = new Garage();
 
         var e = ((IEnumerable)garage).GetEnumerator();
         for (var i = 0; i < garage.Length; i++)
         {
             e.MoveNext();
-            var motorcycle = (Motorcycle) e.Current;
-            motorcycle?.Display();
+            var vehicle = (Vehicle) e.Current;
+            vehicle?.Display();
         }
     }
 
-    // TODO: need to clarify usage of yield operator 
-    public static void EnumerateByField()
+    public static void UseEnumeratorExplicitlyWithImplicitInterfaceImplementation()
     {
         Garage garage = new Garage();
 
-        var motoCosts = new List<float>();
+        var e = garage.GetEnumerator();     // method do not called (implicitly returns an IEnumerator)
+        for (var i = 0; i < garage.Length; i++)
+        {
+            e.MoveNext();                           // calls garage.GetEnumerator and pause execution on yield statement for next MoveNext call
+            var vehicle = (Vehicle) e.Current;
+            vehicle?.Display();
+        }
+    }
+
+    public static void EnumerateByField()
+    {
+        Garage garage = new Garage();
 
         var costEnumerator = garage.GetFieldEnumerator();
         for (int i = 0; i < garage.Length; i++)
@@ -155,6 +171,38 @@ public static class InterfacesUsage
         foreach (var point in p3d)
         {
             Console.WriteLine($"Point value: {point}");
+        }
+    }
+
+    public static void UselessEnumeratorCall()
+    {
+        Garage garage = new Garage();
+        IEnumerator garageEnumerator = garage.GetEnumerator();      // method will not be called
+        Console.ReadLine();
+    }
+
+    public static void UseProtectedEnumerator()
+    {
+        Garage garage = new Garage();
+        try
+        {
+            // На этот раз возникает ошибка.
+            var vehicleEnumerator = garage.GetEnumeratorProtected();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Exception occurred on GetEnumerator");
+        }
+    }
+
+    public static void UseNamedIterator()
+    {
+        Garage garage = new Garage();
+        // Получить элементы (в обратном порядке!)
+        // с применением именованного итератора.
+        foreach (Vehicle v in garage.GetTheVehicles(true))
+        {
+            Console.WriteLine("Vehicle cost is {0}", v.Cost);
         }
     }
     

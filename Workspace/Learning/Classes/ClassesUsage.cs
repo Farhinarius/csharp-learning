@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Workspace.Learning.Classes.Resources;
 using Workspace.Learning.Classes.Resources.Enemies;
+using Workspace.Learning.Classes.Resources.Vehicles;
 
 namespace Workspace.Learning.Classes
 {
@@ -80,7 +81,7 @@ namespace Workspace.Learning.Classes
 
         public static void OverridingPolymorphism()
         {
-            var enemies = new Enemy[3]; // can create array of abstract polymorphic interfaces
+            var enemies = new Enemy[3];     // can create array of abstract polymorphic interfaces
 
             enemies[0] = new Lizard();
             enemies[1] = new Spider();
