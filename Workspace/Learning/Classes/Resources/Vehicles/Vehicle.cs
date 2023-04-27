@@ -4,15 +4,23 @@ namespace Workspace.Learning.Classes.Resources.Vehicles;
 
 public abstract class Vehicle
 {
-    protected string ModelName;
+    public string ModelName;
     
-    protected int Speed;
+    public int Speed;
     public float Cost { get; protected set; }
+
+    // constructor chain implementation
+    protected Vehicle(string modelName = "moto", int speed = 0, float cost = 10000)
+    {
+        ModelName = modelName;
+        Speed = speed;
+        Cost = cost;
+    }
 
     public virtual void Display()
     {
         Console.WriteLine($"Name: {ModelName} " +
                           $"\nSpeed: {Speed}" +
-                          $"\nCost: {Cost}");
+                          $"\nCost: {Cost}\n");
     }
 }

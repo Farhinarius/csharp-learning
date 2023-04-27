@@ -17,11 +17,9 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
         public Motorcycle(int speed) : this("", speed) { }
 
         // constructor chain implementation
-        public Motorcycle(string modelName = "moto", int speed = 0, float cost = 10000, Point point = default)
+        public Motorcycle(string modelName = "moto", int speed = 0, float cost = 10000, Point point = default) 
+            : base(modelName, speed, cost)
         {
-            ModelName = modelName;
-            Speed = speed;
-            Cost = cost;
             _point = point ?? new Point();
         }
         

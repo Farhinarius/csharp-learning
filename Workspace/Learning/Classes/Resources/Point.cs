@@ -38,7 +38,7 @@ namespace Workspace.Learning.Classes.Resources
         
         public void Display()
         {
-            Console.WriteLine($"Point values -> \nX: {X}, Y: {Y}");
+            Console.WriteLine($"Point values -> X: {X}, Y: {Y}\n");
         }
 
         public virtual void Draw()

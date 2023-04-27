@@ -5,7 +5,7 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
 {
     public class Garage : IEnumerable
     {
-        private readonly Vehicle[] _vehicles = new Vehicle[6];
+        private readonly Vehicle[] _vehicles = new Vehicle[6];      // mark memory of classes that IS Vehicle (a.k.a inherited) 
 
         public int Length => _vehicles.Length;
         

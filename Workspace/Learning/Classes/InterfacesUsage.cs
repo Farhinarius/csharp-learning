@@ -236,5 +236,66 @@ public static class InterfacesUsage
         Console.WriteLine("p3: {0}", p3);
         Console.WriteLine("p4: {0}", p4);
     }
+
+    public static void UseIComparable()
+    {
+        // Создать массив объектов Car
+        var myAutos = new Car[5];
+        myAutos[3] = new Car("Rusty", 80, 1);
+        myAutos[1] = new Car("Mary", 40, 234);
+        myAutos[4] = new Car("Viper", 40, 34);
+        myAutos[0] = new Car("Mel", 40, 4);
+        myAutos[2] = new Car("Chucky", 40, 5);
+        
+        // Отобразить текущее содержимое массива.
+        Console.WriteLine("Here is the unordered set of cars:");
+        foreach(var c in myAutos)
+        {
+            Console.WriteLine("{0} {1}", c.Id, c.ModelName);
+        }
+        
+        // Теперь отсортировать массив с применением IComparable!
+        Array.Sort(myAutos);
+        Console.WriteLine();
+        
+        // Отобразить отсортированное содержимое массива.
+        Console.WriteLine("Here is the ordered set of cars:");
+        foreach(Car c in myAutos)
+        {
+            Console.WriteLine("{0} {1}", c.Id, c.ModelName);
+        }
+    }
+
+    public static void UseIComparer()
+    {
+        // Создать массив объектов Car
+        var myAutos = new Car[5];
+        myAutos[3] = new Car("Rusty", 80, 1);
+        myAutos[1] = new Car("Mary", 40, 234);
+        myAutos[4] = new Car("Viper", 40, 34);
+        myAutos[0] = new Car("Mel", 40, 4);
+        myAutos[2] = new Car("Chucky", 40, 5);
+        
+        // Отобразить текущее содержимое массива.
+        Console.WriteLine("Here is the unordered set of cars:");
+        foreach(var c in myAutos)
+        {
+            Console.WriteLine("{0} {1}", c.Id, c.ModelName);
+        }
+        
+        // Теперь отсортировать массив с применением IComparable!
+        Array.Sort(myAutos, Car.SortByCarModelName);
+        Console.WriteLine();
+        
+        // Отобразить отсортированное содержимое массива.
+        Console.WriteLine("Here is the ordered set of cars:");
+        foreach(Car c in myAutos)
+        {
+            Console.WriteLine("{0} {1}", c.Id, c.ModelName);
+        }
+        
+    }
+    
+
     
 }
