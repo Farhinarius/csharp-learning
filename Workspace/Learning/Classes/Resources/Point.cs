@@ -18,14 +18,17 @@ namespace Workspace.Learning.Classes.Resources
         public int X { get; set; }
         public int Y { get; set; }
 
+        public PointDescription Pd { get; set; } = new PointDescription();
+
         private Color _color;
 
         public Point() {}
 
-        public Point(int x, int y)
+        public Point(int x, int y, string petName = "New point")
         {
             X = x;
             Y = y;
+            Pd.PetName = petName;
         }
 
         public Point(Color color)
@@ -43,16 +46,34 @@ namespace Workspace.Learning.Classes.Resources
             Console.WriteLine($"X: {X}\n Y: {Y}");
         }
         
+        #region ToString implementation
         // Переопределить Object.ToString().
-        public override string ToString() => $"X = {X}; Y = {Y}";
+        public override string ToString() => $"X = {X}; Y = {Y}; Name = {Pd.PetName};\nID = {Pd.PointId}\n";
         
-        // Возвратить копию текущего объекта.
+        #endregion
+        
+        #region ICloneable implementation
+        
+        // Возвратить неглубокую копию текущего объекта.
         // public object Clone() => new Point(this.X, this.Y);
         
         // Копировать все поля Point по очереди. Упрощенная версия неглубоко копирования
-        public object Clone() => this.MemberwiseClone();
-
-
+        //public object Clone() => this.MemberwiseClone();
+        
+        public object Clone()
+        {
+            // Сначала получить поверхностную копию.
+            Point newPoint = (Point)this.MemberwiseClone();
+            
+            // Затем восполнить пробелы.
+            PointDescription currentDesc = new PointDescription();
+            currentDesc.PetName = this.Pd.PetName;
+            newPoint.Pd = currentDesc;
+            
+            return newPoint;
+        }
+        
+        #endregion
 
         #region static
 

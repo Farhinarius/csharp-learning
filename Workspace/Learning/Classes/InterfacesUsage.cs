@@ -218,5 +218,23 @@ public static class InterfacesUsage
         Console.WriteLine($"Original point: {p3}");
         Console.WriteLine($"Cloned and changed point : {p4}");
     }
+
+    public static void DeepCloneableImplementation()
+    {
+        Point p3 = new Point(1, 1);
+        Point p4 = (Point)p3.Clone();
+        
+        Console.WriteLine("Before modification:"); // Перед модификацией
+        Console.WriteLine("p3: {0}", p3);
+        Console.WriteLine("p4: {0}", p4);
+        
+        p4.Pd.PetName = "My new Point";
+        p4.X = 9;
+        
+        Console.WriteLine("\nChanged p4.Pd.PetName and p4.X");
+        Console.WriteLine("After modification:");
+        Console.WriteLine("p3: {0}", p3);
+        Console.WriteLine("p4: {0}", p4);
+    }
     
 }
