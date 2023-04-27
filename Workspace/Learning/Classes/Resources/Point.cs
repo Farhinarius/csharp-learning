@@ -43,6 +43,19 @@ namespace Workspace.Learning.Classes.Resources
             Console.WriteLine($"X: {X}\n Y: {Y}");
         }
         
+        // Переопределить Object.ToString().
+        public override string ToString() => $"X = {X}; Y = {Y}";
+        
+        // Возвратить копию текущего объекта.
+        // public object Clone() => new Point(this.X, this.Y);
+        
+        // Копировать все поля Point по очереди. Упрощенная версия неглубоко копирования
+        public object Clone() => this.MemberwiseClone();
+
+
+
+        #region static
+
         public static void Draw(Point p)
         {
             // drawline logic with some library
@@ -52,5 +65,7 @@ namespace Workspace.Learning.Classes.Resources
         {
             // drawline with thickness with some logic
         }
+
+        #endregion
     }
 }

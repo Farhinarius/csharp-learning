@@ -205,5 +205,18 @@ public static class InterfacesUsage
             Console.WriteLine("Vehicle cost is {0}", v.Cost);
         }
     }
+
+    public static void UseICloneableToCloneObject()
+    {
+        Point p3 = new Point(1, 1);
+        Point p4 = (Point)p3.Clone();
+        
+        // Изменить р4.Х (что не приводит к изменению рЗ.х). Убедились, что работаем с клоном
+        p4.X = 0;
+        
+        // Вывести все объекты.
+        Console.WriteLine($"Original point: {p3}");
+        Console.WriteLine($"Cloned and changed point : {p4}");
+    }
     
 }
