@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Workspace.Learning.Classes;
+using Workspace.Learning.GarbageCollection;
 
 namespace Workspace
 {
@@ -8,7 +9,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            InterfacesUsage.UseIComparer();
+            GcUsage.TestGarbageCollectionInDetail();
         }
     }
 }
