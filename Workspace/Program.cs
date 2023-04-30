@@ -9,7 +9,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            GcUsage.TestGarbageCollectionInDetail();
+            GcUsage.TestFinalizationOfObject();
         }
     }
 }
