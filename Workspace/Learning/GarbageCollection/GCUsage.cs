@@ -147,4 +147,16 @@ public static class GcUsage
         Console.WriteLine("About to dispose.");
         // В этой точке переменная освобождается.
     }
+
+    public static void CombinedUsageOfGcAndDispose()
+    {
+        // Вызвать метод Dispose() вручную, что не приводит к вызову финализатора.
+        AdvancedResourceWrapper rw = new AdvancedResourceWrapper();
+        rw.Dispose();
+        
+        // He вызывать метод Dispose(). Это запустит финализатор,
+        // когда объект будет обрабатываться сборщиком мусора.
+        MyResourceWrapper rw2 = new MyResourceWrapper();
+
+    }
 }
