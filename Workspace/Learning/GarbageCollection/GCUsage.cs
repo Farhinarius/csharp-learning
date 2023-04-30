@@ -157,6 +157,5 @@ public static class GcUsage
         // He вызывать метод Dispose(). Это запустит финализатор,
         // когда объект будет обрабатываться сборщиком мусора.
         MyResourceWrapper rw2 = new MyResourceWrapper();
-
     }
 }
