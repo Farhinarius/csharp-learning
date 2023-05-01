@@ -11,7 +11,28 @@ namespace Workspace.Learning.Generics
 {
     public static class GenericsUsage
     {
-        
+        // boxing - позволяет хранить данные типа значения внутри ссылочной переменной.
+        public static void SimpleBoxUnboxOperation()
+        {
+            // Создать переменную ValueType (int).
+            int mylnt = 25;
+            // Упаковать int в ссылку на object,
+            object boxedlnt = mylnt;
+            // Распаковать ссылку обратно в int.
+            int unboxedlnt = (int) boxedlnt;
+            
+            // Распаковать в неподходящий тип данных, чтобы
+            // инициировать исключение времени выполнения.
+            try
+            {
+                long unboxedLong = (long)boxedlnt;
+            }
+            catch (InvalidCastException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         public static void WorkWithArrayList()
         {
             // Типы значений автоматически упаковываются,
@@ -85,9 +106,6 @@ namespace Workspace.Learning.Generics
                         Console.WriteLine($"Removed Item: { ((Airplane) item).ModelType} ");
                     }
                 }
-                
-
-
             }
         }
 
@@ -97,7 +115,6 @@ namespace Workspace.Learning.Generics
             float b = 4f;
             
             Swap(ref a, ref b); // or Spaw<Type>(a, b)     
-
         }
 
         private static void Swap<T>(ref T a, ref T b)
