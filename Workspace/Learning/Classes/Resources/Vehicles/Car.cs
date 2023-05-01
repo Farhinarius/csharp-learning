@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Workspace.Learning.Classes.Resources.Vehicles;
 
-public class Car : Vehicle, IComparable
+public class Car : Vehicle, IComparable<Car> // IComparable - uncomment to test non generic impl of interface
 {
     private static int _constructCounter = 0;
     public int Id { get; init; }
@@ -24,34 +25,43 @@ public class Car : Vehicle, IComparable
         _constructCounter++;
     }
 
-    #region  IComparable
-
-    int IComparable.CompareTo(object other)
-    {
-        if (other is not Car comparedCar) throw new ArgumentException("Parameter is not a Car!");
-        // delegate comparison to IComparable implementation of System.Int32
-        return this.Id.CompareTo(comparedCar.Id);
-    }
+    #region IComparable
+    
+    // Implementation of a non-generic interface !!!
+    // int IComparable.CompareTo(object other)
+    // {
+    //     if (other is not Car comparedCar) throw new ArgumentException("Parameter is not a Car!");
+    //     // delegate comparison to IComparable implementation of System.Int32
+    //     return this.Id.CompareTo(comparedCar.Id);
+    // }
+    
+    int IComparable<Car>.CompareTo(Car otherCar) => Id.CompareTo(otherCar.Id);
 
     #endregion
     
-    #region IComparer static property
+    #region IComparer
     
-    public static IComparer SortByCarModelName
-        => new CarModelNameNameComparer();
+    public static IComparer<Car> SortByCarModelName
+        => new CarModelNameComparer();
     
     #endregion
-    
 }
+// Implementation of a non-generic interface !!!
+// public class CarModelNameNameComparer : IComparer
+// {
+//     // Проверить дружественное имя каждого объекта,
+//     int IComparer.Compare(object ol, object o2)
+//     {
+//         if (ol is not Car c1 || o2 is not Car c2) throw new ArgumentException("Parameter is not a Car!");
+//         
+//         return string.Compare(c1.ModelName, c2.ModelName,
+//                 StringComparison.OrdinalIgnoreCase);
+//     }
+// }
 
-public class CarModelNameNameComparer : IComparer
+
+public class CarModelNameComparer : IComparer<Car>
 {
-    // Проверить дружественное имя каждого объекта,
-    int IComparer.Compare(object ol, object o2)
-    {
-        if (ol is not Car c1 || o2 is not Car c2) throw new ArgumentException("Parameter is not a Car!");
-        
-        return string.Compare(c1.ModelName, c2.ModelName,
-                StringComparison.OrdinalIgnoreCase);
-    }
+    int IComparer<Car>.Compare(Car c1, Car c2) 
+        => string.Compare(c1?.ModelName, c2?.ModelName, StringComparison.OrdinalIgnoreCase);
 }

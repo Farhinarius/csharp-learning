@@ -1,6 +1,6 @@
 namespace Workspace.Learning.Classes.Resources.Figures.Interfaces;
 
-public interface IAdvancedDrawable : IDrawable
+public interface IAdvancedDraw : IDraw
 {
     void DrawInBoundingBox(int top, int left, int bottom, int right);
     void DrawUpsideDown();

@@ -104,7 +104,7 @@ public static class InterfacesUsage
         bitmapImage.DrawUpsideDown();
         // instance of BitmapImage do not have access to TimeToDraw standard implementation of interface member
         // bitmapImage.TimeToDraw -> Compile error occured
-        if (bitmapImage is IAdvancedDrawable advancedDrawable)
+        if (bitmapImage is IAdvancedDraw advancedDrawable)
         {
             advancedDrawable.DrawUpsideDown();
             Console.WriteLine($"Time to draw: {advancedDrawable.TimeToDraw() }");   // only interface casted type can reach inherited interface type  
@@ -114,16 +114,29 @@ public static class InterfacesUsage
         // will be called implementation of that member
         Console.WriteLine("Calling Implemented TimeToDraw");
         Console.WriteLine($"Time to draw: {bitmapImage.TimeToDraw()}");         // implementation inside BitmapImage  
-        Console.WriteLine($"Time to draw: {((IDrawable) bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
-        Console.WriteLine($"Time to draw: {((IAdvancedDrawable) bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
+        Console.WriteLine($"Time to draw: {((IDraw) bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
+        Console.WriteLine($"Time to draw: {((IAdvancedDraw) bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
     }
-
+    
     public static void UseEnumeratorImplicitly()
     {
         Garage garage = new Garage();
         foreach (var vehicle in garage)
         {
-            (vehicle as Vehicle)?.Display();
+            vehicle.Display();
+        }
+    }
+    
+    public static void UseEnumeratorExplicitlyWithImplicitInterfaceImplementation()
+    {
+        Garage garage = new Garage();
+
+        using var e = garage.GetEnumerator();     // method do not called (implicitly returns an IEnumerator)
+        for (var i = 0; i < garage.Count; i++)
+        {
+            e.MoveNext();                           // calls garage.GetEnumerator and pause execution on yield statement for next MoveNext call
+            var vehicle = e.Current;
+            vehicle?.Display();
         }
     }
     
@@ -131,23 +144,10 @@ public static class InterfacesUsage
     {
         Garage garage = new Garage();
 
-        var e = ((IEnumerable)garage).GetEnumerator();
-        for (var i = 0; i < garage.Length; i++)
+        var e = ( (IEnumerable) garage ).GetEnumerator();
+        for (var i = 0; i < garage.Count; i++)
         {
             e.MoveNext();
-            var vehicle = (Vehicle) e.Current;
-            vehicle?.Display();
-        }
-    }
-
-    public static void UseEnumeratorExplicitlyWithImplicitInterfaceImplementation()
-    {
-        Garage garage = new Garage();
-
-        var e = garage.GetEnumerator();     // method do not called (implicitly returns an IEnumerator)
-        for (var i = 0; i < garage.Length; i++)
-        {
-            e.MoveNext();                           // calls garage.GetEnumerator and pause execution on yield statement for next MoveNext call
             var vehicle = (Vehicle) e.Current;
             vehicle?.Display();
         }
@@ -158,7 +158,7 @@ public static class InterfacesUsage
         Garage garage = new Garage();
 
         var costEnumerator = garage.GetFieldEnumerator();
-        for (int i = 0; i < garage.Length; i++)
+        for (int i = 0; i < garage.Count; i++)
         {
             costEnumerator.MoveNext();
             Console.WriteLine(costEnumerator.Current);
@@ -209,7 +209,7 @@ public static class InterfacesUsage
     public static void UseICloneableToCloneObject()
     {
         Point p3 = new Point(1, 1);
-        Point p4 = (Point)p3.Clone();
+        Point p4 = (Point) p3.Clone();
         
         // Изменить р4.Х (что не приводит к изменению рЗ.х). Убедились, что работаем с клоном
         p4.X = 0;

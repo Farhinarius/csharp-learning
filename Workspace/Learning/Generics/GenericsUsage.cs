@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 using Workspace.Learning.Classes.Resources;
 using Workspace.Learning.Classes.Resources.Enemies;
 using Workspace.Learning.Classes.Resources.Vehicles;
@@ -70,6 +72,23 @@ namespace Workspace.Learning.Generics
             {
                 Console.WriteLine(element);
             }
+        }
+        
+        // • Обобщения обеспечивают лучшую производительность, т.к. лишены накладных
+        //   расходов по упаковке/распаковке, когда хранят типы значений.
+        // • Обобщения безопасны в отношении типов, потому что могут содержать только объекты указанного типа.
+        // • Обобщения значительно сокращают потребность в специальных типах
+        //   коллекций, поскольку при создании обобщенного контейнера указывается “вид типа"
+        public static void UseGenericCollection()
+        {
+            List<Person> people = new List<Person>();
+            people.Add(new Person { Name = "Eric"});
+            people.Add(new Person {Name = "Farkhat"});
+            people.ForEach(p => Console.WriteLine(p.Name));
+
+            List<int> numbers =  new List<int>{1, 2, 200, 4, 5};
+            Console.WriteLine(numbers.Sum() / numbers.Count);
+            Console.WriteLine(numbers[2]);
         }
 
         public static void WorkWithObservableCollection()

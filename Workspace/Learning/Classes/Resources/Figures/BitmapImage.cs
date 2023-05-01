@@ -3,7 +3,7 @@ using Workspace.Learning.Classes.Resources.Figures.Interfaces;
 
 namespace Workspace.Learning.Classes.Resources.Figures;
 
-public class BitmapImage : IAdvancedDrawable
+public class BitmapImage : IAdvancedDraw
 {
     public void Draw()
     {

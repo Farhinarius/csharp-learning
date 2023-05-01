@@ -1,32 +1,41 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Workspace.Learning.Classes.Resources.Vehicles
 {
-    public class Garage : IEnumerable
+    public class Garage : IEnumerable<Vehicle>
     {
-        private readonly Vehicle[] _vehicles = new Vehicle[6];      // mark memory of classes that IS Vehicle (a.k.a inherited) 
+        private readonly List<Vehicle> _vehicles;      // mark memory of classes that IS Vehicle (a.k.a inherited) 
 
-        public int Length => _vehicles.Length;
+        public int Count => _vehicles.Count;
         
         public Garage()
         {
-            _vehicles[0] = new Car("Nissan R-34 Skyline");
-            _vehicles[1] = new Car("Nissan 350z");
-            _vehicles[2] = new Car("Mazda RX7", 170);
-            _vehicles[3] = new Motorcycle("Kuragawa Z5", 110);
-            _vehicles[4] = new Motorcycle("Sirogawa Z7", 150);
-            _vehicles[5] = new Motorcycle("Ducati");
+            _vehicles = new List<Vehicle>
+            {
+                new Car("Nissan R-34 Skyline"),
+                new Car("Nissan 350z"),
+                new Car("Mazda RX7", 170),
+                new Motorcycle("Kuragawa Z5", 110),
+                new Motorcycle("Sirogawa Z7", 150),
+                new Motorcycle("Ducati")
+            };
         }
-
-        IEnumerator IEnumerable.GetEnumerator()
+        
+        // implicit IEnumerator<T> implementation
+        public IEnumerator<Vehicle> GetEnumerator()
         {
-            // delegate IEnumerator implementation to _motorcycles collection
+            // delegate IEnumerator implementation to _vehicles collection
             return _vehicles.GetEnumerator();
         }
-
-        public IEnumerator GetEnumerator()
-        {
+        
+        // explicit IEnumerator implementation
+        IEnumerator IEnumerable.GetEnumerator()
+        {   
+            // recommended implementation:
+            // this.GetEnumerator();
+            
             // До первого прохода по элементам (или доступа к любому элементу или просто вызова этого метода)
             // никакой код в методе GetEnumerator ( ) не выполняется.
             // Таким образом, если до выполнения оператора yield возникает условие для исключения, то оно не будет сгенерировано при
@@ -34,9 +43,9 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
             // Исключение не сгенерируется до тех пор, пока не будет вызван метод MoveNext().
             // uncomment below to test
             // throw new Exception("This won't get called");        
-            foreach (var m in _vehicles)
+            foreach (var v in _vehicles)
             {
-                yield return m;
+                yield return v;
             }
         }
 
@@ -84,7 +93,7 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
                 // Возвратить элементы в обратном порядке,
                 if (returnReversed)
                 {
-                    for (int i = _vehicles.Length; i != 0; i--)
+                    for (int i = _vehicles.Count; i != 0; i--)
                     {
                         yield return _vehicles[i - 1];
                     }

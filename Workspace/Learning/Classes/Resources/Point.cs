@@ -2,7 +2,7 @@
 
 namespace Workspace.Learning.Classes.Resources
 {
-    public class Point
+    public class Point : ICloneable
     {
         # region NestedTypes
 

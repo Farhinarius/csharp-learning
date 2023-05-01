@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Workspace.Learning.Classes;
 using Workspace.Learning.GarbageCollection;
+using Workspace.Learning.Generics;
 
 namespace Workspace
 {
@@ -9,7 +10,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            GcUsage.TestFinalizationOfObject();
+            InterfacesUsage.EnumerateByField();
         }
     }
 }
