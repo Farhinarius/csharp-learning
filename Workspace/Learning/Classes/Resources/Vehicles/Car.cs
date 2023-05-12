@@ -34,7 +34,6 @@ public class Car : Vehicle, IComparable<Car> // IComparable - uncomment to test 
     //     // delegate comparison to IComparable implementation of System.Int32
     //     return this.Id.CompareTo(comparedCar.Id);
     // }
-    
     int IComparable<Car>.CompareTo(Car otherCar) => Id.CompareTo(otherCar.Id);
 
     #endregion

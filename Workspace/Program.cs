@@ -10,7 +10,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            InterfacesUsage.EnumerateByField();
+            GenericsUsage.TestGenericCollections();
         }
     }
 }

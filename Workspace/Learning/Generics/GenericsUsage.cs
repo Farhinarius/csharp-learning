@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Security.Cryptography;
 using Workspace.Learning.Classes.Resources;
 using Workspace.Learning.Classes.Resources.Enemies;
 using Workspace.Learning.Classes.Resources.Vehicles;
@@ -89,6 +90,37 @@ namespace Workspace.Learning.Generics
             List<int> numbers =  new List<int>{1, 2, 200, 4, 5};
             Console.WriteLine(numbers.Sum() / numbers.Count);
             Console.WriteLine(numbers[2]);
+        }
+
+        public static void TestGenericCollections()
+        {
+            // List usage
+            List<Point> points = new List<Point>() {
+                new Point { X = 5, Y = 1 },
+                new Point3D { X = 1, Y = 1, Z = 1 },
+                new Point3D { X = 1, Y = 2, Z = 3 },
+                new Point { X = 2, Y = 2 }
+            };
+
+            points.Add(new Point { X = 10, Y = 20 });
+            points.Remove(points.First());
+            points.ForEach(p => p.Display());
+
+            points.AddRange(points);
+
+            // dictionary usage
+            Dictionary<char, Person> personDictionary = new Dictionary<char, Person>
+            {
+                { 'A', new Person { Name = "Ameli"} },
+                { 'B', new Person { Name = "Benjamin" } },
+                { 'C', new Person { Name = "Carl"} },
+                { 'D', new Person { Name = "Denis"} }
+            };
+
+            foreach ((char key, Person person) in personDictionary)
+            {
+                Console.WriteLine($"{key} {person.Name}");
+            }
         }
 
         public static void WorkWithObservableCollection()
