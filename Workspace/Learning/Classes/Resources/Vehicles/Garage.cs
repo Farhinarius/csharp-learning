@@ -29,6 +29,11 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
             // delegate IEnumerator implementation to _vehicles collection
             return _vehicles.GetEnumerator();
         }
+
+        //public IEnumerator GetEnumerator()
+        //{
+        //    return _vehicles.GetEnumerator();
+        //}
         
         // explicit IEnumerator implementation
         IEnumerator IEnumerable.GetEnumerator()
