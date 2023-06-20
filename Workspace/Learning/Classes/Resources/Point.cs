@@ -36,14 +36,14 @@ namespace Workspace.Learning.Classes.Resources
             _color = color;
         }
         
-        public void Display()
+        public virtual void Display()
         {
-            Console.WriteLine($"Point values -> X: {X}, Y: {Y}\n");
+            Console.Write($"\nPoint -> X: {X}, Y: {Y}");
         }
 
         public virtual void Draw()
         {   
-            Console.WriteLine($"X: {X}\n Y: {Y}");
+            Console.WriteLine($"X: {X}, Y: {Y}");
         }
         
         #region ToString implementation

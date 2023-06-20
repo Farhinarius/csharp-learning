@@ -2,6 +2,21 @@ namespace Workspace.Learning.Classes.Resources
 {
     public class Person
     {
-        public string Name { get; init; }
+        public int Age { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        
+        public Person() { }
+        public Person(string firstName, string lastName, int age)
+        {
+            Age = age;
+            FirstName = firstName;
+            LastName = lastName;
+        }
+        public override string ToString()
+        {
+            return $"Name: {FirstName} {LastName}, Age: {Age}";
+        }
+
     }
 }

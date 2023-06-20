@@ -44,16 +44,16 @@ namespace Workspace.Learning.Generics
             myInts.Add(10);
             myInts.Add(20);
             myInts.Add(35);
-            
+
             // Распаковка происходит, когда объект преобразуется
             // обратно в данные, расположенные в стеке.
-            int i = (int?) myInts[0] ?? throw new NullReferenceException();
-            
+            int i = (int?)myInts[0] ?? throw new NullReferenceException();
+
             // Теперь значение вновь упаковывается, т.к.
             // метод WriteLine () требует типа object!
             Console.WriteLine("Value of your int: {0}", i);
         }
-        
+
         public static void ArrayListOfDifferentTypesUsage()
         {
             var arrayList = new ArrayList
@@ -80,46 +80,56 @@ namespace Workspace.Learning.Generics
         // • Обобщения безопасны в отношении типов, потому что могут содержать только объекты указанного типа.
         // • Обобщения значительно сокращают потребность в специальных типах
         //   коллекций, поскольку при создании обобщенного контейнера указывается “вид типа"
-        public static void UseGenericCollection()
+        public static void UseList()
         {
-            List<Person> people = new List<Person>();
-            people.Add(new Person { Name = "Eric"});
-            people.Add(new Person {Name = "Farkhat"});
-            people.ForEach(p => Console.WriteLine(p.Name));
-
-            List<int> numbers =  new List<int>{1, 2, 200, 4, 5};
+            // create and shot list of int values
+            List<int> numbers = new List<int> { 1, 2, 200, 4, 5 };
+            numbers.ForEach(Console.WriteLine);
             Console.WriteLine(numbers.Sum() / numbers.Count);
-            Console.WriteLine(numbers[2]);
-        }
 
-        public static void TestGenericCollections()
-        {
-            // List usage
-            List<Point> points = new List<Point>() {
+            // create and shot list of string values
+            List<string> words = new List<string> { "Bruce", "Alfred", "Tim", "Richard" };
+            words.ForEach(Console.WriteLine);
+
+            // create and show list of Person values
+            List<Person> people = new List<Person>()
+            {
+                new Person { FirstName= "Homer", LastName="Simpson", Age=47 },
+                new Person { FirstName= "Marge", LastName="Simpson", Age=45 },
+                new Person { FirstName= "Lisa", LastName="Simpson", Age=9 },
+                new Person { FirstName= "Bart", LastName="Simpson", Age=8 }
+            };
+            people.ForEach(p => Console.WriteLine(p.FirstName));
+
+            // create and show list of Point values
+            List<Point> points  = new List<Point>()
+            {
                 new Point { X = 5, Y = 1 },
                 new Point3D { X = 1, Y = 1, Z = 1 },
                 new Point3D { X = 1, Y = 2, Z = 3 },
                 new Point { X = 2, Y = 2 }
             };
-
             points.Add(new Point { X = 10, Y = 20 });
             points.Remove(points.First());
-            points.ForEach(p => p.Display());
-
+            
             points.AddRange(points);
+            points.ForEach(p => p.Display());
+        }
 
-            // dictionary usage
+        public static void UseDictionary()
+        {
+            // create and show dictionary of characters and corresponding persons
             Dictionary<char, Person> personDictionary = new Dictionary<char, Person>
             {
-                { 'A', new Person { Name = "Ameli"} },
-                { 'B', new Person { Name = "Benjamin" } },
-                { 'C', new Person { Name = "Carl"} },
-                { 'D', new Person { Name = "Denis"} }
+                { 'A', new Person { FirstName = "Ameli"} },
+                { 'B', new Person { FirstName = "Benjamin" } },
+                { 'C', new Person { FirstName = "Carl"} },
+                { 'D', new Person { FirstName = "Denis"} }
             };
-
+            
             foreach ((char key, Person person) in personDictionary)
             {
-                Console.WriteLine($"{key} {person.Name}");
+                Console.WriteLine($"{key} {person.FirstName}");
             }
         }
 

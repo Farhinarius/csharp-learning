@@ -10,7 +10,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            GenericsUsage.TestGenericCollections();
+            GenericsUsage.UseList();
         }
     }
 }
@@ -20,12 +20,7 @@ namespace Workspace
 
     public static class ExecutionHandler
     {
-        public static void LinqForEach()
-        {
-            List<string> words = new List<string> { "Bruce", "Alfred", "Tim", "Richard"};
 
-            words.ForEach(Console.WriteLine);
-        }
 
         public static void DelegateUsage()
         {

@@ -15,10 +15,16 @@ namespace Workspace.Learning.Classes.Resources
             : base(x, y) =>
             Z = z;
 
+        public override void Display()
+        {
+            base.Display();
+            Console.Write($", Z: {Z}");
+        }
+
         public override void Draw()
         {
             base.Draw();
-            Console.WriteLine($"Z: {Z}");
+            Console.Write($", Z: {Z}");
         }
 
         public IEnumerator<int> GetEnumerator()

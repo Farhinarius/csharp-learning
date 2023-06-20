@@ -162,7 +162,7 @@ namespace Workspace.Learning.Classes
         {
             var p = new Person
             {
-                Name = "Karl"
+                FirstName = "Karl"
             };
 
             // p.Name = "Faarara"; -- cannot assign value in property Name

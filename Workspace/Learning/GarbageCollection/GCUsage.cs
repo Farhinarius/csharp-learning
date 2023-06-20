@@ -6,9 +6,9 @@ using Point = Workspace.Learning.Classes.Resources.Point;
 
 namespace Workspace.Learning.GarbageCollection;
 
-public static class GcUsage
+public class GcUsage
 {
-    public static void TestGcMethods()
+    public void TestGcMethods()
     {
         // Вывести оценочное количество байтов, выделенных в куче.
         Console.WriteLine("Estimated bytes on heap: {0}", 
@@ -24,7 +24,7 @@ public static class GcUsage
             GC.GetGeneration(refToMyCar));
     }
 
-    public static void TestGarbageCollection()
+    public void TestGarbageCollection()
     {
         // Принудительно запустить сборку мусора
         // и ожидать финализации каждого объекта.
@@ -32,7 +32,7 @@ public static class GcUsage
         GC.WaitForPendingFinalizers();
     }
 
-    public static void TestGarbageCollectionInDetail()
+    public void TestGarbageCollectionInDetail()
     {
         // Вывести оценочное количество байтов, выделенных в куче.
         Console.WriteLine("Estimated bytes on heap: {0}",
@@ -86,7 +86,7 @@ public static class GcUsage
             GC.CollectionCount(2)); // Количество сборок для поколения 2
     }
 
-    public static void TestFinalizationOfObject()
+    public void TestFinalizationOfObject()
     {
         Console.WriteLine("Hit return to create the objects");
         Console.WriteLine("then force the GC to invoke Finalize()");
@@ -112,7 +112,7 @@ public static class GcUsage
         }
     }
 
-    public static void TestDisposableObject()
+    public void TestDisposableObject()
     {
         // для освобождения любых внутренних ресурсов.
         DisposableObject disposableObject = new DisposableObject();
@@ -120,7 +120,7 @@ public static class GcUsage
         disposableObject.Dispose();
     }
 
-    public static void UseUsingStatementForDisposableObjects()
+    public void TestUsingStatementForDisposableObjects()
     {
         // apply using statement for IDisposable objects.
         // "using" statement will automatically convert to try {} finally { IDisposable.Dispose() }
@@ -138,7 +138,7 @@ public static class GcUsage
         }
     }
 
-    public static void ShortUsingDeclaration()
+    public void ShortUsingDeclaration()
     {
         // Эта переменная будет находиться в области видимости
         // вплоть до конца метода.
@@ -148,7 +148,7 @@ public static class GcUsage
         // В этой точке переменная освобождается.
     }
 
-    public static void CombinedUsageOfGcAndDispose()
+    public void CombinedUsageOfGcAndDispose()
     {
         // Вызвать метод Dispose() вручную, что не приводит к вызову финализатора.
         AdvancedResourceWrapper rw = new AdvancedResourceWrapper();
