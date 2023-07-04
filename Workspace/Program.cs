@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Workspace.Learning.Classes;
+using Workspace.Learning.Classes.Resources.Vehicles;
 using Workspace.Learning.GarbageCollection;
 using Workspace.Learning.Generics;
 
@@ -10,7 +11,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            GenericsUsage.UseList();
+            GenericsUsage.DisplayBaseClass<Garage>();
         }
     }
 }

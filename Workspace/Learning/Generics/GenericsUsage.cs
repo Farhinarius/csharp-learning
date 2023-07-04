@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Security.Cryptography;
 using Workspace.Learning.Classes.Resources;
 using Workspace.Learning.Classes.Resources.Enemies;
 using Workspace.Learning.Classes.Resources.Vehicles;
@@ -131,6 +130,11 @@ namespace Workspace.Learning.Generics
             {
                 Console.WriteLine($"{key} {person.FirstName}");
             }
+
+            // Получить элемент с ключом Lisa.
+            Person lisa = personDictionary['A'];
+            Console.WriteLine(lisa);
+
         }
 
         public static void WorkWithObservableCollection()
@@ -167,6 +171,24 @@ namespace Workspace.Learning.Generics
                         Console.WriteLine($"Removed Item: { ((Airplane) item).ModelType} ");
                     }
                 }
+
+                // preferred way for checking collection changed action value
+                if (args.Action == NotifyCollectionChangedAction.Add)
+                {
+                    foreach (Airplane item in args.NewItems)
+                    {
+                        Console.WriteLine($"Removed Item: {item.ModelType} ");
+                    }
+                }
+
+                // preferred way for checking collection changed action value
+                if (args.Action == NotifyCollectionChangedAction.Remove)
+                {
+                    foreach (Airplane item in args.OldItems)
+                    {
+                        Console.WriteLine($"Removed Item: {item.ModelType} ");
+                    }
+                }
             }
         }
 
@@ -174,8 +196,17 @@ namespace Workspace.Learning.Generics
         {
             float a = 5f;
             float b = 4f;
-            
-            Swap(ref a, ref b); // or Spaw<Type>(a, b)     
+
+            Console.WriteLine($"{a}, {b}");
+            Swap<float>(ref a, ref b); // or Spaw<Type>(a, b)
+            Console.WriteLine($"{a}, {b}");
+                                // 
+            Person p1 = new Person { Age = 12, FirstName = "Foo", LastName = "Bar" };
+            Person p2 = new Person { Age = 13, FirstName = "Baaboo", LastName = "Maamoo" };
+
+            Console.WriteLine($"{p1}, {p2}");
+            Swap<Person>(ref p1, ref p2);
+            Console.WriteLine($"{p1}, {p2}");
         }
 
         private static void Swap<T>(ref T a, ref T b)
@@ -184,5 +215,34 @@ namespace Workspace.Learning.Generics
             a = b;
             b = temp;
         }
+
+        public static void DisplayBaseClass<T>()
+        {
+            // BaseType - метод, используемый в рефлексии;
+            // он будет описан в главе 17.
+            Console.WriteLine($"Base class of {typeof(T)} is: {typeof(T).BaseType}");
+        }
+
+        public static void TestPatternMatching()
+        {
+            Point<string> р4 = default;
+            Point<int> р5 = default;
+            PatternMatching(р4);
+            PatternMatching(р5);
+        }
+
+        public static void PatternMatching<T>(Point<T> p)
+        {
+            switch (p)
+            {
+                case Point<string> pString:
+                    Console.WriteLine("Point is based on strings");
+                    return;
+                case Point<int> pint:
+                    Console.WriteLine("Point is based on ints");
+                    return;
+            }
+        }
+
     }
 }
