@@ -23,4 +23,9 @@ public abstract class Vehicle
                           $"\nSpeed: {Speed}" +
                           $"\nCost: {Cost}\n");
     }
+
+    public override string ToString()
+    {
+        return $"Name: {ModelName}\nSpeed: {Speed}\nCost: {Cost}\n";
+    }
 }

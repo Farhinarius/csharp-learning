@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Workspace.Learning.Classes.Resources.Vehicles
 {
     public class Garage : IEnumerable<Vehicle>
     {
+        // cannot change reference to memory for _vehicles
         private readonly List<Vehicle> _vehicles;      // mark memory of classes that IS Vehicle (a.k.a inherited) 
 
         public int Count => _vehicles.Count;
@@ -22,7 +24,20 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
                 new Motorcycle("Ducati")
             };
         }
+
+        public List<Vehicle> vehicles 
+        {
+            get => _vehicles;
+        }
+
+        // read/write access tier
+        public Vehicle this[int index]
+        {
+            get => _vehicles[index];
+            set => _vehicles[index] = value;
+        }
         
+        // read access tier
         // implicit IEnumerator<T> implementation
         public IEnumerator<Vehicle> GetEnumerator()
         {
