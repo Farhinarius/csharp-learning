@@ -12,7 +12,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            ExtensionsUsage.TestIndexers();
+            ExtensionsUsage.TestOperatorsOverload();
         }
     }
 }

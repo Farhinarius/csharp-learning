@@ -43,6 +43,26 @@ namespace Workspace.Learning.Extensions
             Person homer = peopleDictionary["Homer"];
         }
 
+        public static void TestOperatorsOverload()
+        {
+            Point p1 = new Point(1, 1);
+            Point p2 = new Point(2, 3);
+            
+            // sum and subtract points
+            Point summedPoints = p1 + p2;
+            Point subtractedPoints = p2 - p1;
+
+            Console.WriteLine($"Source points ->  p1: {p1}, p2: {p2}");
+            Console.WriteLine($"Value of p3 -> p1 + p2: {summedPoints}");
+            Console.WriteLine($"Value of p4 -> p2 - p1 {subtractedPoints}");
+
+            Point summedOffsetPoint = p1 + 2;
+            Point subtractOffsetPoint = p2 - 2;
+
+            Console.WriteLine($"Value of summedOffsetPoint -> p1 + 2: {summedOffsetPoint}");
+            Console.WriteLine($"Value of subtractOffsetPoint -> p2 - 2 {subtractOffsetPoint}");
+        }
+
         
     }
 }
