@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using Workspace.Learning.Classes.Resources;
@@ -52,15 +53,37 @@ namespace Workspace.Learning.Extensions
             Point summedPoints = p1 + p2;
             Point subtractedPoints = p2 - p1;
 
-            Console.WriteLine($"Source points ->  p1: {p1}, p2: {p2}");
+            Console.WriteLine($"Source points ->  p1: {p1}p2: {p2}");
             Console.WriteLine($"Value of p3 -> p1 + p2: {summedPoints}");
             Console.WriteLine($"Value of p4 -> p2 - p1 {subtractedPoints}");
 
+            // to offset points
             Point summedOffsetPoint = p1 + 2;
             Point subtractOffsetPoint = p2 - 2;
 
             Console.WriteLine($"Value of summedOffsetPoint -> p1 + 2: {summedOffsetPoint}");
             Console.WriteLine($"Value of subtractOffsetPoint -> p2 - 2 {subtractOffsetPoint}");
+
+            // the += is emulated for opeartion +. So if + operator is overloaded, then += already implemented
+            p1 += p2;
+            Console.WriteLine($"Value of p1 += p2: {p1}");
+
+            // separate overloading of post/past increment/decrement operations (need to overload together)
+            p1++;
+            Console.WriteLine($"Value of  p1++: {p1}");
+            p1--;
+            Console.WriteLine($"Value of p1--: {p1}");
+
+            // equation (Overload Equals() method of class System.Object,
+            // then overload operator == and != and call existed Equals() overloading)
+            Point p3 = new Point(3, 3);
+            Point p4 = (Point) p3.Clone();
+            Console.WriteLine($"Source points ->  p1: {p1}p2: {p2}");
+
+            Console.WriteLine($"Value of p3 == p4: {p3 == p4}");
+
+            Console.WriteLine($"Value of p3 != p4: {p3 != p4}");
+
         }
 
         

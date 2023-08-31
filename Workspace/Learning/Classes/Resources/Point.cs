@@ -49,7 +49,7 @@ namespace Workspace.Learning.Classes.Resources
 
         #region ToString implementation
         // Переопределить Object.ToString().
-        public override string ToString() => $"X = {X}; Y = {Y}; Name = {Pd.PetName};\nID = {Pd.PointId}\n";
+        public override string ToString() => $"X: {X}; Y: {Y}; Name: {Pd.PetName};\nID: {Pd.PointId}\n";
 
         #endregion
 
@@ -90,7 +90,7 @@ namespace Workspace.Learning.Classes.Resources
 
         #endregion
 
-        #region Operators implementation 
+        #region Operators overloading implementation 
 
         public static Point operator + (Point sourcePoint, Point pointToAdd) 
             => new Point(sourcePoint.X + pointToAdd.X, sourcePoint.Y + pointToAdd.Y);
@@ -108,6 +108,30 @@ namespace Workspace.Learning.Classes.Resources
             => new Point(sourcePoint.X + change, sourcePoint.Y + change);
 
         // cannot subtract point from int
+
+        public static Point operator ++ (Point sourcePoint)
+            => new Point(sourcePoint.X+1, sourcePoint.Y+1);   
+
+        public static Point operator -- (Point sourcePint)
+            => new Point(sourcePint.X-1, sourcePint.Y-1);
+
+        #region Equality operations overloading
+
+        public override bool Equals(object obj)
+            => this.X == ((Point)obj).X && this.Y == ((Point)obj).Y;
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+
+        public static bool operator == (Point sourcePoint, Point pointToCompare) 
+            => sourcePoint.Equals(pointToCompare);
+
+        public static bool operator != (Point sourcePoint, Point pointToCompare)
+            => !sourcePoint.Equals(pointToCompare);
+
+        #endregion
 
         #endregion
     }
