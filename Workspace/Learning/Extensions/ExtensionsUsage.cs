@@ -46,8 +46,8 @@ namespace Workspace.Learning.Extensions
 
         public static void TestOperatorsOverload()
         {
-            Point p1 = new Point(1, 1);
-            Point p2 = new Point(2, 3);
+            Point p1 = new(1, 1);
+            Point p2 = new(2, 3);
             
             // sum and subtract points
             Point summedPoints = p1 + p2;
@@ -76,14 +76,19 @@ namespace Workspace.Learning.Extensions
 
             // equation (Overload Equals() method of class System.Object,
             // then overload operator == and != and call existed Equals() overloading)
-            Point p3 = new Point(3, 3);
+            Point p3 = new(3, 3);
             Point p4 = (Point) p3.Clone();
-            Console.WriteLine($"Source points ->  p1: {p1}p2: {p2}");
-
+            Console.WriteLine($"Source points ->  p3: {p3}p4: {p4}");
             Console.WriteLine($"Value of p3 == p4: {p3 == p4}");
-
             Console.WriteLine($"Value of p3 != p4: {p3 != p4}");
 
+            // implement IComparable.CompareTo interface implementation. Call CompareTo in operator overloading to compare entities
+            p3++;       // test clone implementation
+            Console.WriteLine($"Source points ->  p3: {p3}p4: {p4}");
+            Console.WriteLine($"Value of p3 > p4: {p3 > p4}");
+            Console.WriteLine($"Value of p3 < p4: {p3 < p4}");
+            Console.WriteLine($"Value of p3 >= p4: {p3 >= p4}");
+            Console.WriteLine($"Value of p3 <= p4: {p3 <= p4}");
         }
 
         
