@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 using Workspace.Learning.Classes.Resources;
 using Workspace.Learning.Classes.Resources.Vehicles;
+using Workspace.Learning.Extensions.Resources;
 
 namespace Workspace.Learning.Extensions
 {
@@ -91,6 +88,25 @@ namespace Workspace.Learning.Extensions
             Console.WriteLine($"Value of p3 <= p4: {p3 <= p4}");
         }
 
-        
+        public static void TestCustomConversions()
+        {
+            Rectangle rect = new Rectangle(10, 4);
+            Console.WriteLine(rect.ToString());
+            rect.Draw();
+            
+            Square sq = (Square)rect;
+            Console.WriteLine(sq.ToString());
+            sq.Draw();
+
+            Square sq2 = (Square)90;
+            Console.WriteLine("sq2 = {0}", sq2);
+
+            int side = (int)sq2;
+            Console.WriteLine("Side length of sq2 = {0}", side);
+            Console.ReadLine();
+
+        }
+
+
     }
 }
