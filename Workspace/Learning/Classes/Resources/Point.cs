@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 namespace Workspace.Learning.Classes.Resources
 {
-    public class Point : ICloneable
+    public class Point : ICloneable, IComparable<Point>
     {
         # region NestedTypes
 
@@ -47,9 +47,27 @@ namespace Workspace.Learning.Classes.Resources
             Console.WriteLine($"X: {X}, Y: {Y}");
         }
 
-        #region ToString implementation
-        // Переопределить Object.ToString().
+        #region static
+
+        public static void Draw(Point p)
+        {
+            // drawline logic with some library
+        }
+
+        public static void Draw(Point p, float thickness)
+        {
+            // drawline with thickness with some logic
+        }
+
+        #endregion
+
+        #region Object base method overloading implementation
+
         public override string ToString() => $"X: {X}; Y: {Y}; Name: {Pd.PetName};\nID: {Pd.PointId}\n";
+
+        public override bool Equals(object obj) => this.X == ((Point)obj).X && this.Y == ((Point)obj).Y;
+
+        public override int GetHashCode() => this.ToString().GetHashCode();
 
         #endregion
 
@@ -76,16 +94,19 @@ namespace Workspace.Learning.Classes.Resources
 
         #endregion
 
-        #region static
+        #region IComparable implementation 
 
-        public static void Draw(Point p)
+        public int CompareTo(Point other)
         {
-            // drawline logic with some library
-        }
-
-        public static void Draw(Point p, float thickness)
-        {
-            // drawline with thickness with some logic
+            if (this.X > other.X && this.Y > other.Y)
+            {
+                return 1;
+            }
+            if (this.X < other.X && this.Y < other.Y) 
+            {
+                return -1;
+            }
+            return 0;
         }
 
         #endregion
@@ -108,22 +129,11 @@ namespace Workspace.Learning.Classes.Resources
             => new Point(sourcePoint.X + change, sourcePoint.Y + change);
 
         // cannot subtract point from int
-
         public static Point operator ++ (Point sourcePoint)
             => new Point(sourcePoint.X+1, sourcePoint.Y+1);   
 
         public static Point operator -- (Point sourcePint)
             => new Point(sourcePint.X-1, sourcePint.Y-1);
-
-        #region Equality operations overloading
-
-        public override bool Equals(object obj)
-            => this.X == ((Point)obj).X && this.Y == ((Point)obj).Y;
-
-        public override int GetHashCode()
-        {
-            return this.ToString().GetHashCode();
-        }
 
         public static bool operator == (Point sourcePoint, Point pointToCompare) 
             => sourcePoint.Equals(pointToCompare);
@@ -131,7 +141,17 @@ namespace Workspace.Learning.Classes.Resources
         public static bool operator != (Point sourcePoint, Point pointToCompare)
             => !sourcePoint.Equals(pointToCompare);
 
-        #endregion
+        public static bool operator > (Point sourcePoint, Point pointToCompare)
+            => sourcePoint.CompareTo(pointToCompare) > 0;
+
+        public static bool operator < (Point sourcePoint, Point pointToCompare)
+            => sourcePoint.CompareTo(pointToCompare) < 0;
+
+        public static bool operator >= (Point sourcePoint, Point pointToCompare)
+            => sourcePoint.CompareTo(pointToCompare) >= 0;
+
+        public static bool operator <= (Point sourcePoint, Point pointToCompare)
+            => sourcePoint.CompareTo(pointToCompare) <= 0;
 
         #endregion
     }
