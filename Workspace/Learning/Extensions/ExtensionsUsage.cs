@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Workspace.Learning.Classes.Resources;
 using Workspace.Learning.Classes.Resources.Vehicles;
 using Workspace.Learning.Extensions.Resources;
@@ -103,10 +104,42 @@ namespace Workspace.Learning.Extensions
 
             int side = (int)sq2;
             Console.WriteLine("Side length of sq2 = {0}", side);
-            Console.ReadLine();
 
+            // implicit conversion from square to rectangle
+            Square sq3 = new Square { Length = 5 };
+            Rectangle rectFromSq = sq3;
+            Console.WriteLine("Call implicit conversion from Square to Rectangle: {0}", rectFromSq);
+
+            // explicit conversion for implicit operator (just as in language)
+            Square sq4 = new Square { Length = 4 };
+            Rectangle rectFromSq2 = (Rectangle) sq4;
+            Console.WriteLine("Call implicit conversion from Square to Rectangle but with explicit usage: {0}", rectFromSq2);
         }
 
+        public static void TestExtensionsMethods()
+        {
+            int myNumber = 1234567;
+            myNumber.DisplayDefiningAssembly();
 
+            System.Data.DataSet dataSet = new System.Data.DataSet();
+            dataSet.DisplayDefiningAssembly();
+
+            // Использовать новую функциональность int.
+            Console.WriteLine("Value of mylnt: {0}", myNumber);
+            Console.WriteLine("Reversed digits of mylnt: {0}", myNumber.ReverseDigits());
+        }
+
+        public static void TestInterfaceExtensions()
+        {
+            // System.Array реализует IEnumerable, потому мы можем применить расширяющий метод для интерфейса IEnumerable
+            string[] data = { "Wow", "this", "is", "sort", "of", "annoying", "but", "in", "a", "weird", "way", "fun!"};
+            data.PrintDataAndBeep();
+            Console.WriteLine();
+
+            // List<T> реализует IEnumerable, потому мы можем применить расширяющий метод для интерфейса IEnumerable
+            List<int> mylnts = new List<int>() { 10, 15, 20 };
+            mylnts.PrintDataAndBeep();
+            Console.ReadLine();
+        }
     }
 }

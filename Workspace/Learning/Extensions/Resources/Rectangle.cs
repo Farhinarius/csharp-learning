@@ -28,5 +28,14 @@ namespace Workspace.Learning.Extensions.Resources
         public override string ToString()
             => $"[Width = {Width}; Height = {Height}]";
 
+        public static implicit operator Rectangle(Square s)
+            => new Rectangle
+               {
+                   Height = s.Length,
+                   Width = s.Length * 2
+               };
+
+
+
     }
 }
