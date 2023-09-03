@@ -25,7 +25,7 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
             };
         }
 
-        public List<Vehicle> vehicles 
+        public List<Vehicle> Vehicles 
         {
             get => _vehicles;
         }

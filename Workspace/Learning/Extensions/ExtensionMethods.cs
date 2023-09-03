@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Reflection;
+using Workspace.Learning.Classes.Resources.Vehicles;
 
 namespace Workspace.Learning.Extensions
 {
     public static class ExtensionMethods
     {
-        // Extension method overview
-        // First parameter of method always is object that this method called from
+        // Extension methods overview
+        // First parameter of method is always object that method called from
 
         // Этот метод позволяет объекту любого типа
         // отобразить сборку, в которой он определен.
@@ -33,5 +35,10 @@ namespace Workspace.Learning.Extensions
             // Возвратить модифицированную строку как int.
             return int.Parse(newDigits);
         }
+
+        // GetEnumerator extension method definition -> If class doesn't implement IEnumerable, we can define extension 
+        // method GetEnumerator to iterate through collection of elements
+        //public static IEnumerator GetEnumerator(this Garage g)
+        //    => g.vehicles.GetEnumerator();
     }
 }
