@@ -9,7 +9,7 @@ class Square : Shape, IRegularPointy
     public Square() { }
 
     public Square(string name) : base(name) { }
-    
+
     public override void Draw()
     {
         Console.WriteLine("Drawing a square");
@@ -23,6 +23,6 @@ class Square : Shape, IRegularPointy
     public int NumberOfSides { get; set; } = 4;
 
     // Обратите внимание, что свойство Perimeter не реализовано.
-    
-    
+
+
 }

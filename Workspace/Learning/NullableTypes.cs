@@ -1,6 +1,4 @@
-using System;
 using Workspace.Learning.Classes.Resources;
-using Workspace.Resources;
 
 namespace Workspace.Learning
 {
@@ -14,19 +12,19 @@ namespace Workspace.Learning
             char? nullableChar = 'a';
             int?[] arrayOfNullableInts = new int?[10];
         }
-        
+
         public static void NullableTypeExample()
         {
             Point point = null;
             // point.Display();     // null reference exception occurse when trying to reach values inside null object (fields, properties, methods and etc.)
-            #nullable enable
+#nullable enable
             Point? newPoint = null;
-            
+
             newPoint?.Display();       // equal to -> if (newPoint != null) newPoint.Display()
 
             newPoint = point ?? new Point(2, 2);
             newPoint?.Display();       // show point (2, 2)
         }
-        
+
     }
 }

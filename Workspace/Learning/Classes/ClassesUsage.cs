@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using Workspace.Learning.Classes.Resources;
 using Workspace.Learning.Classes.Resources.Enemies;
 using Workspace.Learning.Classes.Resources.Vehicles;
@@ -22,18 +21,18 @@ namespace Workspace.Learning.Classes
             p.X = 10;
             p.Y = 15;
             p.Display();
-            
+
             // programmer defined constructor 
             Point p2 = new Point(5, 5);
             p.Display();
-            
+
             // object initializer
             Point p3 = new Point
             {
                 X = 3,
                 Y = 3
             };
-            
+
             p3.Display();
         }
 
@@ -45,14 +44,14 @@ namespace Workspace.Learning.Classes
                 X = 3,
                 Y = 3
             };
-            
+
             // initializer with default constructor
             Point pD = new Point()
             {
                 X = 5,
                 Y = 10
             };
-            
+
             // initializer + constructor syntax
             Point pC = new Point(Point.Color.Blue)
             {
@@ -60,7 +59,7 @@ namespace Workspace.Learning.Classes
                 Y = 10
             };
         }
-        
+
         public static void InheritanceConstructor()
         {
             Point3D p3 = new Point3D(10, 10, 10);
@@ -89,7 +88,7 @@ namespace Workspace.Learning.Classes
 
             foreach (var enemy in enemies)
                 enemy.Attack();
-            
+
 
             // Enemy.attack()       ->  virtual method of abstract class (can not be called)
             // Lizard.attack()      ->  overridden method of real class
@@ -104,11 +103,11 @@ namespace Workspace.Learning.Classes
             {
                 enemy.LevelUp(enemy.MaxHealth, enemy.AttackDamage + 1);
             }
-            
+
             ModifyAttack(spider);               // pass inherited object with base class type
             ModifyAttack((Enemy)lizard);        // cast object type to base class of enemies
         }
-        
+
         public static void AsCasting()
         {
             Enemy newEnemy = new Lizard();
@@ -130,7 +129,7 @@ namespace Workspace.Learning.Classes
             {
                 switch (enemy)
                 {
-                    case Lizard l when l.AttackDamage > 1: 
+                    case Lizard l when l.AttackDamage > 1:
                         Console.WriteLine($"This is {l.GetType()}");
                         break;
                     case Spider s:
@@ -138,11 +137,11 @@ namespace Workspace.Learning.Classes
                         break;
                 }
             }
-            
+
             PatternMatching(new Lizard());
             PatternMatching(new Spider());
         }
-        
+
         // public class Object
         // {
         //     // Виртуальные члены.
@@ -167,6 +166,6 @@ namespace Workspace.Learning.Classes
 
             // p.Name = "Faarara"; -- cannot assign value in property Name
         }
-        
+
     }
 }

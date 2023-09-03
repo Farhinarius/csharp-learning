@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Workspace.Learning.Classes.Resources.Vehicles
 {
@@ -11,7 +10,7 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
         private readonly List<Vehicle> _vehicles;      // mark memory of classes that IS Vehicle (a.k.a inherited) 
 
         public int Count => _vehicles.Count;
-        
+
         public Garage()
         {
             _vehicles = new List<Vehicle>
@@ -25,7 +24,7 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
             };
         }
 
-        public List<Vehicle> Vehicles 
+        public List<Vehicle> Vehicles
         {
             get => _vehicles;
         }
@@ -36,7 +35,7 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
             get => _vehicles[index];
             set => _vehicles[index] = value;
         }
-        
+
         // read access tier
         // implicit IEnumerator<T> implementation
         public IEnumerator<Vehicle> GetEnumerator()
@@ -49,13 +48,13 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
         //{
         //    return _vehicles.GetEnumerator();
         //}
-        
+
         // explicit IEnumerator implementation
         IEnumerator IEnumerable.GetEnumerator()
-        {   
+        {
             // recommended implementation:
             // this.GetEnumerator();
-            
+
             // До первого прохода по элементам (или доступа к любому элементу или просто вызова этого метода)
             // никакой код в методе GetEnumerator ( ) не выполняется.
             // Таким образом, если до выполнения оператора yield возникает условие для исключения, то оно не будет сгенерировано при
@@ -84,7 +83,7 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
                 yield return vehicle.Cost;
             }
         }
-        
+
         // За счет перемещения yield return внутрь локальной функции, которая
         // возвращается из главного тела метода, операторы верхнего уровня (до возвращения
         // локальной функции) выполняются немедленно. Локальная функция выполняется при
@@ -103,7 +102,7 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
                 }
             }
         }
-        
+
         public IEnumerable GetTheVehicles(bool returnReversed)
         {
             // Выполнить проверку на предмет ошибок,
@@ -128,18 +127,18 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
                 }
             }
         }
-        
+
         // or can manually implement IEnumerator
         // public MotorcycleEnum GetEnumerator()
         // {
         //     return new MotorcycleEnum(_motorcycles);
         // }
-        
+
         // IEnumerator implementation 
         // public object Current => ((IEnumerable) this).GetEnumerator().Current;
     }
-    
-    
+
+
 
     // When you implement IEnumerable, you must also implement IEnumerator.
     public class MotorcycleEnum : IEnumerator
@@ -182,6 +181,6 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
                 }
             }
         }
-        
+
     }
 }

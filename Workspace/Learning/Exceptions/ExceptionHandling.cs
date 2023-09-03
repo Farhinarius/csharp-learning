@@ -18,7 +18,7 @@ public static class ExceptionHandling
                 }
                 return numbers[index];
             }
-            
+
             Console.WriteLine(GetNumber(10));
         }
         catch (Exception ex)

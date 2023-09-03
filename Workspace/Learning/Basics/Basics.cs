@@ -1,6 +1,4 @@
 using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Text;
 using Workspace.Learning.Basics.Resources;
 
@@ -19,23 +17,23 @@ namespace Workspace.Learning.Basics
             var someString = Console.ReadLine();
             Console.Write(someString);
         }
-        
+
         public static void DefaultDeclarations()
         {
             Console.WriteLine("Default declarations:");
-            
+
             // compile error without specification of value
             // int myInt;
             // Console.WriteLine($"Value of var myInt is {myInt} and type of {myInt.GetType()}");
-            
+
             int defaultInt = default;
             Console.WriteLine($"Value of var defaultInt is {defaultInt} and type of {defaultInt.GetType()}");
-            
+
             // use case of internal standard constructor
             var allocatedInt = new int();
             Console.WriteLine($"Value of var allocatedInt is {allocatedInt} and type of {allocatedInt.GetType()}");
         }
-        
+
         public static void FormatNumericalData()
         {
             Console.WriteLine("The value 9999 in various formats: ");
@@ -43,60 +41,60 @@ namespace Workspace.Learning.Basics
             Console.WriteLine("d9 format: {0:d9}", 99999);
             Console.WriteLine("f3 format: {0:f3}", 99999);
             Console.WriteLine("n format: {0:n}", 99999);
-            
-            Console.WriteLine ( "Е format: {0:Е}", 99999);
-            Console.WriteLine ("е format: {0:е}", 99999);
+
+            Console.WriteLine("Е format: {0:Е}", 99999);
+            Console.WriteLine("е format: {0:е}", 99999);
             Console.WriteLine("X format: {0:X}", 99999);
             Console.WriteLine("x format: {0:x}", 99999);
-            
+
             var output = $"{99999:X}";
             Console.WriteLine(output);
         }
-        
+
         public static void CharFunctionality()
         {
             Console.WriteLine("=> char type Functionality:");
             char myChar = 'a';
-            
+
             Console.WriteLine("char.IsDigit ( 'a') : {0}", char.IsDigit(myChar));
             Console.WriteLine("char.IsLetter ( 'a ’ ) : {0}", char.IsLetter(myChar));
             Console.WriteLine("char.IsWhiteSpace('Hello There’, 5): {0}", char.IsWhiteSpace("Hello There", 5));
             Console.WriteLine("char.IsWhiteSpace('Hello There', 6): {0}", char.IsWhiteSpace("Hello There", 6));
             Console.WriteLine("char.IsPunctuation(’?'): {0}", char.IsPunctuation('?'));
-            
+
             Console.WriteLine();
         }
-        
+
         public static void ParseFromStrings()
         {
             Console.WriteLine("=> Data type parsing:");
-            
+
             bool b = bool.Parse("True");
-            Console.WriteLine ("Value of b: {0} ", b) ; // Вывод значения b
-            
-            double d = double.Parse ("99.884") ;
-            Console.WriteLine ("Value of d: {0} ", d) ; // Вывод значения d
-            
-            int i = int.Parse ("8") ;
-            Console.WriteLine ("Value of l: {0}", i) ; // Вывод значения i
-            
-            char c = char.Parse ("w") ;
-            Console.WriteLine ("Value of c: {0}" , c) ; // Вывод значения с
-            
+            Console.WriteLine("Value of b: {0} ", b); // Вывод значения b
+
+            double d = double.Parse("99.884");
+            Console.WriteLine("Value of d: {0} ", d); // Вывод значения d
+
+            int i = int.Parse("8");
+            Console.WriteLine("Value of l: {0}", i); // Вывод значения i
+
+            char c = char.Parse("w");
+            Console.WriteLine("Value of c: {0}", c); // Вывод значения с
+
             Console.WriteLine();
         }
-        
+
         public static void ParseFromStringsWithTryParse()
         {
-            Console.WriteLine ("=> Data type parsing with TryParse:");
-            
-            if ( bool.TryParse("True", out bool b) )
+            Console.WriteLine("=> Data type parsing with TryParse:");
+
+            if (bool.TryParse("True", out bool b))
             {
                 Console.WriteLine("Value of b: {0}", b);
             }
-            
+
             string value = "Hello";
-            if ( double.TryParse(value, out double d) )
+            if (double.TryParse(value, out double d))
             {
                 Console.WriteLine("Value of d: {0}", d);
             }
@@ -104,10 +102,10 @@ namespace Workspace.Learning.Basics
             {
                 Console.WriteLine("Failed to convert the input ({0}) to a double", value);
             }
-            
+
             Console.WriteLine();
         }
-        
+
         public static void StringsAreImmutable()
         {
             var s1 = "Welcome";
@@ -115,7 +113,7 @@ namespace Workspace.Learning.Basics
             s1 = "Salam";            // changes s1 but allocates new memory
             Console.WriteLine(s2);
         }
-        
+
         public static void StringBuilderClassUsage()
         {
             Console.WriteLine("=> Using the StringBuilder:");
@@ -149,7 +147,7 @@ namespace Workspace.Learning.Basics
             byte b2 = 250;
             try
             {
-                byte sum = checked((byte) Add(bl, b2));
+                byte sum = checked((byte)Add(bl, b2));
                 Console.WriteLine("sum = {0}", sum);
             }
             catch (OverflowException ex)
@@ -157,7 +155,7 @@ namespace Workspace.Learning.Basics
                 Console.WriteLine(ex.Message);
             }
         }
-        
+
         public static void ProcessBytesAnotherVers()
         {
             byte b1 = 250;
@@ -190,7 +188,7 @@ namespace Workspace.Learning.Basics
                         break;
                     case DaysOfWeek.Tuesday:
                         Console.WriteLine("Mo money mo problems");
-                        break; 
+                        break;
                     case DaysOfWeek.Wednesday:
                         Console.WriteLine("It's ok");
                         break;
@@ -205,17 +203,17 @@ namespace Workspace.Learning.Basics
                         break;
                 }
             }
-            
+
             Console.WriteLine("Wrong input of the day!!!");
         }
-        
+
         public static void ExecutePatternMatchingSwitch()
         {
             Console.WriteLine("1 [Integer (5)], 2 [String (\"Hi\")], 3 [Decimal (2.5)]");
             Console.Write("Please choose an option: ");
             string userChoice = Console.ReadLine();
             object choice;
-            
+
             // Стандартный оператор switch, в котором применяется
             // сопоставление с образцом с константами
             switch (userChoice)
@@ -233,7 +231,7 @@ namespace Workspace.Learning.Basics
                     choice = 5;
                     break;
             }
-            
+
             // Новый оператор switch, в котором применяется
             // сопоставление с образцом с типами
             switch (choice)
@@ -260,7 +258,7 @@ namespace Workspace.Learning.Basics
             Console.Write("Please pick your language preference: ");
             object langChoice = Console.ReadLine();
             var choice = int.TryParse(langChoice.ToString(), out int c) ? c : langChoice;
-            
+
             switch (choice)
             {
                 case int i when i == 2:
@@ -284,7 +282,7 @@ namespace Workspace.Learning.Basics
         {
             Console.WriteLine("Input color:");
             var colorBand = Console.ReadLine();
-            
+
             var colorValue = colorBand switch
             {
                 "Red" => "#FF0000",
@@ -295,8 +293,8 @@ namespace Workspace.Learning.Basics
                 "Indigo" => "#4B0082",
                 "Violet" => "#9400D3",
                 _ => "#FFFFFF"
-            } ;
-            
+            };
+
             Console.WriteLine(colorValue);
         }
 
@@ -317,7 +315,7 @@ namespace Workspace.Learning.Basics
             // Инициализация пустого массива с указанием количество элементов
             var array = new string[4];
         }
-        
+
         public static void DeclareImplicitArrays()
         {
             Console.WriteLine("=> Implicit Array Initialization.");
@@ -336,7 +334,7 @@ namespace Workspace.Learning.Basics
         public static void ArrayOfObjects()
         {
             Console.WriteLine("=> Array of Objects.");
-            
+
             object[] myObjects = new object[4];
             myObjects[0] = 10;
             myObjects[1] = false;
@@ -348,24 +346,24 @@ namespace Workspace.Learning.Basics
             }
             Console.WriteLine();
         }
-        
+
         public static void RectMultidimensionalArray()
         {
             Console.WriteLine("=> Rectangular multidimensional array.");
             int[,] myMatrix;
-            myMatrix = new int[3,4];
-            
-            for(int i = 0; i < 3; i++)
+            myMatrix = new int[3, 4];
+
+            for (int i = 0; i < 3; i++)
             {
-                for(int j = 0; j < 4; j++)
+                for (int j = 0; j < 4; j++)
                 {
                     myMatrix[i, j] = i * j;
                 }
             }
-            
-            for(int i = 0; i < 3; i++)
+
+            for (int i = 0; i < 3; i++)
             {
-                for(int j = 0; j < 4; j++)
+                for (int j = 0; j < 4; j++)
                 {
                     Console.Write(myMatrix[i, j] + "\t");
                 }
@@ -383,10 +381,10 @@ namespace Workspace.Learning.Basics
             {
                 myJagArray[i] = new int[i + 7];
             }
-            
-            for(int i = 0; i < 5; i++)
+
+            for (int i = 0; i < 5; i++)
             {
-                for(int j = 0; j < myJagArray[i].Length; j++)
+                for (int j = 0; j < myJagArray[i].Length; j++)
                 {
                     Console.Write(myJagArray[i][j] + " ");
                 }
@@ -398,19 +396,19 @@ namespace Workspace.Learning.Basics
         public static void IndexAndRangesExample()
         {
             var gothicBands = new string[] { "ra", "papa", "atatata" };
-            
+
             for (int i = 0; i < gothicBands.Length; i++)
             {
                 Index idx = i;
                 Console.Write(gothicBands[idx] + ", ");
             }
-            
+
             for (int i = 1; i <= gothicBands.Length; i++)
             {
                 Index idx = ^i;     // gothicBands.Length - i (i cannot be 0)
                 Console.Write(gothicBands[idx] + ", ");
             }
-            
+
             foreach (var itm in gothicBands[0..2])
             {
                 Console.Write(itm + ", ");

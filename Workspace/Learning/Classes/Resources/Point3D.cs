@@ -11,7 +11,7 @@ namespace Workspace.Learning.Classes.Resources
 
         public Point3D() { }
 
-        public Point3D(int x, int y, int z) 
+        public Point3D(int x, int y, int z)
             : base(x, y) =>
             Z = z;
 

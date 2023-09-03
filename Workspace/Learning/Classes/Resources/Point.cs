@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography;
 
 namespace Workspace.Learning.Classes.Resources
 {
@@ -102,7 +101,7 @@ namespace Workspace.Learning.Classes.Resources
             {
                 return 1;
             }
-            if (this.X < other.X && this.Y < other.Y) 
+            if (this.X < other.X && this.Y < other.Y)
             {
                 return -1;
             }
@@ -113,44 +112,44 @@ namespace Workspace.Learning.Classes.Resources
 
         #region Operators overloading implementation 
 
-        public static Point operator + (Point sourcePoint, Point pointToAdd) 
+        public static Point operator +(Point sourcePoint, Point pointToAdd)
             => new Point(sourcePoint.X + pointToAdd.X, sourcePoint.Y + pointToAdd.Y);
 
-        public static Point operator - (Point sourcePoint, Point pointToSubtract)
+        public static Point operator -(Point sourcePoint, Point pointToSubtract)
             => new Point(sourcePoint.X - pointToSubtract.X, sourcePoint.Y - pointToSubtract.Y);
 
-        public static Point operator + (Point sourcePoint, int change)
+        public static Point operator +(Point sourcePoint, int change)
             => new Point(sourcePoint.X + change, sourcePoint.Y + change);
-        
-        public static Point operator - (Point sourcePoint, int change)
+
+        public static Point operator -(Point sourcePoint, int change)
             => new Point(sourcePoint.X - change, sourcePoint.Y - change);
 
-        public static Point operator + (int change, Point sourcePoint)
+        public static Point operator +(int change, Point sourcePoint)
             => new Point(sourcePoint.X + change, sourcePoint.Y + change);
 
         // cannot subtract point from int
-        public static Point operator ++ (Point sourcePoint)
-            => new Point(sourcePoint.X+1, sourcePoint.Y+1);   
+        public static Point operator ++(Point sourcePoint)
+            => new Point(sourcePoint.X + 1, sourcePoint.Y + 1);
 
-        public static Point operator -- (Point sourcePint)
-            => new Point(sourcePint.X-1, sourcePint.Y-1);
+        public static Point operator --(Point sourcePint)
+            => new Point(sourcePint.X - 1, sourcePint.Y - 1);
 
-        public static bool operator == (Point sourcePoint, Point pointToCompare) 
+        public static bool operator ==(Point sourcePoint, Point pointToCompare)
             => sourcePoint.Equals(pointToCompare);
 
-        public static bool operator != (Point sourcePoint, Point pointToCompare)
+        public static bool operator !=(Point sourcePoint, Point pointToCompare)
             => !sourcePoint.Equals(pointToCompare);
 
-        public static bool operator > (Point sourcePoint, Point pointToCompare)
+        public static bool operator >(Point sourcePoint, Point pointToCompare)
             => sourcePoint.CompareTo(pointToCompare) > 0;
 
-        public static bool operator < (Point sourcePoint, Point pointToCompare)
+        public static bool operator <(Point sourcePoint, Point pointToCompare)
             => sourcePoint.CompareTo(pointToCompare) < 0;
 
-        public static bool operator >= (Point sourcePoint, Point pointToCompare)
+        public static bool operator >=(Point sourcePoint, Point pointToCompare)
             => sourcePoint.CompareTo(pointToCompare) >= 0;
 
-        public static bool operator <= (Point sourcePoint, Point pointToCompare)
+        public static bool operator <=(Point sourcePoint, Point pointToCompare)
             => sourcePoint.CompareTo(pointToCompare) <= 0;
 
         #endregion

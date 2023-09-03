@@ -9,11 +9,11 @@ public static class RecordsUsage
     {
         CarRecord myCarRecord = new CarRecord("Japan", "S3000", "black");
         CarRecord anotherMyCarRecord = new CarRecord("Japan", "S3000", "black");
-        
+
         // Эквивалентны ли экземпляры CarRecord?
         Console.WriteLine($"CarRecords are the same? {myCarRecord.Equals(anotherMyCarRecord)}");        // true
         Console.WriteLine($"MCarRecords are the same reference? {ReferenceEquals(myCarRecord, anotherMyCarRecord)}"); // false
-        
+
         // Указывают ли экземпляры CarRecord на тот же самый объект?
         Console.WriteLine($"CarRecords are the same? {myCarRecord == anotherMyCarRecord}");             // true
         Console.WriteLine($"CarRecords are not the same? {myCarRecord != anotherMyCarRecord}");         // false
@@ -22,7 +22,7 @@ public static class RecordsUsage
     public static void DeepCopyRecords()
     {
         CarRecord myCarRecord = new CarRecord("Japan", "S3000", "black");   // copy with changed properties -> myCarRecord with {Model = "Odyssey"};
-        CarRecord ourOtherCar = myCarRecord with {};
+        CarRecord ourOtherCar = myCarRecord with { };
         Console.WriteLine("My copied car:");
         Console.WriteLine(ourOtherCar.ToString());
         Console.WriteLine("Car Record copy using with expression results");

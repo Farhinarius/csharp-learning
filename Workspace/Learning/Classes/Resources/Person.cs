@@ -5,7 +5,7 @@ namespace Workspace.Learning.Classes.Resources
         public int Age { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        
+
         public Person() { }
         public Person(string firstName, string lastName, int age)
         {

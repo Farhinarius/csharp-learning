@@ -5,7 +5,7 @@ namespace Workspace.Learning.Classes.Resources.Vehicles;
 public abstract class Vehicle
 {
     public string ModelName;
-    
+
     public int Speed;
     public float Cost { get; protected set; }
 

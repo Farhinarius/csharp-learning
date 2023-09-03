@@ -1,5 +1,4 @@
 using System;
-using System.Xml.Schema;
 
 namespace Workspace.Learning
 {
@@ -8,15 +7,15 @@ namespace Workspace.Learning
         public static void TupleUsage()
         {
             // (double, int) t1 = (4.5, 3);
-            (double sum, int count) t2 = (4.5, 3);      
+            (double sum, int count) t2 = (4.5, 3);
             Console.WriteLine($"Sum of {t2.count} elements is {t2.sum}.");
-            
-            
+
+
             (string, int, string) values = ("s", 5, "c");
             Console.WriteLine($"First item: {values.Item1}");
             Console.WriteLine($"Second item: {values.Item2}");
             Console.WriteLine($"Third item: {values.Item3}");
-            
+
             // deconstructed tuple
             var (item1, item2, item3) = ("s", 5, "c");
             Console.WriteLine($"First item: {item1}");

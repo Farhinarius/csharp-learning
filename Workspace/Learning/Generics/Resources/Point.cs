@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Workspace.Learning.Generics.Resources
+﻿namespace Workspace.Learning.Generics.Resources
 {
     public class Point<T>
     {
@@ -20,7 +14,7 @@ namespace Workspace.Learning.Generics.Resources
             _xPos = xVal;
             _yPos = yVal;
         }
-        
+
         // Обобщенные свойства,
         public T X
         {

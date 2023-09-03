@@ -17,12 +17,12 @@ namespace Workspace.Learning.Classes.Resources.Enemies
         public virtual void Heal(float amount = 1) => Health += amount;                 // can be overriden - standard implementation 
 
         public abstract void Attack();      // must be overriden - protocol
-        
+
         public virtual void LevelUp(float updatedMaxHealth, float updatedAttackDamage)  // can be overriden - standard implementation 
         {
             MaxHealth = updatedMaxHealth;
             AttackDamage = updatedAttackDamage;
         }
-        
+
     }
 }

@@ -5,23 +5,23 @@ namespace Workspace.Learning.Generics.Resources
     public class Airplane
     {
         #region Nested
-        
+
         public enum Model
         {
             Passenger,
             Private,
             Business,
-            Corporate 
+            Corporate
         }
-        
+
         #endregion
-        
-        # region Static
+
+        #region Static
 
         private static readonly Array Models;
 
         private static readonly Random Random;
-        
+
         static Airplane()
         {
             Random = new Random();
@@ -29,18 +29,18 @@ namespace Workspace.Learning.Generics.Resources
         }
 
         public static Model RandomModel =>
-            (Model?) Models.GetValue(Random.Next(Models.Length)) 
+            (Model?)Models.GetValue(Random.Next(Models.Length))
             ?? throw new NullReferenceException();
 
         #endregion
 
         public Model ModelType;
-        
+
         public Airplane()
         {
             ModelType = RandomModel;
         }
-        
+
         public Airplane(Model modelType)
         {
             ModelType = modelType;

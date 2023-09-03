@@ -5,7 +5,7 @@ namespace Workspace.Learning.Classes.Resources.Figures;
 
 public class Hexagon : Shape, IPointy, IDraw3d
 {
-    public Hexagon() {}
+    public Hexagon() { }
 
     public Hexagon(string name) : base(name) { }
 

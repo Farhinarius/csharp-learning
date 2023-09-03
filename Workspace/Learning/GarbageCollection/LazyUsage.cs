@@ -8,7 +8,7 @@ public class LazyUsage
     {
         MediaPlayer md = new MediaPlayer();
         md.Play();
-            
+
         // Размещение объекта AllTracks происходит
         // только в случае вызова метода GetAllTracks().
         MediaPlayer yourPlayer = new MediaPlayer();

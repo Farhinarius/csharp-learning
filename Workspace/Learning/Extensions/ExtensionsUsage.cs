@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Workspace.Learning.Classes.Resources;
 using Workspace.Learning.Classes.Resources.Vehicles;
 using Workspace.Learning.Extensions.Resources;
@@ -149,7 +148,6 @@ namespace Workspace.Learning.Extensions
         // • Анонимные типы не могут поддерживать события, специальные методы, специальные операции или специальные переопределения.
         // • Анонимные типы всегда неявно запечатаны.
         // • Экземпляры анонимных типов всегда создаются с применением стандартных конструкторов.
-
         public static void BuildAnonymousType()
         {
             // instantiate anonymous type. Fields of anonymous type is readonly. Anonymous type have inherits from System.Object and

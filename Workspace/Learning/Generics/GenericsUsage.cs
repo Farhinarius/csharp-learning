@@ -21,8 +21,8 @@ namespace Workspace.Learning.Generics
             // Упаковать int в ссылку на object,
             object boxedlnt = mylnt;
             // Распаковать ссылку обратно в int.
-            int unboxedlnt = (int) boxedlnt;
-            
+            int unboxedlnt = (int)boxedlnt;
+
             // Распаковать в неподходящий тип данных, чтобы
             // инициировать исключение времени выполнения.
             try
@@ -73,7 +73,7 @@ namespace Workspace.Learning.Generics
                 Console.WriteLine(element);
             }
         }
-        
+
         // • Обобщения обеспечивают лучшую производительность, т.к. лишены накладных
         //   расходов по упаковке/распаковке, когда хранят типы значений.
         // • Обобщения безопасны в отношении типов, потому что могут содержать только объекты указанного типа.
@@ -101,7 +101,7 @@ namespace Workspace.Learning.Generics
             people.ForEach(p => Console.WriteLine(p.FirstName));
 
             // create and show list of Point values
-            List<Point> points  = new List<Point>()
+            List<Point> points = new List<Point>()
             {
                 new Point { X = 5, Y = 1 },
                 new Point3D { X = 1, Y = 1, Z = 1 },
@@ -110,7 +110,7 @@ namespace Workspace.Learning.Generics
             };
             points.Add(new Point { X = 10, Y = 20 });
             points.Remove(points.First());
-            
+
             points.AddRange(points);
             points.ForEach(p => p.Display());
         }
@@ -125,7 +125,7 @@ namespace Workspace.Learning.Generics
                 { 'C', new Person { FirstName = "Carl"} },
                 { 'D', new Person { FirstName = "Denis"} }
             };
-            
+
             foreach ((char key, Person person) in personDictionary)
             {
                 Console.WriteLine($"{key} {person.FirstName}");
@@ -146,7 +146,7 @@ namespace Workspace.Learning.Generics
             {
                 observableAirplanes.Add(new Airplane());
             }
-            
+
             for (int i = 4; i >= 0; i--)
             {
                 observableAirplanes.RemoveAt(i);
@@ -160,15 +160,15 @@ namespace Workspace.Learning.Generics
                 {
                     foreach (var item in args.NewItems)
                     {
-                        Console.WriteLine($"Added Item: {( (Airplane) item ).ModelType}");
+                        Console.WriteLine($"Added Item: {((Airplane)item).ModelType}");
                     }
                 }
-                
+
                 if (args.OldItems != null && args.OldItems.Count != 0)
                 {
                     foreach (var item in args.OldItems)
                     {
-                        Console.WriteLine($"Removed Item: { ((Airplane) item).ModelType} ");
+                        Console.WriteLine($"Removed Item: {((Airplane)item).ModelType} ");
                     }
                 }
 
@@ -200,7 +200,7 @@ namespace Workspace.Learning.Generics
             Console.WriteLine($"{a}, {b}");
             Swap<float>(ref a, ref b); // or Spaw<Type>(a, b)
             Console.WriteLine($"{a}, {b}");
-                                // 
+            // 
             Person p1 = new Person { Age = 12, FirstName = "Foo", LastName = "Bar" };
             Person p2 = new Person { Age = 13, FirstName = "Baaboo", LastName = "Maamoo" };
 

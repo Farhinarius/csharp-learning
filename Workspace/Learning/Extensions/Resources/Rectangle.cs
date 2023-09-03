@@ -30,10 +30,10 @@ namespace Workspace.Learning.Extensions.Resources
 
         public static implicit operator Rectangle(Square s)
             => new Rectangle
-               {
-                   Height = s.Length,
-                   Width = s.Length * 2
-               };
+            {
+                Height = s.Length,
+                Width = s.Length * 2
+            };
 
 
 

@@ -6,7 +6,7 @@ public class AdvancedResourceWrapper : IDisposable
 {
     // Используется для выяснения, вызывался ли метод Dispose().
     private bool _disposed = false;
-    
+
     public void Dispose()
     {
         // Вызвать вспомогательный метод.
@@ -29,7 +29,7 @@ public class AdvancedResourceWrapper : IDisposable
             }
             // Очистить неуправляемые ресурсы.
         }
-        
+
         _disposed = true;
     }
     ~AdvancedResourceWrapper()

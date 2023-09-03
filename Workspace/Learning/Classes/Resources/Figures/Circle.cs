@@ -5,8 +5,8 @@ namespace Workspace.Learning.Classes.Resources.Figures;
 
 public class Circle : Shape, IDraw3d
 {
-    public Circle() {}
-    public Circle(string name) : base(name) {}
+    public Circle() { }
+    public Circle(string name) : base(name) { }
 
     public override void Draw()
     {

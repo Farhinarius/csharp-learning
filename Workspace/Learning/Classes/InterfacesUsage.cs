@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Workspace.Learning.Classes.Resources;
 using Workspace.Learning.Classes.Resources.Figures;
 using Workspace.Learning.Classes.Resources.Figures.Interfaces;
@@ -32,7 +31,7 @@ public static class InterfacesUsage
         }
         return null;
     }
-    
+
     public static void CloneableExample()
     {
         const string myStr = "helloStr";
@@ -50,7 +49,7 @@ public static class InterfacesUsage
             var figurePoints = (figure as IPointy)?.Points ?? 0;
             var figureType = figure?.GetType();
             Console.WriteLine($"Figure {figureType} has {figurePoints} amount of points and ");
-            
+
             if (figure is IRegularPointy regularPointy)
             {
                 regularPointy.SideLength = 4;
@@ -63,9 +62,9 @@ public static class InterfacesUsage
     {
         PassInterfaceTypeAsParameter(new Hexagon());
         PassInterfaceTypeAsParameter(new Circle());
-        
+
         Shape[] myShapes = { new Hexagon(), new Circle(),
-            new Triangle("Joe"), new Circle("JoJo") } ;
+            new Triangle("Joe"), new Circle("JoJo") };
         foreach (var t in myShapes)
         {
             // Можно ли нарисовать эту фигуру в трехмерном виде?
@@ -100,24 +99,24 @@ public static class InterfacesUsage
     {
         BitmapImage bitmapImage = new BitmapImage();
         bitmapImage.Draw();
-        bitmapImage.DrawInBoundingBox(10,10,100,100);
+        bitmapImage.DrawInBoundingBox(10, 10, 100, 100);
         bitmapImage.DrawUpsideDown();
         // instance of BitmapImage do not have access to TimeToDraw standard implementation of interface member
         // bitmapImage.TimeToDraw -> Compile error occured
         if (bitmapImage is IAdvancedDraw advancedDrawable)
         {
             advancedDrawable.DrawUpsideDown();
-            Console.WriteLine($"Time to draw: {advancedDrawable.TimeToDraw() }");   // only interface casted type can reach inherited interface type  
+            Console.WriteLine($"Time to draw: {advancedDrawable.TimeToDraw()}");   // only interface casted type can reach inherited interface type  
         }
-        
+
         // if class implement standard interface member, then after call of implemented member either on class, or on interface every time
         // will be called implementation of that member
         Console.WriteLine("Calling Implemented TimeToDraw");
         Console.WriteLine($"Time to draw: {bitmapImage.TimeToDraw()}");         // implementation inside BitmapImage  
-        Console.WriteLine($"Time to draw: {((IDraw) bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
-        Console.WriteLine($"Time to draw: {((IAdvancedDraw) bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
+        Console.WriteLine($"Time to draw: {((IDraw)bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
+        Console.WriteLine($"Time to draw: {((IAdvancedDraw)bitmapImage).TimeToDraw()}");   // implementation inside BitmapImage
     }
-    
+
     public static void UseEnumeratorImplicitly()
     {
         Garage garage = new Garage();
@@ -126,7 +125,7 @@ public static class InterfacesUsage
             vehicle.Display();
         }
     }
-    
+
     public static void UseEnumeratorExplicitlyWithImplicitInterfaceImplementation()
     {
         Garage garage = new Garage();
@@ -139,16 +138,16 @@ public static class InterfacesUsage
             vehicle?.Display();
         }
     }
-    
+
     public static void UseEnumeratorExplicitlyWithExplicitInterfaceImplementation()
     {
         Garage garage = new Garage();
 
-        var e = ( (IEnumerable) garage ).GetEnumerator();
+        var e = ((IEnumerable)garage).GetEnumerator();
         for (var i = 0; i < garage.Count; i++)
         {
             e.MoveNext();
-            var vehicle = (Vehicle) e.Current;
+            var vehicle = (Vehicle)e.Current;
             vehicle?.Display();
         }
     }
@@ -209,11 +208,11 @@ public static class InterfacesUsage
     public static void UseICloneableToCloneObject()
     {
         Point p3 = new Point(1, 1);
-        Point p4 = (Point) p3.Clone();
-        
+        Point p4 = (Point)p3.Clone();
+
         // Изменить р4.Х (что не приводит к изменению рЗ.х). Убедились, что работаем с клоном
         p4.X = 0;
-        
+
         // Вывести все объекты.
         Console.WriteLine($"Original point: {p3}");
         Console.WriteLine($"Cloned and changed point : {p4}");
@@ -223,14 +222,14 @@ public static class InterfacesUsage
     {
         Point p3 = new Point(1, 1);
         Point p4 = (Point)p3.Clone();
-        
+
         Console.WriteLine("Before modification:"); // Перед модификацией
         Console.WriteLine("p3: {0}", p3);
         Console.WriteLine("p4: {0}", p4);
-        
+
         p4.Pd.PetName = "My new Point";
         p4.X = 9;
-        
+
         Console.WriteLine("\nChanged p4.Pd.PetName and p4.X");
         Console.WriteLine("After modification:");
         Console.WriteLine("p3: {0}", p3);
@@ -246,21 +245,21 @@ public static class InterfacesUsage
         myAutos[4] = new Car("Viper", 40, 34);
         myAutos[0] = new Car("Mel", 40, 4);
         myAutos[2] = new Car("Chucky", 40, 5);
-        
+
         // Отобразить текущее содержимое массива.
         Console.WriteLine("Here is the unordered set of cars:");
-        foreach(var c in myAutos)
+        foreach (var c in myAutos)
         {
             Console.WriteLine("{0} {1}", c.Id, c.ModelName);
         }
-        
+
         // Теперь отсортировать массив с применением IComparable!
         Array.Sort(myAutos);
         Console.WriteLine();
-        
+
         // Отобразить отсортированное содержимое массива.
         Console.WriteLine("Here is the ordered set of cars:");
-        foreach(Car c in myAutos)
+        foreach (Car c in myAutos)
         {
             Console.WriteLine("{0} {1}", c.Id, c.ModelName);
         }
@@ -275,27 +274,27 @@ public static class InterfacesUsage
         myAutos[4] = new Car("Viper", 40, 34);
         myAutos[0] = new Car("Mel", 40, 4);
         myAutos[2] = new Car("Chucky", 40, 5);
-        
+
         // Отобразить текущее содержимое массива.
         Console.WriteLine("Here is the unordered set of cars:");
-        foreach(var c in myAutos)
+        foreach (var c in myAutos)
         {
             Console.WriteLine("{0} {1}", c.Id, c.ModelName);
         }
-        
+
         // Теперь отсортировать массив с применением IComparable!
         Array.Sort(myAutos, Car.SortByCarModelName);
         Console.WriteLine();
-        
+
         // Отобразить отсортированное содержимое массива.
         Console.WriteLine("Here is the ordered set of cars:");
-        foreach(Car c in myAutos)
+        foreach (Car c in myAutos)
         {
             Console.WriteLine("{0} {1}", c.Id, c.ModelName);
         }
-        
-    }
-    
 
-    
+    }
+
+
+
 }

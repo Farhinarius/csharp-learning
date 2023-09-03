@@ -3,7 +3,7 @@ using Workspace.Learning.Classes.Resources.Figures.Interfaces;
 
 namespace Workspace.Learning.Classes.Resources.Figures;
 
-public class Triangle: Shape, IPointy
+public class Triangle : Shape, IPointy
 {
     public Triangle() { }
     public Triangle(string name) : base(name) { }

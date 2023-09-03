@@ -31,7 +31,7 @@ namespace Workspace.Learning.Extensions.Resources
             => new Square { Length = r.Height };
 
         // cast type int (argument) to type square (operator name)
-        public static explicit operator Square(int sideLength) 
+        public static explicit operator Square(int sideLength)
             => new Square { Length = sideLength };
 
         // cast type Square as argument to type int

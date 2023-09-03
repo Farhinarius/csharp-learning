@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using Workspace.Learning.Classes;
-using Workspace.Learning.Classes.Resources.Vehicles;
 using Workspace.Learning.Extensions;
-using Workspace.Learning.GarbageCollection;
-using Workspace.Learning.Generics;
 
 namespace Workspace
 {
@@ -37,11 +32,11 @@ namespace Workspace
             double[] doubles = DelegateExample.Apply(a, m.Multiply);
             DelegateExample.OutputArray(doubles);
         }
-        
+
     }
 
     #region Delegate Usage
-    
+
     class Multiplier
     {
         double _factor;
@@ -50,15 +45,15 @@ namespace Workspace
 
         public double Multiply(double x) => x * _factor;
     }
-    
+
     internal delegate double Function(double x);
-    
+
     internal static class DelegateExample
     {
         public static double[] Apply(double[] a, Function f)
         {
             var result = new double[a.Length];
-            for (int i = 0; i < a.Length; i++) 
+            for (int i = 0; i < a.Length; i++)
                 result[i] = f(a[i]);
             return result;
         }
@@ -73,6 +68,6 @@ namespace Workspace
             Console.WriteLine();
         }
     }
-    
+
     #endregion
 }

@@ -8,6 +8,6 @@ public class MediaPlayer
     public void Pause() { /* pause playing */ }
     public void Stop() { /* stop playing */ }
 
-    public Lazy<Song[]> AllSongs { get; } = new (() => new Song[10_000]);
+    public Lazy<Song[]> AllSongs { get; } = new(() => new Song[10_000]);
 
 }
