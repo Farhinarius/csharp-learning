@@ -1,5 +1,5 @@
 ﻿using System;
-using Workspace.Learning.Extensions;
+using Workspace.Learning.Events;
 
 namespace Workspace
 {
@@ -7,7 +7,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            ExtensionsUsage.BuildAnonoymousTypeInAnonymousType();
+            EventsUsage.TestDelegateType();
         }
     }
 }
