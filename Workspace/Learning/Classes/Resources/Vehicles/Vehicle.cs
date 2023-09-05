@@ -4,28 +4,28 @@ namespace Workspace.Learning.Classes.Resources.Vehicles;
 
 public abstract class Vehicle
 {
-    public string ModelName;
+    public string ModelName { get; protected set; }
 
-    public int Speed;
+    public int CurrentSpeed { get; protected set; }
     public float Cost { get; protected set; }
 
     // constructor chain implementation
-    protected Vehicle(string modelName = "moto", int speed = 0, float cost = 10000)
+    protected Vehicle(string modelName = "moto", int currentSpeed = 0, float cost = 10000)
     {
         ModelName = modelName;
-        Speed = speed;
+        CurrentSpeed = currentSpeed;
         Cost = cost;
     }
 
     public virtual void Display()
     {
         Console.WriteLine($"Name: {ModelName} " +
-                          $"\nSpeed: {Speed}" +
+                          $"\nSpeed: {CurrentSpeed}" +
                           $"\nCost: {Cost}\n");
     }
 
     public override string ToString()
     {
-        return $"Name: {ModelName}\nSpeed: {Speed}\nCost: {Cost}\n";
+        return $"Name: {ModelName}\nSpeed: {CurrentSpeed}\nCost: {Cost}\n";
     }
 }
