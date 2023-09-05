@@ -7,22 +7,70 @@ public class Car : Vehicle, IComparable<Car> // IComparable - uncomment to test 
 {
     private static int _constructCounter = 0;
     public int Id { get; init; }
+    public int MaxSpeed { get; init; }
+    public bool CarIsDead { get; private set; } = default;
+
+    public delegate void CarEngineHandler(string msgForCaller);
+    
+    private CarEngineHandler _listOfHandlers;
+
+    public void RegisterCarEngineHandler(CarEngineHandler methodToCall)
+    {
+        _listOfHandlers += methodToCall;
+    }
+
+    public void UnregisterCarEngineHandler(CarEngineHandler methodToRemove)
+    {
+        _listOfHandlers -= methodToRemove;
+    }
 
     // specify standard constructor, that will be set all fields on default values
-    public Car() { }
+    public Car() { } 
 
     // constructor chain implementation
     public Car(string modelName) : this(modelName, 0) { }
 
     // constructor chain implementation
-    public Car(int speed) : this(modelName: "auto", speed) { }
+    public Car(int speedToSet) : this(modelName: "undefined", speedToSet) { }
 
     // constructor chain implementation
-    public Car(string modelName = "moto", int speed = 0, float cost = 10000) : base(modelName, speed, cost)
+    public Car(string modelName = "undefined", int currentSpeed = 0, int maxSpeed = 200, float cost = 10000) 
+        : base(modelName, currentSpeed, cost)
     {
         Id = _constructCounter;
         _constructCounter++;
+        MaxSpeed = maxSpeed;
     }
+
+    public void Accelerate(int delta)
+    {
+        // Если этот автомобиль сломан, то отправить сообщение об этом,
+        if (CarIsDead)
+        {
+            _listOfHandlers?.Invoke("Sorry, this car is dead...");
+        }
+        else
+        {
+            CurrentSpeed += delta;
+            Console.WriteLine("CurrentSpeed = {0}", CurrentSpeed);
+            // Автомобиль почти сломан?
+            if (Math.Abs(MaxSpeed - CurrentSpeed) <= 10)
+            {
+                _listOfHandlers?.Invoke("Careful buddy! Gonna blow!");
+            }
+            if (CurrentSpeed > MaxSpeed)
+            {
+                CarIsDead = true;
+            }
+        }
+    }
+
+    public void Reset()
+    {
+        CurrentSpeed = 0;
+        CarIsDead = false;
+    }
+
 
     #region IComparable
 
