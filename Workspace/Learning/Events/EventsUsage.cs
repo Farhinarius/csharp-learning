@@ -147,10 +147,7 @@ public static class EventsUsage
     {
         var car = new Car(currentSpeed: 0);
 
-        car.OnExplode += (msg) =>
-        {
-            Console.WriteLine(msg);
-        };
+        car.OnExplode += Console.WriteLine;
 
         for (int i = 0; i < 22; i++)
         {
