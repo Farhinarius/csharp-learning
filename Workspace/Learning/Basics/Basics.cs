@@ -301,12 +301,15 @@ namespace Workspace.Learning.Basics
         public static void ArrayInitialization()
         {
             Console.WriteLine("=> Array Initialization.");
+
             // Синтаксис инициализации массивов с использованием ключевого слова new.
             string[] stringArray = new string[] { "one", "two", "three" };
             Console.WriteLine("stringArray has {0} elements", stringArray.Length);
+
             // Синтаксис инициализации массивов без использования ключевого слова new.
             bool[] boolArray = { false, false, true };
             Console.WriteLine("boolArray has {0} elements", boolArray.Length);
+
             // Инициализация массива с применением ключевого слова new и указанием размера.
             int[] intArray = new int[4] { 20, 22, 23, 0 };
             Console.WriteLine("intArray has {0} elements", intArray.Length);
@@ -319,14 +322,18 @@ namespace Workspace.Learning.Basics
         public static void DeclareImplicitArrays()
         {
             Console.WriteLine("=> Implicit Array Initialization.");
+
             // Переменная а на самом деле имеет тип int[].
             var a = new[] { 1, 10, 100, 1000 };
             Console.WriteLine("a is a: {0}", a.ToString());
+
             // Переменная b на самом деле имеет тип double[].
             var b = new[] { 1, 1.5, 2, 2.5 };
             Console.WriteLine("b is a: {0}", b.ToString());
+
             // Переменная с на самом деле имеет тип string[].
             var c = new[] { "hello", null, "world" };
+
             Console.WriteLine("c is a: {0}", c.ToString());
             Console.WriteLine();
         }
