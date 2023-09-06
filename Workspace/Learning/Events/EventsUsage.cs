@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using Workspace.Learning.Classes.Resources.Vehicles;
 using Workspace.Learning.Events.Resources;
+using Workspace.Learning.Extensions;
 
 namespace Workspace.Learning.Events;
 
 public static class EventsUsage
 {
     private delegate int BinaryOp(int x, int y);
+
+    private delegate void MyGenericDelegate<T>(T args);
 
     public static void TestDelegateType()
     {
@@ -29,7 +33,7 @@ public static class EventsUsage
         }
     }
 
-    public static void TestDelegateInstancesAsEvents()
+    public static void TestDelegateInstances()
     {
         Car car = new Car(currentSpeed: 0, maxSpeed: 200);
 
@@ -69,5 +73,89 @@ public static class EventsUsage
     public static void OnCarEngineBroken(string msg)
     {
         Console.WriteLine($"Car engine message received");
+    }
+
+    public static void TestGenericDelegate()
+    {
+        MyGenericDelegate<string> strTarget = (str) =>
+        {
+            Console.WriteLine("Upper string: {0}", str.ToUpper());
+        };
+
+        MyGenericDelegate<int> intTarget = (number) =>
+        {
+            Console.WriteLine("Increment number: {0}", ++number);
+        };
+
+        MyGenericDelegate<(string statusMessage, int statusCode)> messageHandler = (response) =>
+        {
+            Console.WriteLine("Status message: {0}", response.statusMessage);
+            Console.WriteLine("Status code: {0}", response.statusCode);
+        };
+
+        EventHandler<(int, int, string)> responseHandler = (s, args) =>
+        {
+            Console.WriteLine("Status code: {0}", args.Item1);
+            Console.WriteLine("Error code: {0}", args.Item2);
+            Console.WriteLine("Message: {0}", args.Item3);
+        };
+
+        strTarget("Ultimate super cool string");
+        Console.WriteLine();
+        
+        intTarget(10);
+        Console.WriteLine();
+        
+        messageHandler?.Invoke(("Ultimate super cool string", 5));
+        Console.WriteLine();
+
+        responseHandler?.Invoke(null, (1, 0, "Response retrieved"));
+        Console.WriteLine();
+    }
+
+    public static void TestActionDelegate()
+    {
+        Action<string, ConsoleColor, int> actionTarget = (msg, textColor, printCount) =>
+        {
+            ConsoleColor previous = Console.ForegroundColor;
+            Console.ForegroundColor = textColor;
+            for (int i = 0; i < printCount; i++)
+            {
+                Console.WriteLine(msg);
+            }
+            Console.ForegroundColor = previous;
+        };
+
+        actionTarget("Action Message!", ConsoleColor.Yellow, 5);
+    }
+
+    public static void TestFuncDelegate()
+    {
+        Func<int, int, int> addFunc = SimpleMath.Add;
+        int result = addFunc.Invoke(5, 5);
+        Console.WriteLine("5 + 5 = {0}", result);
+
+        Func<int, int, string> sumToStringFunc = (x, y) =>
+        {
+            return (x + y).ToString();
+        };
+        string sum = sumToStringFunc?.Invoke(5, 5);
+        Console.WriteLine(sum);
+    }
+
+    public static void TestEvents()
+    {
+        var car = new Car(currentSpeed: 0);
+
+        car.OnExplode += (msg) =>
+        {
+            Console.WriteLine(msg);
+        };
+
+        for (int i = 0; i < 22; i++)
+        {
+            car.Accelerate(10);
+        }
+
     }
 }

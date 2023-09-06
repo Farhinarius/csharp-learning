@@ -14,6 +14,9 @@ public class Car : Vehicle, IComparable<Car> // IComparable - uncomment to test 
     
     private CarEngineHandler _listOfHandlers;
 
+    // when using event modificator, protect delegate instance from misusing from calling code
+    public event CarEngineHandler OnExplode;
+
     public void RegisterCarEngineHandler(CarEngineHandler methodToCall)
     {
         _listOfHandlers += methodToCall;
@@ -31,7 +34,7 @@ public class Car : Vehicle, IComparable<Car> // IComparable - uncomment to test 
     public Car(string modelName) : this(modelName, 0) { }
 
     // constructor chain implementation
-    public Car(int speedToSet) : this(modelName: "undefined", speedToSet) { }
+    public Car(int currentSpeed) : this(modelName: "undefined", currentSpeed) { }
 
     // constructor chain implementation
     public Car(string modelName = "undefined", int currentSpeed = 0, int maxSpeed = 200, float cost = 10000) 
@@ -48,6 +51,7 @@ public class Car : Vehicle, IComparable<Car> // IComparable - uncomment to test 
         if (CarIsDead)
         {
             _listOfHandlers?.Invoke("Sorry, this car is dead...");
+            OnExplode?.Invoke("Sorry, this car is dead...");
         }
         else
         {
