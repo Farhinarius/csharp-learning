@@ -48,7 +48,7 @@ public static class EventsUsage
         car.RegisterCarEngineHandler(OnCarEngineBroken);
 
         // assgin anonymous method as handler to delegate instance (_listOfHandlers) inside car class
-        car.RegisterCarEngineHandler((msg) =>
+        car.RegisterCarEngineHandler((_, msg) =>
         {
             Console.WriteLine("Message From Car Object => {0}", msg);
         });
@@ -70,7 +70,7 @@ public static class EventsUsage
     }
 
     // callback declaration
-    public static void OnCarEngineBroken(string msg)
+    public static void OnCarEngineBroken(object sender, string msg)
     {
         Console.WriteLine($"Car engine message received");
     }
@@ -147,12 +147,54 @@ public static class EventsUsage
     {
         var car = new Car(currentSpeed: 0);
 
-        car.OnExplode += Console.WriteLine;
+        car.OnExplode += (_, msg) => Console.WriteLine(msg);
 
         for (int i = 0; i < 22; i++)
         {
             car.Accelerate(10);
         }
+    }
 
+    public static void TestAnonymousHandlers()
+    {
+        Car car = new Car("SlugBug", 10, 100);
+
+        car.OnExplode += delegate
+        {
+            Console.WriteLine("OnExplode callback");
+        };
+
+        car.OnExplode += delegate (object sender, string msg)
+        {
+            Console.WriteLine(msg);
+        };
+
+        int aboutToBlowCounter = 0;
+        // Зарегистрировать обработчики событий как анонимные методы,
+        car.OnAboutToBlow += delegate
+        {
+            aboutToBlowCounter++;
+            Console.WriteLine("Eek! Going too fast!, aboutToBlowCounter + 1");
+        };
+
+        car.OnAboutToBlow += delegate (object sender, string message)
+        {
+            aboutToBlowCounter++;
+            Console.WriteLine("Critical Message from Car: {0}, aboutToBlowCounter + 1", message);
+        };
+
+        car.OnAboutToBlow += static delegate
+        {
+            // aboutToBlowCounter++         // error: CS8820 A static anonymous function cannot contain a reference to aboutToBlowCounter
+            Console.WriteLine("Static anonumous method called. Cannot change local external variables in internal anonymous method context");
+        };
+
+        // В конце концов, это будет инициировать события,
+        for (int i = 0; i < 10; i++)
+        {
+            car.Accelerate(10);
+        }
+        Console.WriteLine("AboutToBlow event was fired {0} times.", aboutToBlowCounter);
+        Console.ReadLine();
     }
 }

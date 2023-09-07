@@ -10,21 +10,26 @@ public class Car : Vehicle, IComparable<Car> // IComparable - uncomment to test 
     public int MaxSpeed { get; init; }
     public bool CarIsDead { get; private set; } = default;
 
-    public delegate void CarEngineHandler(string msgForCaller);
-    
-    private CarEngineHandler _listOfHandlers;
+    public delegate void CarEngineHandler(object sender, string msgForCaller);
+
+    // created for demonstration purposes (a.k.a private delegate instance (secured)) -> event can secure public delegate instances
+    //private CarEngineHandler _listOfHandlersAboutToBlow;
+
+    public event CarEngineHandler OnAboutToBlow;
 
     // when using event modificator, protect delegate instance from misusing from calling code
-    public event CarEngineHandler OnExplode;
+    public event EventHandler<string> OnExplode;
 
     public void RegisterCarEngineHandler(CarEngineHandler methodToCall)
     {
-        _listOfHandlers += methodToCall;
+        // _listOfHandlersAboutToBlow += methodToCall           // old implementation of registration callback to private delegate instance
+        OnAboutToBlow += methodToCall;
     }
 
     public void UnregisterCarEngineHandler(CarEngineHandler methodToRemove)
     {
-        _listOfHandlers -= methodToRemove;
+        // _listOfHandlersAboutToBlow += methodToCall           // old implementation of unregistration callback to private delegate instance
+        OnAboutToBlow -= methodToRemove;
     }
 
     // specify standard constructor, that will be set all fields on default values
@@ -50,8 +55,8 @@ public class Car : Vehicle, IComparable<Car> // IComparable - uncomment to test 
         // Если этот автомобиль сломан, то отправить сообщение об этом,
         if (CarIsDead)
         {
-            _listOfHandlers?.Invoke("Sorry, this car is dead...");
-            OnExplode?.Invoke("Sorry, this car is dead...");
+            OnAboutToBlow?.Invoke(this, "Sorry, this car is dead...");
+            OnExplode?.Invoke(this, "Sorry, this car is dead...");
         }
         else
         {
@@ -60,7 +65,7 @@ public class Car : Vehicle, IComparable<Car> // IComparable - uncomment to test 
             // Автомобиль почти сломан?
             if (Math.Abs(MaxSpeed - CurrentSpeed) <= 10)
             {
-                _listOfHandlers?.Invoke("Careful buddy! Gonna blow!");
+                OnAboutToBlow?.Invoke(this, "Careful buddy! Gonna blow!");
             }
             if (CurrentSpeed > MaxSpeed)
             {
