@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 using Workspace.Learning.Classes.Resources.Vehicles;
 using Workspace.Learning.Events.Resources;
-using Workspace.Learning.Extensions;
 
 namespace Workspace.Learning.Events;
 
-public static class EventsUsage
+public static class DelegaetsUsage
 {
     private delegate int BinaryOp(int x, int y);
 
@@ -77,17 +75,17 @@ public static class EventsUsage
 
     public static void TestGenericDelegate()
     {
-        MyGenericDelegate<string> strTarget = (str) =>
+        MyGenericDelegate<string> strTarget = str =>
         {
             Console.WriteLine("Upper string: {0}", str.ToUpper());
         };
 
-        MyGenericDelegate<int> intTarget = (number) =>
+        MyGenericDelegate<int> intTarget = number =>
         {
             Console.WriteLine("Increment number: {0}", ++number);
         };
 
-        MyGenericDelegate<(string statusMessage, int statusCode)> messageHandler = (response) =>
+        MyGenericDelegate<(string statusMessage, int statusCode)> messageHandler = response =>
         {
             Console.WriteLine("Status message: {0}", response.statusMessage);
             Console.WriteLine("Status code: {0}", response.statusCode);
@@ -197,4 +195,46 @@ public static class EventsUsage
         Console.WriteLine("AboutToBlow event was fired {0} times.", aboutToBlowCounter);
         Console.ReadLine();
     }
+
+    public static void TestLambdaWithLinq()
+    {
+        List<int> ints = new List<int> { 20, 1, 4, 8, 9, 44 };
+
+        List<int> evenNumbers = ints.FindAll(n => (n % 2) == 0);
+
+        List<int> oddNumbers = ints.FindAll(i =>
+        {
+            Console.WriteLine("value of i is currently: {0}", i);
+            bool isOdd = (i % 2) != 0;
+            return isOdd;
+        });
+
+
+        Console.WriteLine("Here are your even nubmers:");
+        foreach (var evenNumber in evenNumbers)
+        {
+            Console.Write("{0}\t", evenNumber);
+        }
+
+        Console.WriteLine("Here are your odd nubmers:");
+        foreach (var oddNumber in oddNumbers)
+        {
+            Console.Write("{0}\t", oddNumber);
+        }
+
+    }
+
+    public static void TetsStaticKeywordWithLambda()
+    {
+        var outerVariable = 0;
+        Func<int, int, bool> DoWork = static (x, y) =>
+        {
+            // Ошибка на этапе компиляции по причине доступа
+            // к внешней переменной.
+            // outerVariable++;
+            return true;
+        };
+    }
+
+
 }
