@@ -1,5 +1,6 @@
 ﻿using System;
 using Workspace.Learning.Events;
+using Workspace.Learning.Linq;
 
 namespace Workspace
 {
@@ -7,7 +8,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            DelegaetsUsage.TestLambdaWithLinq();
+            LinqUsage.TestQueryOverStrings();
         }
     }
 }
