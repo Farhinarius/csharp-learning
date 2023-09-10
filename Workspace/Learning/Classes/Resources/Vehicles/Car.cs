@@ -7,8 +7,24 @@ public class Car : Vehicle, IComparable<Car> // IComparable - uncomment to test 
 {
     private static int _constructCounter = 0;
     public int Id { get; init; }
-    public int MaxSpeed { get; init; }
     public bool CarIsDead { get; private set; } = default;
+
+    // specify standard constructor, that will be set all fields on default values
+    public Car() { } 
+
+    // constructor chain implementation
+    public Car(string modelName) : this(modelName, 0) { }
+
+    // constructor chain implementation
+    public Car(int currentSpeed) : this(modelName: "undefined", currentSpeed) { }
+
+    // constructor chain implementation
+    public Car(string modelName = "undefined", int currentSpeed = 0, int maxSpeed = 200, float cost = 10000) 
+        : base(modelName, currentSpeed, maxSpeed, cost)
+    {
+        Id = _constructCounter;
+        _constructCounter++;
+    }
 
     public delegate void CarEngineHandler(object sender, string msgForCaller);
 
@@ -30,24 +46,6 @@ public class Car : Vehicle, IComparable<Car> // IComparable - uncomment to test 
     {
         // _listOfHandlersAboutToBlow += methodToCall           // old implementation of unregistration callback to private delegate instance
         OnAboutToBlow -= methodToRemove;
-    }
-
-    // specify standard constructor, that will be set all fields on default values
-    public Car() { } 
-
-    // constructor chain implementation
-    public Car(string modelName) : this(modelName, 0) { }
-
-    // constructor chain implementation
-    public Car(int currentSpeed) : this(modelName: "undefined", currentSpeed) { }
-
-    // constructor chain implementation
-    public Car(string modelName = "undefined", int currentSpeed = 0, int maxSpeed = 200, float cost = 10000) 
-        : base(modelName, currentSpeed, cost)
-    {
-        Id = _constructCounter;
-        _constructCounter++;
-        MaxSpeed = maxSpeed;
     }
 
     public void Accelerate(int delta)

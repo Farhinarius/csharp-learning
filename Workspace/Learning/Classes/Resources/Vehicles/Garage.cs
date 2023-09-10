@@ -15,12 +15,12 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
         {
             _vehicles = new List<Vehicle>
             {
-                new Car("Nissan R-34 Skyline"),
-                new Car("Nissan 350z"),
-                new Car("Mazda RX7", 170),
-                new Motorcycle("Kuragawa Z5", 110),
-                new Motorcycle("Sirogawa Z7", 150),
-                new Motorcycle("Ducati")
+                new Car("Nissan R-34 Skyline", maxSpeed: 350),
+                new Car("Nissan 350z", maxSpeed: 300),
+                new Car("Mazda RX7", 170, 350),
+                new Motorcycle("Kuragawa Z5", 110, 200),
+                new Motorcycle("Sirogawa Z7", 150, 200),
+                new Motorcycle("Ducati", 0, 250)
             };
         }
 

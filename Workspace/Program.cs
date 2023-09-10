@@ -8,7 +8,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            LinqUsage.TestQueryOverStrings();
+            LinqUsage.OfTypeAsFilter();
         }
     }
 }
@@ -18,8 +18,6 @@ namespace Workspace
 
     public static class ExecutionHandler
     {
-
-
         public static void DelegateUsage()
         {
             double[] a = { 0.0, 0.5, 1.0 };

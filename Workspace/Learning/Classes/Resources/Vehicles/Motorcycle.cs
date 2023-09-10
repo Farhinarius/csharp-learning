@@ -24,10 +24,12 @@ namespace Workspace.Learning.Classes.Resources.Vehicles
 
         // constructor chain implementation
         public Motorcycle(string modelName = "undefined", 
-            int currentSpeed = 0, 
+            int currentSpeed = 0,
+            int maxSpeed = 200,
             float cost = 10000,
             int intensity = 5, 
-            string driverName = "Default") : base(modelName, currentSpeed, cost)
+            string driverName = "Default") 
+            : base(modelName, currentSpeed, maxSpeed, cost)
         {
             if (intensity > MAX_INTENSITY)
             {
