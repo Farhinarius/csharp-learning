@@ -8,7 +8,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            LinqUsage.TestLinqRequests();
+            LinqUsage.AggregateOps();
         }
     }
 }

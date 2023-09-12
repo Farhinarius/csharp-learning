@@ -13,14 +13,14 @@ public static class LinqUsage
     {
         string[] currentVideoGames = { "Morrowind", "Uncharted 2", "Fallout 3", "Daxter", "System Shock 2" };
 
-        // LINQ query expression syntax
+        // LINQ query operations syntax
         IEnumerable<string> videoGamesWithSpace =
             from g in currentVideoGames
             where g.Contains(" ")
             orderby g
             select g;
 
-        // extension method syntax
+        // extension method syntax (Enumerable class extensions method)
         IEnumerable<string> videoGamesWithSpaceByExtensions =
             currentVideoGames.Where(g => g.Contains(" ")).OrderBy(g => g).Select(g => g);
 
@@ -201,7 +201,9 @@ public static class LinqUsage
         GetOverStock(itemsToStock);
         GetProductNamesAndDescriptions(itemsToStock);
         ListProjectedSubset(itemsToStock);
-        ProjectInfoSpecificType(itemsToStock);
+        ProjectIntoSpecificType(itemsToStock);
+        ReverseEverything(itemsToStock);
+        AlphabetizeProductNames(itemsToStock);
     }
 
     private static void SelectEverything(ProductInfo[] products)
@@ -268,7 +270,7 @@ public static class LinqUsage
         Console.WriteLine();
     }
 
-    private static void ProjectInfoSpecificType(ProductInfo[] products)
+    private static void ProjectIntoSpecificType(ProductInfo[] products)
     {
         Console.WriteLine("Names and Descriptions projected to specific type:");
         IEnumerable<ProductInfoSmall> nameDesc =
@@ -280,6 +282,130 @@ public static class LinqUsage
             Console.WriteLine(item);
         }
         Console.WriteLine();
-
     }
+
+    private static void ReverseEverything(ProductInfo[] products)
+    {
+        Console.WriteLine("Product reverse: ");
+        foreach (var product in products.Reverse())
+        {
+            Console.WriteLine(product);
+        }
+        Console.WriteLine();
+    }
+
+    private static void AlphabetizeProductNames(ProductInfo[] products)
+    {
+        // default ordering rule is ascending
+        var subset = from p in products orderby p.Name /*ascending*/ select p;
+        Console.WriteLine("Ordered by Name ascending: ");
+        foreach (var product in products)
+        {
+            Console.WriteLine(product);
+        }
+        Console.WriteLine();
+
+        subset = from p in products orderby p.Name descending select p;
+        Console.WriteLine("Order by name descending");
+        foreach (var product in products)
+        {
+            Console.WriteLine(product);
+        }
+        Console.WriteLine();
+    }
+
+    public static void GetCountFromQuery()
+    {
+        string[] videoGames = { "Morrowind", "Uncharted 2", "Fallout 3", "Daxter", "System shock 2" };
+
+        int numb = (from g in videoGames where g.Length > 6 select g).Count();
+
+        Console.WriteLine("Number of video game names greater then 6");
+    }
+
+    public static void DisplayDiff()
+    {
+        List<string> myCars = new List<string> { "Yugo", "Aztec", "BMW" };
+        List<string> yourCars = new List<string> { "BMW", "Saab", "Aztec" };
+
+        var carDiff = myCars.Except(yourCars);
+        Console.WriteLine("Here is what you don't have, but I do:");
+        foreach (var c in carDiff)
+        {
+            Console.WriteLine(c);
+        }
+        Console.WriteLine();
+    }
+
+    public static void DisplayIntersection()
+    {
+        List<string> myCars = new List<string> { "Yugo", "Aztec", "BMW" };
+        List<string> yourCars = new List<string> { "BMW", "Saab", "Aztec" };
+
+        var carIntersect = myCars.Intersect(yourCars);
+        Console.WriteLine("Here is what we have in common: ");
+        foreach (var c in carIntersect)
+        {
+            Console.WriteLine(c);
+        }
+        Console.WriteLine();
+    }
+
+    public static void DisplayUnion()
+    {
+        List<string> myCars = new List<string> { "Yugo", "Aztec", "BMW" };
+        List<string> yourCars = new List<string> { "BMW", "Saab", "Aztec" };
+
+        var carUnion = myCars.Union(yourCars);
+        Console.WriteLine("Here is everything");
+        foreach (var c in carUnion)
+        {
+            Console.WriteLine(c);
+        }
+        Console.WriteLine();
+    }
+
+    public static void DisplayConcat()
+    {
+        List<string> myCars = new List<string> { "Yugo", "Aztec", "BMW" };
+        List<string> yourCars = new List<string> { "BMW", "Saab", "Aztec" };
+        
+        var carConcat = myCars.Concat(yourCars);
+        foreach (var c in carConcat)
+        {
+            Console.WriteLine(c);
+        }
+        Console.WriteLine();
+    }
+
+    public static void DisplayConcatNoDups()
+    {
+        List<string> myCars = new List<string> { "Yugo", "Aztec", "BMW" };
+        List<string> yourCars = new List<string> { "BMW", "Saab", "Aztec" };
+        var carConcat = myCars.Concat(yourCars);
+        foreach (var c in carConcat.Distinct())
+        {
+            Console.WriteLine(c);
+        }
+        Console.WriteLine();
+    }
+
+    public static void AggregateOps()
+    {
+        double[] winterTemps = { 2.0, -21.3, 8, -4, 0, 8.2 };
+        // Разнообразные примеры агрегации.
+        // Выводит максимальную температуру:
+        Console.WriteLine("Max temp: {0}",
+        (from t in winterTemps select t).Max());
+        // Выводит минимальную температуру:
+        Console.WriteLine("Min temp: {0}",
+        (from t in winterTemps select t).Min());
+        // Выводит среднюю температуру:
+        Console.WriteLine("Average temp: {0}",
+        (from t in winterTemps select t).Average());
+        // Выводит сумму всех температур:
+        Console.WriteLine("Sum of all temps: {0}",
+        (from t in winterTemps select t).Sum());
+    }
+
 }
