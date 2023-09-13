@@ -1,6 +1,5 @@
 ﻿using System;
-using Workspace.Learning.Events;
-using Workspace.Learning.Linq;
+using Workspace.Learning.Processes;
 
 namespace Workspace
 {
@@ -8,7 +7,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            LinqUsage.AggregateOps();
+            ProcessesUsage.StartAndKillProcess();
         }
     }
 }
