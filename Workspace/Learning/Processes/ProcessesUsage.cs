@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
 
@@ -83,6 +81,22 @@ namespace Workspace.Learning.Processes
 
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        public static void UseApplicationVerbs()
+        {
+            int i = 0;
+            var processStartInfo 
+                = new ProcessStartInfo("..\\..\\..\\Learning\\Processes\\Resources\\Test.docx");
+            foreach (var verb in processStartInfo.Verbs)
+            {
+                Console.WriteLine($" {i++}: {verb}");
+            }
+
+            processStartInfo.WindowStyle = ProcessWindowStyle.Maximized;
+            processStartInfo.Verb = "Edit";
+            processStartInfo.UseShellExecute = true;
+            Process.Start(processStartInfo);
         }
 
     }
