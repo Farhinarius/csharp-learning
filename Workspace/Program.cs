@@ -1,5 +1,5 @@
 ﻿using System;
-using Workspace.Learning.Processes;
+using Workspace.Learning.ThreadsAndTasks;
 
 namespace Workspace
 {
@@ -7,7 +7,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            ProcessesUsage.UseApplicationVerbs();
+            ThreadsAndTasks.MultiThreadInteraction();
         }
     }
 }
