@@ -143,26 +143,26 @@ public static class ThreadsAndTasks
 
     public static void UnsynchronizedThreadsInConsole()
     {
-        InvokeMultipleThreads(numberOfThreads: 4, methodToUse: s_Printer.PrintNumbers);
+        InvokeMultipleThreads(numberOfThreads: 4, threadMethod: s_Printer.PrintNumbers);
     }
 
     public static void UnsynchronizedThreadsInClassField()
     {
-        InvokeMultipleThreads(numberOfThreads: 4, methodToUse: s_Printer.SwitchValue);
+        InvokeMultipleThreads(numberOfThreads: 4, threadMethod: s_Printer.SwitchValue);
     }
 
     public static void SynchronizedThreads()
     {
-        InvokeMultipleThreads(numberOfThreads: 4, methodToUse: s_Printer.PrintNumbersLocked);
+        InvokeMultipleThreads(numberOfThreads: 4, threadMethod: s_Printer.PrintNumbersLocked);
     }
 
     // Example of printing number into console in unsynchronized mode
-    private static void InvokeMultipleThreads(int numberOfThreads, Action methodToUse)
+    private static void InvokeMultipleThreads(int numberOfThreads, Action threadMethod)
     {
         var threads = new Thread[numberOfThreads];
         for (int i = 0; i < threads.Length; i++)
         {
-            threads[i] = new Thread(new ThreadStart(methodToUse))
+            threads[i] = new Thread(new ThreadStart(threadMethod))
             {
                 Name = $"#{i}"
             };

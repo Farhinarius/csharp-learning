@@ -7,7 +7,7 @@ namespace Workspace
     {
         private static void Main(string[] args)
         {
-            ThreadsAndTasks.SynchronizedThreads();
+            ThreadsAndTasks.UnsynchronizedThreadsInConsole();
         }
     }
 }
