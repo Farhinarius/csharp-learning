@@ -2,11 +2,14 @@
 using System.Windows.Forms;
 using System.Threading;
 using Workspace.Learning.ThreadsAndTasks.Resources;
+using System.Reflection;
 
 namespace Workspace.Learning.ThreadsAndTasks;
 
-public class ThreadsAndTasks
+public static class ThreadsAndTasks
 {
+    private static Printer s_Printer = new Printer();
+
     public static void ExtractExecutingThread()
     {
         Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
@@ -39,10 +42,12 @@ public class ThreadsAndTasks
     {
         Console.WriteLine("Do you prefer [1] or [2] threads?");
         var threadCount = Console.ReadLine();
-
+        
+        // Retrieve current implementation thread and assign name to it
         var primaryThread = Thread.CurrentThread;
         primaryThread.Name = "Primary";
 
+        // Show call stack
         Console.WriteLine("-> {0} is executing Main()", Thread.CurrentThread.Name);
         Console.WriteLine("-> {0} is executing MultiThreadInteraction()", 
             Thread.CurrentThread.Name);
@@ -51,16 +56,20 @@ public class ThreadsAndTasks
 
         switch (threadCount)
         {
+            // Create new thread for Printing nubmers
             case "2":
                 Thread backgroundThread = 
-                    new Thread(new ThreadStart(printer.PrintNubmers));
+                    new Thread(new ThreadStart(printer.PrintNumbers));
                 backgroundThread.Name = "Secondary";
                 backgroundThread.Start();
                 break;
-
+            
+            // Use primary thread for printing numbers
             case "1":
-                printer.PrintNubmers();
+                printer.PrintNumbers();
                 break;
+
+            // Use primary thread for printing nubmers else
             default:
                 Console.WriteLine("I don't know what you want... you get 1 thread");
                 goto case "1";
@@ -68,4 +77,101 @@ public class ThreadsAndTasks
 
         MessageBox.Show("I'm busy!", "Work on main thread...");
     }
+
+    public static void TestParametrizedThreadStart()
+    {
+        Console.WriteLine("ID of thread in Main(): {0}",
+            Thread.CurrentThread.ManagedThreadId);
+
+        var thread = new Thread(
+            new ParameterizedThreadStart(valueToIncrease =>
+        {
+            Console.WriteLine("ID of new parametrized thread {0}",
+                Thread.CurrentThread.ManagedThreadId);
+
+            if (valueToIncrease is int numberToIncrease)
+                Console.WriteLine("Increased number: {0}", ++numberToIncrease);
+        }));
+
+        thread.Start(0);
+
+        // wait until another thread will finish
+        Thread.Sleep(5);
+    }
+
+    // Thread waiting function.
+    // Primary thread waiting for the completion of second thread
+    public static void TestAutoResetEventAsWaitHandle()
+    {
+        var waitHandle = new AutoResetEvent(false);
+        Console.WriteLine("ID of thread in Main(): {0}",
+            Thread.CurrentThread.ManagedThreadId);
+
+        var thread = new Thread(
+            new ParameterizedThreadStart(valueToIncrease =>
+        {
+            Console.WriteLine("ID of thread in ShowIncreasedNumber(object valueToIncrease): {0}", 
+                Thread.CurrentThread.ManagedThreadId);
+
+            Thread.Sleep(5000);
+
+            if (valueToIncrease is int numberToIncrease)
+                Console.WriteLine("Increased number: {0}", numberToIncrease++);
+
+            // Сообщить другому потому о том, что работа завершена и можно продолжать выполнение
+            waitHandle.Set();
+        }));
+
+        thread.Start(5);
+
+        waitHandle.WaitOne();
+        Console.WriteLine("ID of thread in Main(): {0}", Thread.CurrentThread.ManagedThreadId);
+        Console.WriteLine("Other thread is done!");
+    }
+
+    // If background thread is used, primary front plane thread of application
+    // will end without waiting completion of background thread
+    public static void TestBackgroundThread()
+    {
+        var printer = new Printer();
+        var backgroundThread = new Thread(new ThreadStart(printer.PrintNumbers));
+        
+        backgroundThread.IsBackground = true;       // comment line to see how app
+                                                    // will wait this thread
+        backgroundThread.Start();
+    }
+
+    public static void UnsynchronizedThreadsInConsole()
+    {
+        InvokeMultipleThreads(numberOfThreads: 4, methodToUse: s_Printer.PrintNumbers);
+    }
+
+    public static void UnsynchronizedThreadsInClassField()
+    {
+        InvokeMultipleThreads(numberOfThreads: 4, methodToUse: s_Printer.SwitchValue);
+    }
+
+    public static void SynchronizedThreads()
+    {
+        InvokeMultipleThreads(numberOfThreads: 4, methodToUse: s_Printer.PrintNumbersLocked);
+    }
+
+    // Example of printing number into console in unsynchronized mode
+    private static void InvokeMultipleThreads(int numberOfThreads, Action methodToUse)
+    {
+        var threads = new Thread[numberOfThreads];
+        for (int i = 0; i < threads.Length; i++)
+        {
+            threads[i] = new Thread(new ThreadStart(methodToUse))
+            {
+                Name = $"#{i}"
+            };
+        }
+
+        foreach (var thread in threads)
+        {
+            thread.Start();
+        }
+    }
+
 }
