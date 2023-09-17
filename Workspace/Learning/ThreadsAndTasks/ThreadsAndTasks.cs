@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using System.Threading;
 using Workspace.Learning.ThreadsAndTasks.Resources;
-using System.Reflection;
+
 
 namespace Workspace.Learning.ThreadsAndTasks;
 
@@ -172,6 +172,18 @@ public static class ThreadsAndTasks
         {
             thread.Start();
         }
+    }
+
+    public static void TestTimer()
+    {
+        Console.WriteLine("Press Enter to terminate process...");
+        var timer = new System.Threading.Timer(
+            callback: (object state) => Console.WriteLine(DateTime.Now.ToLongTimeString()),
+            state: null,
+            dueTime: 0,
+            period: 1000);      // starts timer at creation time
+
+        Console.ReadLine();
     }
 
 }
