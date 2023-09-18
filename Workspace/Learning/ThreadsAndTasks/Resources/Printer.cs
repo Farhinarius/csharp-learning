@@ -54,7 +54,7 @@ namespace Workspace.Learning.ThreadsAndTasks.Resources
             }
         }
 
-        public void PrintNumbersLocked()
+        public void PrintNumbersThreadSafe()
         {
             // Использовать в качестве маркера блокировки закрытый член object, блокирая доступ к другим потокам, кроме первого входящего
             lock (_threadLock)

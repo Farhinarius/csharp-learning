@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using System.Threading;
 using Workspace.Learning.ThreadsAndTasks.Resources;
 
-
 namespace Workspace.Learning.ThreadsAndTasks;
 
 public static class ThreadsAndTasks
@@ -153,7 +152,7 @@ public static class ThreadsAndTasks
 
     public static void SynchronizedThreads()
     {
-        InvokeMultipleThreads(numberOfThreads: 4, threadMethod: s_Printer.PrintNumbersLocked);
+        InvokeMultipleThreads(numberOfThreads: 4, threadMethod: s_Printer.PrintNumbersThreadSafe);
     }
 
     // Example of printing number into console in unsynchronized mode
@@ -177,7 +176,7 @@ public static class ThreadsAndTasks
     public static void TestTimer()
     {
         Console.WriteLine("Press Enter to terminate process...");
-        var timer = new System.Threading.Timer(
+        var _ = new System.Threading.Timer(
             callback: (object state) => Console.WriteLine(DateTime.Now.ToLongTimeString()),
             state: null,
             dueTime: 0,
@@ -186,4 +185,26 @@ public static class ThreadsAndTasks
         Console.ReadLine();
     }
 
+    // all threads in ThreadPool is background!!!
+    public static void TestThreadPool()
+    {
+        Console.WriteLine("Main thrad started. ThreadID = {0}",
+            Thread.CurrentThread.ManagedThreadId);
+
+        var printer = new Printer();
+
+        for (int i = 0; i < 10; i++)
+        {
+            // pass delegate instance and static field to thread pool queue implementation
+            ThreadPool.QueueUserWorkItem(state =>
+            {
+                if (state is Printer printerTask)
+                {
+                    printerTask.PrintNumbersThreadSafe();
+                }
+            }, printer);
+        }
+        Console.WriteLine("All tasks queued");
+        Console.ReadLine(); 
+    }
 }
