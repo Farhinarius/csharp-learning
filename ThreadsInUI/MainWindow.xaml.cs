@@ -27,7 +27,7 @@ public partial class MainWindow : Window
 
     private void cmdProcess_Click(object sender, EventArgs e)
     {
-        Task.Factory.StartNew(() => ProcessFiles());
+        Task.Factory.StartNew(ProcessFiles);
         this.Title = "Processing Complete";
     }
 
@@ -63,8 +63,7 @@ public partial class MainWindow : Window
 
                 Dispatcher?.Invoke(() =>
                 {
-
-                    this.Title += $"Processing {fileName}";
+                    this.Title = $"Processing {fileName}";
                 });
 
                 using (var bitmap = new Bitmap(currentFile))

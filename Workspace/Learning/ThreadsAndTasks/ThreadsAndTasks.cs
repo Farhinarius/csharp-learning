@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Threading;
 using Workspace.Learning.ThreadsAndTasks.Resources;
+using System.Threading.Tasks;
 
 namespace Workspace.Learning.ThreadsAndTasks;
 
@@ -206,5 +207,12 @@ public static class ThreadsAndTasks
         }
         Console.WriteLine("All tasks queued");
         Console.ReadLine(); 
+    }
+
+    public static void TestEBookRead()
+    {
+        var eBookReader = new EBookReader();
+        Task.Run(eBookReader.GetBook).GetAwaiter().GetResult();
+        Task.Run(eBookReader.GetStats).GetAwaiter().GetResult();
     }
 }
