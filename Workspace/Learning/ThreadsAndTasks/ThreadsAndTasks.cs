@@ -318,7 +318,7 @@ public static class ThreadsAndTasks
 
     public static async Task TestAyncAwaitParallelMethodInvocation()
     {
-        // Console.WriteLine(DoWork());        // lock thread and cannot continue implementation
+        // Console.WriteLine(DoWork());             // lock thread and cannot continue implementation
         var printTask = PrintStringAsync("hi");     // run in parallel (in different thread)
         var printTask2 = PrintStringAsync("vi");    // run in parallel (in different thread)
         var printTask3 = PrintStringAsync("mi");    // run in parallel (in different thread)
@@ -326,7 +326,7 @@ public static class ThreadsAndTasks
         // run in parallel three print tasks
         await printTask;                            // parallel wait task completion
         await printTask2;                           // parallel wait task completion
-        await printTask3;                           
+        await printTask3;                           // parallel wait task completion
 
         Console.WriteLine("Completed");
 
