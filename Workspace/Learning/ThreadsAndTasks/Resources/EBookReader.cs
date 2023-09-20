@@ -10,35 +10,38 @@ namespace Workspace.Learning.ThreadsAndTasks.Resources
 {
     public class EBookReader
     {
+        private string _bookDownloadPath = "./downloaded_book.txt";
 
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
 
         public EBookReader()
         {
             _httpClient = new HttpClient();
         }
 
-        public async Task GetBook()
+        public async Task GetBookAsync()
         {
             var httpResponseMessage = await _httpClient.GetAsync(
                 new Uri("https://www.gutenberg.org/files/98/98-0.txt"));
 
             var bookText = await httpResponseMessage.Content.ReadAsStringAsync();
 
-            File.WriteAllText("./downloaded_book.txt", bookText);
+            File.WriteAllText(_bookDownloadPath, bookText);
         }
 
-        public async Task GetStats()
+        public async Task GetStatsAsync()
         {
-            var bookText = File.ReadAllText("./downloaded_book.txt");
+            var bookText = File.ReadAllText(_bookDownloadPath);
 
             string[] words = bookText.Split(new char[]
                 { ' ', '\u000A', ',', '.', ';', ':', '-', '?', '/'},
                 StringSplitOptions.RemoveEmptyEntries);
 
-            string[] tenMostCommonWords = await FindTenMostCommon(words);
+            var taskFindTenMostCommonWords = FindTenMostCommon(words);              // run in parallel (in different thread)
+            var taskFindLongestWord = FindLongestWord(words);                       // run in parallel (in different thread)
 
-            string longestWord = await FindLongestWord(words);
+            string[] tenMostCommonWords = await taskFindTenMostCommonWords;         // parallel wait task completion
+            string longestWord = await taskFindLongestWord;                         // parallel wait task completion
 
             var bookStats = new StringBuilder("Ten Most Common Words are: \n");
             foreach (string word in tenMostCommonWords)
@@ -47,14 +50,15 @@ namespace Workspace.Learning.ThreadsAndTasks.Resources
             }
 
             bookStats.AppendFormat("Longest word is: {0}", longestWord);
-
             bookStats.AppendLine();
+
             Console.WriteLine(bookStats.ToString(), "Book info");
         }
 
         private async Task<string[]> FindTenMostCommon(string[] words)
         {
-            var frequencyOrder = words.Where(w => w.Length > 6)
+            var frequencyOrder = words.AsParallel()
+                .Where(w => w.Length > 6)
                 .GroupBy(w => w)
                 .OrderByDescending(g => g.Count())
                 .Select(g => g.Key);
@@ -65,6 +69,6 @@ namespace Workspace.Learning.ThreadsAndTasks.Resources
         }
 
         private async Task<string> FindLongestWord(string[] words) =>
-            await Task.FromResult(words.OrderByDescending(w => w.Length).FirstOrDefault());
+            await Task.FromResult(words.AsParallel().OrderByDescending(w => w.Length).FirstOrDefault());
     }
 }

@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Workspace.Learning.ThreadsAndTasks;
 
 namespace Workspace
 {
     internal static class Program
     {
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
-            ThreadsAndTasks.TestEBookRead();
+            await ThreadsAndTasks.TestAyncAwaitParallelMethodInvocation();
         }
     }
 }

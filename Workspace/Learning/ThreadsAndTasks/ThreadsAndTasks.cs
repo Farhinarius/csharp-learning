@@ -3,6 +3,8 @@ using System.Windows.Forms;
 using System.Threading;
 using Workspace.Learning.ThreadsAndTasks.Resources;
 using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.VisualBasic.Logging;
 
 namespace Workspace.Learning.ThreadsAndTasks;
 
@@ -209,10 +211,137 @@ public static class ThreadsAndTasks
         Console.ReadLine(); 
     }
 
-    public static void TestEBookRead()
+    public static async Task TestEBookReadAsync()
     {
         var eBookReader = new EBookReader();
-        Task.Run(eBookReader.GetBook).GetAwaiter().GetResult();
-        Task.Run(eBookReader.GetStats).GetAwaiter().GetResult();
+        await eBookReader.GetBookAsync();                  // wait until GetBook will completed
+        await eBookReader.GetStatsAsync();                 // wait until GetStats will completed, start after GetBook() completion 
+    }
+
+    public static void TestProcessIntDataParallel()
+    {
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        do
+        {
+            Console.WriteLine("Press any key to start processing");
+            Console.ReadKey();
+
+            Console.WriteLine("Start processing");
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    // Получить обчень большой массив целых чисел
+                    int[] sourceNumbers = Enumerable.Range(1, 10_100_000).ToArray();
+                    // Найти числа, для которых истинно условие num % 3 == 0
+                    // и возвратить их в убывающем порядке
+                    int[] modThreeIsZero = sourceNumbers.AsParallel()
+                        .WithCancellation(cancellationTokenSource.Token)
+                        .Where(n => n % 3 == 0)
+                        .OrderByDescending(n => n)
+                        .ToArray();
+
+                    Console.WriteLine();
+
+                    Console.WriteLine($"Found {modThreeIsZero.Count()} numbers that match query!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            });
+            
+            Console.Write("Enter q to quit: ");
+            var answer  = Console.ReadLine();
+
+            if (answer.Equals("Q", StringComparison.OrdinalIgnoreCase))
+            {
+                cancellationTokenSource.Cancel();
+                break;
+            }
+        }
+        while (true);
+    }
+
+    public static async Task TestParallelExecutionWithTaskRun()
+    {
+        // Console.WriteLine(DoWork());        // lock thread and cannot continue implementation
+
+        Console.WriteLine($"Primary thread: {Thread.CurrentThread.ManagedThreadId}");
+
+        // wait each method execution
+        Task.Run(() => PrintStringAsync($"Method called from thread: {Thread.CurrentThread.ManagedThreadId}"));
+
+        Console.WriteLine("Primary thread continued executing code...");
+        await Task.Delay(4_000);
+
+        // lock thread
+        static string DoWork()
+        {
+            Thread.Sleep(3_000);
+            return "Done with work!";
+        }
+
+        // does not lock thread
+        static async Task PrintStringAsync(string text)
+        {
+            await Task.Delay(3_000);
+            Console.WriteLine(text);
+        }
+    }
+
+    public static async Task TestAsyncAwaitWaiting()
+    {
+        // Console.WriteLine(DoWork());        // lock thread and cannot continue implementation
+
+        // wait each method execution
+        await PrintStringAsync("hi");
+        await PrintStringAsync("vi");
+        await PrintStringAsync("mi");
+
+        Console.WriteLine("Completed");
+
+        // lock thread
+        static string DoWork()
+        {
+            Thread.Sleep(3_000);
+            return "Done with work!";
+        }
+
+        // does not lock thread
+        static async Task PrintStringAsync(string text)
+        {
+            await Task.Delay(3_000);
+            Console.WriteLine(text);
+        }
+    }
+
+    public static async Task TestAyncAwaitParallelMethodInvocation()
+    {
+        // Console.WriteLine(DoWork());        // lock thread and cannot continue implementation
+        var printTask = PrintStringAsync("hi");     // run in parallel (in different thread)
+        var printTask2 = PrintStringAsync("vi");    // run in parallel (in different thread)
+        var printTask3 = PrintStringAsync("mi");    // run in parallel (in different thread)
+
+        // run in parallel three print tasks
+        await printTask;                            // parallel wait task completion
+        await printTask2;                           // parallel wait task completion
+        await printTask3;                           
+
+        Console.WriteLine("Completed");
+
+        // lock thread
+        static string DoWork()
+        {
+            Thread.Sleep(3_000);
+            return "Done with work!";
+        }
+
+        // does not lock thread
+        static async Task PrintStringAsync(string text)
+        {
+            await Task.Delay(3_000);
+            Console.WriteLine(text);
+        }
     }
 }
