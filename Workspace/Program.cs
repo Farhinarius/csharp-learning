@@ -8,7 +8,7 @@ namespace Workspace
     {
         private static async Task Main(string[] args)
         {
-            await ThreadsAndTasks.TestAyncAwaitParallelMethodInvocation();
+            await ThreadsAndTasks.TestAsyncBreakfastEfficiently();
         }
     }
 }

@@ -266,10 +266,9 @@ public static class ThreadsAndTasks
     public static async Task TestParallelExecutionWithTaskRun()
     {
         // Console.WriteLine(DoWork());        // lock thread and cannot continue implementation
-
         Console.WriteLine($"Primary thread: {Thread.CurrentThread.ManagedThreadId}");
 
-        // wait each method execution
+        // run in parallel thread
         Task.Run(() => PrintStringAsync($"Method called from thread: {Thread.CurrentThread.ManagedThreadId}"));
 
         Console.WriteLine("Primary thread continued executing code...");
@@ -318,7 +317,7 @@ public static class ThreadsAndTasks
 
     public static async Task TestAyncAwaitParallelMethodInvocation()
     {
-        // Console.WriteLine(DoWork());             // lock thread and cannot continue implementation
+        // Console.WriteLine(DoWork());             // lock thread and restrict continuation of implementation
         var printTask = PrintStringAsync("hi");     // run in parallel (in different thread)
         var printTask2 = PrintStringAsync("vi");    // run in parallel (in different thread)
         var printTask3 = PrintStringAsync("mi");    // run in parallel (in different thread)
@@ -343,5 +342,20 @@ public static class ThreadsAndTasks
             await Task.Delay(3_000);
             Console.WriteLine(text);
         }
+    }
+
+    public static async Task TestAsyncBreakfast()
+    {
+        await AsyncBreakfast.MakeBreakfast();
+    }
+
+    public static async Task TestAsyncBreakfastWithWhenAll()
+    {
+        await AsyncBreakfast.MakeBreakfastWithCompletionOfAllTasks();
+    }
+
+    public static async Task TestAsyncBreakfastEfficiently()
+    {
+        await AsyncBreakfast.MakeBreakfastEfficiently();
     }
 }
