@@ -4,12 +4,14 @@ using System.Threading;
 using Workspace.Learning.ThreadsAndTasks.Resources;
 using System.Threading.Tasks;
 using System.Linq;
-using Microsoft.VisualBasic.Logging;
+using System.Drawing;
 
 namespace Workspace.Learning.ThreadsAndTasks;
 
 public static class ThreadsAndTasks
 {
+    #region System.Threading examples
+
     private static Printer s_Printer = new Printer();
 
     public static void ExtractExecutingThread()
@@ -211,13 +213,13 @@ public static class ThreadsAndTasks
         Console.ReadLine(); 
     }
 
-    public static async Task TestEBookReadAsync()
-    {
-        var eBookReader = new EBookReader();
-        await eBookReader.GetBookAsync();                  // wait until GetBook will completed
-        await eBookReader.GetStatsAsync();                 // wait until GetStats will completed, start after GetBook() completion 
-    }
+    #endregion
 
+    #region Task Parallel library
+
+    // 1. First example in ThreadsInUI project
+
+    // 2. Task.Factory.StartNew example
     public static void TestProcessIntDataParallel()
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
@@ -250,9 +252,9 @@ public static class ThreadsAndTasks
                     Console.WriteLine(ex.Message);
                 }
             });
-            
+
             Console.Write("Enter q to quit: ");
-            var answer  = Console.ReadLine();
+            var answer = Console.ReadLine();
 
             if (answer.Equals("Q", StringComparison.OrdinalIgnoreCase))
             {
@@ -263,64 +265,64 @@ public static class ThreadsAndTasks
         while (true);
     }
 
-    public static async Task TestParallelExecutionWithTaskRun()
+    // 3. run parallel task example
+    public static void TestParallelExecutionWithTaskRun()
     {
-        // Console.WriteLine(DoWork());        // lock thread and cannot continue implementation
+        // Console.WriteLine(DoWork());             // lock thread and cannot continue implementation
         Console.WriteLine($"Primary thread: {Thread.CurrentThread.ManagedThreadId}");
 
         // run in parallel thread
-        Task.Run(() => PrintStringAsync($"Method called from thread: {Thread.CurrentThread.ManagedThreadId}"));
+        Task.Run(() => DoWork($"Method called from thread: {Thread.CurrentThread.ManagedThreadId}"));
 
         Console.WriteLine("Primary thread continued executing code...");
-        await Task.Delay(4_000);
+        Task.Delay(4_000).Wait();                   // imitate execution of some code
+    }
 
-        // lock thread
-        static string DoWork()
-        {
-            Thread.Sleep(3_000);
-            return "Done with work!";
-        }
+    #endregion
 
-        // does not lock thread
-        static async Task PrintStringAsync(string text)
-        {
-            await Task.Delay(3_000);
-            Console.WriteLine(text);
-        }
+    #region Task-based asynchronous pattern examples
+
+    public static async Task TestEBookReadAsync()
+    {
+        var eBookReader = new EBookReader();
+        await eBookReader.GetBookAsync();                  // wait until GetBook will completed
+        await eBookReader.GetStatsAsync();                 // wait until GetStats will completed, start after GetBook() completion 
+    }
+
+    // lock thread
+    private static void DoWork(string text)
+    {
+        Console.WriteLine($"Start method {nameof(DoWork)} in thread {Thread.CurrentThread.ManagedThreadId}");
+        Task.Delay(3_000).Wait();
+        Console.WriteLine("Work is done");
+    }
+
+    // does not lock thread
+    private static async Task DoWorkAsync(int number)
+    {
+        Console.WriteLine($"Start method {nameof(DoWorkAsync)}({number}) in thread {Thread.CurrentThread.ManagedThreadId}");
+        await Task.Delay(3_000);
+        Console.WriteLine("Work is done");
     }
 
     public static async Task TestAsyncAwaitWaiting()
     {
-        // Console.WriteLine(DoWork());        // lock thread and cannot continue implementation
+        // Console.WriteLine(PrintString());        // lock thread and cannot continue implementation
 
         // wait each method execution
-        await PrintStringAsync("hi");
-        await PrintStringAsync("vi");
-        await PrintStringAsync("mi");
+        await DoWorkAsync(1);
+        await DoWorkAsync(2);
+        await DoWorkAsync(3);
 
         Console.WriteLine("Completed");
-
-        // lock thread
-        static string DoWork()
-        {
-            Thread.Sleep(3_000);
-            return "Done with work!";
-        }
-
-        // does not lock thread
-        static async Task PrintStringAsync(string text)
-        {
-            await Task.Delay(3_000);
-            Console.WriteLine(text);
-        }
     }
 
     public static async Task TestAyncAwaitParallelMethodInvocation()
     {
         // Console.WriteLine(DoWork());             // lock thread and restrict continuation of implementation
-        var printTask = PrintStringAsync("hi");     // run in parallel (in different thread)
-        var printTask2 = PrintStringAsync("vi");    // run in parallel (in different thread)
-        var printTask3 = PrintStringAsync("mi");    // run in parallel (in different thread)
+        var printTask = DoWorkAsync(1);             // run in parallel 
+        var printTask2 = DoWorkAsync(2);            // run in parallel 
+        var printTask3 = DoWorkAsync(3);            // run in parallel 
 
         // run in parallel three print tasks
         await printTask;                            // parallel wait task completion
@@ -328,20 +330,15 @@ public static class ThreadsAndTasks
         await printTask3;                           // parallel wait task completion
 
         Console.WriteLine("Completed");
+    }
 
-        // lock thread
-        static string DoWork()
-        {
-            Thread.Sleep(3_000);
-            return "Done with work!";
-        }
+    public static async Task TestAsyncAwaitWithConfigureAwaitFalse()
+    {
+        // Console.WriteLine(DoWork());        // lock thread and cannot continue implementation
 
-        // does not lock thread
-        static async Task PrintStringAsync(string text)
-        {
-            await Task.Delay(3_000);
-            Console.WriteLine(text);
-        }
+        await DoWorkAsync(1);
+
+        await DoWorkAsync(2).ConfigureAwait(false);
     }
 
     public static async Task TestAsyncBreakfast()
@@ -358,4 +355,6 @@ public static class ThreadsAndTasks
     {
         await AsyncBreakfast.MakeBreakfastEfficiently();
     }
+
+    #endregion
 }

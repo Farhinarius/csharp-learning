@@ -8,14 +8,14 @@ namespace Workspace
     {
         private static async Task Main(string[] args)
         {
-            await ThreadsAndTasks.TestAsyncBreakfastEfficiently();
+            await ThreadsAndTasks.TestAsyncAwaitWithConfigureAwaitFalse();
         }
+
     }
 }
 
 namespace Workspace
 {
-
     public static class ExecutionHandler
     {
         public static void DelegateUsage()
