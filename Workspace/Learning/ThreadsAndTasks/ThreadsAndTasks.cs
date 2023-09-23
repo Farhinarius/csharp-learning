@@ -356,5 +356,87 @@ public static class ThreadsAndTasks
         await AsyncBreakfast.MakeBreakfastEfficiently();
     }
 
+    public static void TestRunAndForget_AsyncVoidExample()
+    {
+        RunAndForgetAsync();
+
+        Console.WriteLine("Void method started");
+        Task.Delay(4_000).Wait();
+        Console.WriteLine("Void method complete");
+    }
+
+    private static async void RunAndForgetAsync()
+    {
+        await Task.Run(() => { Task.Delay(3_000).Wait(); });
+
+        Console.WriteLine("Fire and forget void method completed");
+    }
+
+    public static async Task MultipleAwaits()
+    {
+        await Task.Run(() => { Task.Delay(2_000).Wait(); });
+        Console.WriteLine("Done with first task!");
+        // Первая задача завершена!
+        await Task.Run(() => { Task.Delay(2_000).Wait(); });
+        Console.WriteLine("Done with second task!");
+        // Вторая задача завершена!
+        await Task.Run(() => { Task.Delay(2_000).Wait(); });
+        Console.WriteLine("Done with third task!"); //Третья задача завершена!
+    }
+
+    public static async Task MultipleAwaitsWhenAll()
+    {
+        var task1 = Task.Run(() =>
+        {
+            Task.Delay(2_000).Wait();
+            Console.WriteLine("Done with first task!");
+        });
+
+        var task2 = Task.Run(() =>
+        {
+            Task.Delay(1_000).Wait();
+            Console.WriteLine("Done with second task!");
+        });
+
+        var task3 = Task.Run(() =>
+        {
+            Task.Delay(1_000).Wait();
+            Console.WriteLine("Done with third task!");
+        });
+        await Task.WhenAll(task1, task2, task3);
+        Console.WriteLine("All tasks is completed");
+    }
+
+    public static void CallAsyncInSync()
+    {
+        DoWorkAsync(1).Wait();
+    }
+
+    public static async Task AsyncWithTryCatch()
+    {
+        try
+        {
+            throw new Exception();
+        }
+        catch (Exception ex)
+        {
+            // async context in catch block
+            await Task.Run(() =>
+            {
+                Console.WriteLine("Exception occured in method {0}." +
+                "Exception message: {1}",
+                nameof(AsyncWithTryCatch),
+                ex.Message);
+            });
+        }
+        finally
+        {
+            await Task.Run(() =>
+            {
+                Console.WriteLine("Do magic cleanup");
+            });
+        }
+    }
+
     #endregion
 }
