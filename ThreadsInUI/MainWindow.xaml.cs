@@ -12,23 +12,28 @@ namespace ThreadsInUI;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private CancellationTokenSource _cancellationTokenSource 
-        = new CancellationTokenSource();
+    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
     public MainWindow()
     {
         InitializeComponent();
     }
 
-    private void cmdCancel_Click(object sender, EventArgs e)
+    private void cmdCancelFlipImages_Click(object sender, EventArgs e)
     {
         _cancellationTokenSource.Cancel();
     }
 
-    private void cmdProcess_Click(object sender, EventArgs e)
+    // Parallel handling of files by click version
+    private void cmdFlipImagesParallel_Click(object sender, EventArgs e)
     {
         Task.Factory.StartNew(ProcessFiles);
-        this.Title = "Processing Complete";
+    }
+
+    // Async handling of files by click version
+    private async void cmdFlipImagesAsync_Click(object sender, EventArgs e)
+    {
+        await ProcessFilesAsync();
     }
 
     private void ProcessFiles()
@@ -79,10 +84,68 @@ public partial class MainWindow : Window
         {
             Dispatcher?.Invoke(() => this.Title = ex.Message);
         }
-        
-
     }
 
+    private async Task ProcessFilesAsync()
+    {
+        _cancellationTokenSource = new CancellationTokenSource();
+
+        try
+        {
+            var basePath = Directory.GetCurrentDirectory();
+            var pictureDirectory = Path.Combine(basePath, "TestPictures");
+            var outputDirectory = Path.Combine(basePath, "ModifiedPictures");
+
+            if (Directory.Exists(outputDirectory))
+            {
+                Directory.Delete(outputDirectory, true);
+            }
+            Directory.CreateDirectory(outputDirectory);
+
+            string[] files = Directory.GetFiles(pictureDirectory, "*.png",
+                SearchOption.AllDirectories);
+
+
+            foreach (var file in files)
+            {
+                await ProcessFileAsync(file, outputDirectory,
+                    _cancellationTokenSource.Token);                // remove await operator and replace Task return value to void
+                                                                    // to see parallel execution of file processing
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+
+    private async Task ProcessFileAsync(string file, string outputDirectory,
+        CancellationToken token)
+    {
+        try
+        {
+            string fileName = Path.GetFileName(file);
+
+            await Task.Run(() =>
+            {
+                Dispatcher?.Invoke(() =>
+                {
+                    this.Title = $"Processing {fileName}";
+                });
+
+                using var bitmap = new Bitmap(file);
+                bitmap.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                bitmap.Save(Path.Combine(outputDirectory, fileName));
+
+                Dispatcher?.Invoke(() => this.Title = $"Done" );
+            });
+            
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
 }
 
 

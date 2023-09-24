@@ -362,13 +362,13 @@ public static class ThreadsAndTasks
 
         Console.WriteLine("Void method started");
         Task.Delay(4_000).Wait();
-        Console.WriteLine("Void method complete");
+        Console.WriteLine("Void method completed");
     }
 
     private static async void RunAndForgetAsync()
     {
+        Console.WriteLine("Fire and forget void method started");
         await Task.Run(() => { Task.Delay(3_000).Wait(); });
-
         Console.WriteLine("Fire and forget void method completed");
     }
 
@@ -404,12 +404,13 @@ public static class ThreadsAndTasks
             Console.WriteLine("Done with third task!");
         });
         await Task.WhenAll(task1, task2, task3);
-        Console.WriteLine("All tasks is completed");
+        Console.WriteLine("All tasks are completed");
     }
 
     public static void CallAsyncInSync()
     {
         DoWorkAsync(1).Wait();
+        // or not preferred for usage: DoWorkAsync.GetAwaiter().GetResult();
     }
 
     public static async Task AsyncWithTryCatch()
@@ -423,10 +424,10 @@ public static class ThreadsAndTasks
             // async context in catch block
             await Task.Run(() =>
             {
-                Console.WriteLine("Exception occured in method {0}." +
-                "Exception message: {1}",
-                nameof(AsyncWithTryCatch),
-                ex.Message);
+                Console.WriteLine("Exception occured in method {0}." + 
+                    "Exception message: {1}", 
+                    nameof(AsyncWithTryCatch),
+                    ex.Message);
             });
         }
         finally
@@ -437,6 +438,39 @@ public static class ThreadsAndTasks
             });
         }
     }
+
+    public static async ValueTask<int> AsyncReturnValueType()
+    {
+        await Task.Delay(1000);
+        return 5;
+    }
+
+    public static async Task MethodWithProblemsFixed(int firstParam, int secondParam)
+    {
+        Console.WriteLine("Enter");
+        if (secondParam < 0)
+        {
+            Console.WriteLine("Bad data");
+            return;
+        }
+
+        await actualImplementation();
+        async Task actualImplementation()
+        {
+            await Task.Run(() =>
+            {
+                Task.Delay(4_000).Wait();
+
+                Console.WriteLine("First Complete");
+                // Вызвать еще один длительно выполняющийся метод, который терпит
+                // неудачу из-за того, что значение второго параметра выходит
+                // з а пределы допустимого диапазона.
+                Console.WriteLine("Something bad happened");
+            });
+        }
+    }
+
+    // check cancellation of async call in ThreadsInUI project
 
     #endregion
 }
