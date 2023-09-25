@@ -27,17 +27,19 @@ public partial class MainWindow : Window
     // Parallel handling of files by click version
     private void cmdFlipImagesParallel_Click(object sender, EventArgs e)
     {
-        Task.Factory.StartNew(ProcessFiles);
+        Task.Factory.StartNew(ProcessFilesParallel);
     }
 
     // Async handling of files by click version
     private async void cmdFlipImagesAsync_Click(object sender, EventArgs e)
     {
         await ProcessFilesAsync();
+        
     }
 
-    private void ProcessFiles()
+    private void ProcessFilesParallel()
     {
+        _cancellationTokenSource = new CancellationTokenSource();
         ParallelOptions parallelOptions = new ParallelOptions();
         parallelOptions.CancellationToken = _cancellationTokenSource.Token;
         parallelOptions.MaxDegreeOfParallelism = System.Environment.ProcessorCount;
@@ -76,8 +78,11 @@ public partial class MainWindow : Window
                     bitmap.RotateFlip(RotateFlipType.Rotate180FlipNone);
                     bitmap.Save(Path.Combine(outputDirectory, fileName));
                 }
+            });
 
-                Dispatcher?.Invoke(() => this.Title = "Done!");
+            Dispatcher?.Invoke(() =>
+            {
+                this.Title = $"Processing completed!";
             });
         }
         catch (Exception ex)
@@ -101,21 +106,24 @@ public partial class MainWindow : Window
                 Directory.Delete(outputDirectory, true);
             }
             Directory.CreateDirectory(outputDirectory);
-
             string[] files = Directory.GetFiles(pictureDirectory, "*.png",
                 SearchOption.AllDirectories);
-
 
             foreach (var file in files)
             {
                 await ProcessFileAsync(file, outputDirectory,
-                    _cancellationTokenSource.Token);                // remove await operator and replace Task return value to void
-                                                                    // to see parallel execution of file processing
+                    _cancellationTokenSource.Token);                        // remove await operator and replace Task return value to void
+                                                                            // to see parallel execution of file processing
             }
+
+            Dispatcher?.Invoke(() =>
+            {
+                this.Title = $"Processing completed!";
+            });
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            Dispatcher?.Invoke(() => this.Title = ex.Message);
         }
     }
 
@@ -125,7 +133,6 @@ public partial class MainWindow : Window
         try
         {
             string fileName = Path.GetFileName(file);
-
             await Task.Run(() =>
             {
                 Dispatcher?.Invoke(() =>
@@ -136,10 +143,7 @@ public partial class MainWindow : Window
                 using var bitmap = new Bitmap(file);
                 bitmap.RotateFlip(RotateFlipType.Rotate180FlipNone);
                 bitmap.Save(Path.Combine(outputDirectory, fileName));
-
-                Dispatcher?.Invoke(() => this.Title = $"Done" );
-            });
-            
+            }, token);
         }
         catch (Exception ex)
         {
