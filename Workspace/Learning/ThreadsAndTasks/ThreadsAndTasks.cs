@@ -4,7 +4,7 @@ using System.Threading;
 using Workspace.Learning.ThreadsAndTasks.Resources;
 using System.Threading.Tasks;
 using System.Linq;
-using System.Drawing;
+using System.Collections.Generic;
 
 namespace Workspace.Learning.ThreadsAndTasks;
 
@@ -215,12 +215,19 @@ public static class ThreadsAndTasks
 
     #endregion
 
-    #region Task Parallel library
+    #region Task Parallel library examples
 
-    // 1. First example in ThreadsInUI project
+    // 1. Parallel.ForEach and Dispatcher examples in ThreadsInUI project
 
-    // 2. Task.Factory.StartNew example
-    public static void TestProcessIntDataParallel()
+    // 2. Parallel.Invoke EBookReader class
+    public static void TestEBookReadParallelInvoke()
+    {
+        var downloadedBookPath = EBookReader.GetBook();
+        EBookReader.GetBookStats(downloadedBookPath);              
+    }
+
+    // 3. AsParallel() iteration and Task.Factory.StartNew parallel execution examples
+    public static void TestAsParallelMethod()
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         do
@@ -265,7 +272,7 @@ public static class ThreadsAndTasks
         while (true);
     }
 
-    // 3. run parallel task example
+    // 4. run parallel task example
     public static void TestParallelExecutionWithTaskRun()
     {
         // Console.WriteLine(DoWork());             // lock thread and cannot continue implementation
@@ -282,11 +289,11 @@ public static class ThreadsAndTasks
 
     #region Task-based asynchronous pattern examples
 
+    // test example replaced from parallel execution to task-based async parallel execution
     public static async Task TestEBookReadAsync()
     {
-        var eBookReader = new EBookReader();
-        await eBookReader.GetBookAsync();                  // wait until GetBook will completed
-        await eBookReader.GetStatsAsync();                 // wait until GetStats will completed, start after GetBook() completion 
+        var downloadedContentFilePath = await EBookReader.GetBookAsync();   // wait until GetBook will completed
+        await EBookReader.GetBookStatsAsync(downloadedContentFilePath);     // wait until GetStats will completed, start after GetBook() completion 
     }
 
     // lock thread
@@ -319,7 +326,7 @@ public static class ThreadsAndTasks
 
     public static async Task TestAyncAwaitParallelMethodInvocation()
     {
-        // Console.WriteLine(DoWork());             // lock thread and restrict continuation of implementation
+        // Console.WriteLine(DoWork());             // lock thread and restrict continuation of execution
         var printTask = DoWorkAsync(1);             // run in parallel 
         var printTask2 = DoWorkAsync(2);            // run in parallel 
         var printTask3 = DoWorkAsync(3);            // run in parallel 
@@ -334,7 +341,7 @@ public static class ThreadsAndTasks
 
     public static async Task TestAsyncAwaitWithConfigureAwaitFalse()
     {
-        // Console.WriteLine(DoWork());        // lock thread and cannot continue implementation
+        // Console.WriteLine(DoWork());        // lock thread and stop execution of method
 
         await DoWorkAsync(1);
 
@@ -358,17 +365,18 @@ public static class ThreadsAndTasks
 
     public static void TestRunAndForget_AsyncVoidExample()
     {
-        RunAndForgetAsync();
+        RunAndForgetAsync();                                // run in parallel
 
         Console.WriteLine("Void method started");
-        Task.Delay(4_000).Wait();
+        Task.Delay(4_000).Wait();                           // wait for method RunAndForget to finish execution
         Console.WriteLine("Void method completed");
     }
 
+    // method with keyword void can be called from synchronous context in parallel mode
     private static async void RunAndForgetAsync()
     {
         Console.WriteLine("Fire and forget void method started");
-        await Task.Run(() => { Task.Delay(3_000).Wait(); });
+        await Task.Delay(3_000);                            // some task
         Console.WriteLine("Fire and forget void method completed");
     }
 
@@ -376,9 +384,11 @@ public static class ThreadsAndTasks
     {
         await Task.Run(() => { Task.Delay(2_000).Wait(); });
         Console.WriteLine("Done with first task!");
+        
         // Первая задача завершена!
         await Task.Run(() => { Task.Delay(2_000).Wait(); });
         Console.WriteLine("Done with second task!");
+        
         // Вторая задача завершена!
         await Task.Run(() => { Task.Delay(2_000).Wait(); });
         Console.WriteLine("Done with third task!"); //Третья задача завершена!
@@ -471,6 +481,23 @@ public static class ThreadsAndTasks
     }
 
     // check cancellation of async call in ThreadsInUI project
+
+    public static async Task TestGenerateSequenceAsync()
+    {
+        await foreach (var number in GenerateSequenceAsync())
+        {
+            Console.WriteLine(number);
+        }
+    }
+
+    private static async IAsyncEnumerable<int> GenerateSequenceAsync()
+    {
+        for (int i = 0; i < 20; i++)
+        {
+            await Task.Delay(100);
+            yield return i;
+        }
+    }
 
     #endregion
 }

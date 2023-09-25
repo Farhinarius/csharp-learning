@@ -1,52 +1,59 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Workspace.Learning.ThreadsAndTasks.Resources
 {
-    public class EBookReader
+    public static class EBookReader
     {
-        private string _bookDownloadPath = "./downloaded_book.txt";
+        private static readonly HttpClient s_httpClient = new HttpClient();
 
-        private readonly HttpClient _httpClient;
+        #region Task Parallel implementaiton
 
-        public EBookReader()
+        public static string GetBook(string uri = "https://www.gutenberg.org/files/98/98-0.txt", 
+            string downloadedBookPath = "./downloaded_book.txt")
         {
-            _httpClient = new HttpClient();
+            var httpResponseMessage = s_httpClient.GetAsync(new Uri(uri))
+                .GetAwaiter().GetResult();
+
+            var bookText = httpResponseMessage.Content.ReadAsStringAsync()
+                .GetAwaiter().GetResult();
+
+            File.WriteAllText(downloadedBookPath, bookText);
+
+            return downloadedBookPath;
         }
 
-        public async Task GetBookAsync()
+        public static void GetBookStats(string downloadedBookPath)
         {
-            var httpResponseMessage = await _httpClient.GetAsync(
-                new Uri("https://www.gutenberg.org/files/98/98-0.txt"));
+            var bookText = File.ReadAllText(downloadedBookPath);
 
-            var bookText = await httpResponseMessage.Content.ReadAsStringAsync();
-
-            File.WriteAllText(_bookDownloadPath, bookText);
-        }
-
-        public async Task GetStatsAsync()
-        {
-            var bookText = File.ReadAllText(_bookDownloadPath);
-
-            string[] words = bookText.Split(new char[]
-                { ' ', '\u000A', ',', '.', ';', ':', '-', '?', '/'},
+            string[] words = bookText.Split(
+                new char[] { ' ', '\u000A', ',', '.', ';', ':', '-', '?', '/'},
                 StringSplitOptions.RemoveEmptyEntries);
 
-            var taskFindTenMostCommonWords = FindTenMostCommon(words);              // run in parallel (in different thread)
-            var taskFindLongestWord = FindLongestWord(words);                       // run in parallel (in different thread)
+            string[] tenMostCommonWords = Array.Empty<string>();
+            string longestWord = string.Empty;
 
-            string[] tenMostCommonWords = await taskFindTenMostCommonWords;         // parallel wait task completion
-            string longestWord = await taskFindLongestWord;                         // parallel wait task completion
+            Parallel.Invoke(
+                () =>
+                {
+                    tenMostCommonWords = FindTenMostCommonWords(words);
+                },
+                () =>
+                {
+                    longestWord = FindLongestWord(words);
+                });
 
-            var bookStats = new StringBuilder("Ten Most Common Words are: \n");
-            foreach (string word in tenMostCommonWords)
+            StringBuilder bookStats = new StringBuilder("Ten Most Common Words are:\n");
+            foreach (string commonWord in tenMostCommonWords)
             {
-                bookStats.AppendLine(word);
+                bookStats.AppendLine(commonWord);
             }
 
             bookStats.AppendFormat("Longest word is: {0}", longestWord);
@@ -55,7 +62,80 @@ namespace Workspace.Learning.ThreadsAndTasks.Resources
             Console.WriteLine(bookStats.ToString(), "Book info");
         }
 
-        private async Task<string[]> FindTenMostCommon(string[] words)
+        private static string[] FindTenMostCommonWords(string[] words)
+        {
+            var frequencyOrder = words.AsParallel()
+                .Where(w => w.Length > 6)
+                .GroupBy(w => w)
+                .OrderByDescending(g => g.Count())
+                .Select(g => g.Key);
+
+            var commonWords = frequencyOrder.Take(10).ToArray();
+            return commonWords;
+        }
+
+        private static string FindLongestWord(string[] words)
+        {
+            return words.AsParallel().OrderByDescending(w => w.Length).FirstOrDefault();
+        }
+
+        #endregion
+
+        #region Task-based async implementation
+
+        public static async Task<string> GetBookAsync(string uri = "https://www.gutenberg.org/files/98/98-0.txt",
+            string downloadedBookPath = "./downloaded_book.txt")
+        {
+            var httpResponseMessage = await s_httpClient.GetAsync(
+                new Uri(uri));
+
+            var bookText = await httpResponseMessage.Content.ReadAsStringAsync();
+
+            File.WriteAllText(downloadedBookPath, bookText);
+
+            return downloadedBookPath;
+        }
+
+        public static async Task GetBookStatsAsync(string downloadedBookPath)
+        {
+            var bookText = File.ReadAllText(downloadedBookPath);
+
+            string[] words = bookText.Split(new char[]
+                { ' ', '\u000A', ',', '.', ';', ':', '-', '?', '/'},
+                StringSplitOptions.RemoveEmptyEntries);
+
+            var findTenMostCommonWordsTask = FindTenMostCommonWordsAsync(words);                // run in parallel 
+            var findLongestWordTask = FindLongestWordAsync(words);                              // run in parallel
+
+            var statsTasks = new List<Task> { findLongestWordTask, findTenMostCommonWordsTask };
+            var bookStats = new StringBuilder();
+
+            while (statsTasks.Count > 0)
+            {
+                Task finishedTask = await Task.WhenAny(statsTasks);
+                if (finishedTask == findTenMostCommonWordsTask)
+                {
+                    var tenMostCommonWords = await findTenMostCommonWordsTask;
+                    bookStats.AppendLine("Ten most common words are: \n");
+                    foreach (string word in tenMostCommonWords)
+                    {
+                        bookStats.AppendLine(word);
+                    }
+                }
+                if (finishedTask == findLongestWordTask)
+                {
+                    var longestWord = await findLongestWordTask;
+
+                    bookStats.AppendFormat("Longest word is: {0}", longestWord);
+                }
+
+                statsTasks.Remove(finishedTask);
+            }                     
+
+            Console.WriteLine(bookStats.ToString(), "Book info");
+        }
+
+        private static async Task<string[]> FindTenMostCommonWordsAsync(string[] words)
         {
             var frequencyOrder = words.AsParallel()
                 .Where(w => w.Length > 6)
@@ -68,7 +148,9 @@ namespace Workspace.Learning.ThreadsAndTasks.Resources
             return await Task.FromResult(commonWords);
         }
 
-        private async Task<string> FindLongestWord(string[] words) =>
+        private static async Task<string> FindLongestWordAsync(string[] words) =>
             await Task.FromResult(words.AsParallel().OrderByDescending(w => w.Length).FirstOrDefault());
+
+        #endregion
     }
 }

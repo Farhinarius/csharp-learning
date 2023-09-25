@@ -8,7 +8,7 @@ namespace Workspace
     {
         private static async Task Main(string[] args)
         {
-            ThreadsAndTasks.TestRunAndForget_AsyncVoidExample();
+            ThreadsAndTasks.TestEBookReadParallelInvoke();
         }
 
     }
