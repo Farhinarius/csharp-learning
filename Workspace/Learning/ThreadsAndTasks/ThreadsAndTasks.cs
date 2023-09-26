@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.Threading;
-using Workspace.Learning.ThreadsAndTasks.Resources;
-using System.Threading.Tasks;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Workspace.Learning.ThreadsAndTasks.Resources;
+using Timer = System.Threading.Timer;               // alias for namespaces (chapter 16 example)
 
 namespace Workspace.Learning.ThreadsAndTasks;
 
@@ -46,14 +47,14 @@ public static class ThreadsAndTasks
     {
         Console.WriteLine("Do you prefer [1] or [2] threads?");
         var threadCount = Console.ReadLine();
-        
+
         // Retrieve current implementation thread and assign name to it
         var primaryThread = Thread.CurrentThread;
         primaryThread.Name = "Primary";
 
         // Show call stack
         Console.WriteLine("-> {0} is executing Main()", Thread.CurrentThread.Name);
-        Console.WriteLine("-> {0} is executing MultiThreadInteraction()", 
+        Console.WriteLine("-> {0} is executing MultiThreadInteraction()",
             Thread.CurrentThread.Name);
 
         var printer = new Printer();
@@ -62,12 +63,12 @@ public static class ThreadsAndTasks
         {
             // Create new thread for Printing nubmers
             case "2":
-                Thread backgroundThread = 
+                Thread backgroundThread =
                     new Thread(new ThreadStart(printer.PrintNumbers));
                 backgroundThread.Name = "Secondary";
                 backgroundThread.Start();
                 break;
-            
+
             // Use primary thread for printing numbers
             case "1":
                 printer.PrintNumbers();
@@ -114,7 +115,7 @@ public static class ThreadsAndTasks
         var thread = new Thread(
             new ParameterizedThreadStart(valueToIncrease =>
         {
-            Console.WriteLine("ID of thread in ShowIncreasedNumber(object valueToIncrease): {0}", 
+            Console.WriteLine("ID of thread in ShowIncreasedNumber(object valueToIncrease): {0}",
                 Thread.CurrentThread.ManagedThreadId);
 
             Thread.Sleep(5000);
@@ -139,7 +140,7 @@ public static class ThreadsAndTasks
     {
         var printer = new Printer();
         var backgroundThread = new Thread(new ThreadStart(printer.PrintNumbers));
-        
+
         backgroundThread.IsBackground = true;       // comment line to see how app
                                                     // will wait this thread
         backgroundThread.Start();
@@ -181,7 +182,7 @@ public static class ThreadsAndTasks
     public static void TestTimer()
     {
         Console.WriteLine("Press Enter to terminate process...");
-        var _ = new System.Threading.Timer(
+        var _ = new Timer(
             callback: (object state) => Console.WriteLine(DateTime.Now.ToLongTimeString()),
             state: null,
             dueTime: 0,
@@ -210,7 +211,7 @@ public static class ThreadsAndTasks
             }, state: printer);
         }
         Console.WriteLine("All tasks queued");
-        Console.ReadLine(); 
+        Console.ReadLine();
     }
 
     #endregion
@@ -223,7 +224,7 @@ public static class ThreadsAndTasks
     public static void TestEBookReadParallelInvoke()
     {
         var downloadedBookPath = EBookReader.GetBook();
-        EBookReader.GetBookStats(downloadedBookPath);              
+        EBookReader.GetBookStats(downloadedBookPath);
     }
 
     // 3. AsParallel() iteration and Task.Factory.StartNew parallel execution examples
@@ -384,11 +385,11 @@ public static class ThreadsAndTasks
     {
         await Task.Run(() => { Task.Delay(2_000).Wait(); });
         Console.WriteLine("Done with first task!");
-        
+
         // Первая задача завершена!
         await Task.Run(() => { Task.Delay(2_000).Wait(); });
         Console.WriteLine("Done with second task!");
-        
+
         // Вторая задача завершена!
         await Task.Run(() => { Task.Delay(2_000).Wait(); });
         Console.WriteLine("Done with third task!"); //Третья задача завершена!
@@ -434,8 +435,8 @@ public static class ThreadsAndTasks
             // async context in catch block
             await Task.Run(() =>
             {
-                Console.WriteLine("Exception occured in method {0}." + 
-                    "Exception message: {1}", 
+                Console.WriteLine("Exception occured in method {0}." +
+                    "Exception message: {1}",
                     nameof(AsyncWithTryCatch),
                     ex.Message);
             });
