@@ -203,11 +203,11 @@ public static class ThreadsAndTasks
             // pass delegate instance and static field to thread pool queue implementation
             ThreadPool.QueueUserWorkItem(state =>
             {
-                if (state is Printer printerTask)
+                if (state is Printer printerObject)
                 {
-                    printerTask.PrintNumbersThreadSafe();
+                    printerObject.PrintNumbersThreadSafe();
                 }
-            }, printer);
+            }, state: printer);
         }
         Console.WriteLine("All tasks queued");
         Console.ReadLine(); 
