@@ -5,9 +5,9 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnvironmentInteraction", "EnvironmentInteraction\EnvironmentInteraction.csproj", "{F280474F-5F34-4766-8641-2B6BD4863B63}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workspace", "Workspace\Workspace.csproj", "{3182BAEA-C3C0-4BB3-89F6-977EDF6173D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Learning", "Learning\Learning.csproj", "{3182BAEA-C3C0-4BB3-89F6-977EDF6173D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadsInUI", "ThreadsInUI\ThreadsInUI.csproj", "{89F38168-84FB-4B8A-A955-7CD23BF82B8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadsInUI", "ThreadsInUI\ThreadsInUI.csproj", "{89F38168-84FB-4B8A-A955-7CD23BF82B8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
