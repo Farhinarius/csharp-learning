@@ -31,7 +31,7 @@ public static class LibrariesUsage
         //Square s = new Square();                            // Ошибка на этапе компиляции!
     }
 
-    // fixture example of namespace conflicts
+    // fixture example of namespace conflicts                       // solve type naming conflict with full namespace specification 
     public static void UseNamespaceTypesWithoutUsingStatement()
     {
         Resources.Shapes.Hexagon h = new Resources.Shapes.Hexagon();
@@ -39,15 +39,15 @@ public static class LibrariesUsage
         Resources.Shapes.Square s = new Resources.Shapes.Square();
     }
 
-    // use aliases
-    public static void ExampleSolveSimilarTypeConflicts()
+    // use class aliases to solve type naming conflicts
+    public static void SolveSimilarTypeNameConflictsByAliases()
     {
         Hexagon3D h = new Hexagon3D();
         Circle3D с = new Circle3D();  
         Square3D s = new Square3D();  
     }
 
-    // use alias namespace
+    // use namespace aliases to shorten calls from similar namespaces
     public static void TestAliasNamespace()
     {
         figures.Circle c = new figures.Circle();
