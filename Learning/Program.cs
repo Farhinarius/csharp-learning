@@ -1,4 +1,5 @@
-﻿using Learning.Delegates;
+﻿using Learning.Libraries;
+using System;
 using System.Threading.Tasks;
 
 namespace Learning
@@ -7,7 +8,7 @@ namespace Learning
     {
         private static async Task Main(string[] args)
         {
-            DelegatesUsage.DelegateTest();
+            LibrariesUsage.UseNamespaceTypesWithoutUsingStatement();
         }
 
     }
