@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Title>AwesomeCarLibrary</Title>
+    <Authors>Ferruccio Lamborghini</Authors>
+    <Company>Lamborghini</Company>
+    <Product>CarLibrary</Product>
+    <Description>Veru useful car library</Description>
+    <Copyright>Copyright 2023</Copyright>
+  </PropertyGroup>
+
+</Project>
