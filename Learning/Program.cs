@@ -7,7 +7,7 @@ namespace Learning
     {
         private static async Task Main(string[] args)
         {
-            LibrariesUsage.UseNamespaceTypesWithoutUsingStatement();
+            LibrariesUsage.UseNugetPackage();
         }
 
     }

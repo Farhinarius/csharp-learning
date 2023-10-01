@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Learning", "Learning\Learni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadsInUI", "ThreadsInUI\ThreadsInUI.csproj", "{89F38168-84FB-4B8A-A955-7CD23BF82B8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLibrary", "CarLibrary\CarLibrary.csproj", "{84C18239-4579-4A7B-88C8-55402771C288}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLibrary", "CarLibrary\CarLibrary.csproj", "{84C18239-4579-4A7B-88C8-55402771C288}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarClient", "CarClient\CarClient.csproj", "{288666BD-94A1-4822-A16F-652F94A32D73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{84C18239-4579-4A7B-88C8-55402771C288}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84C18239-4579-4A7B-88C8-55402771C288}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84C18239-4579-4A7B-88C8-55402771C288}.Release|Any CPU.Build.0 = Release|Any CPU
+		{288666BD-94A1-4822-A16F-652F94A32D73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{288666BD-94A1-4822-A16F-652F94A32D73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{288666BD-94A1-4822-A16F-652F94A32D73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{288666BD-94A1-4822-A16F-652F94A32D73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
