@@ -56,15 +56,24 @@ public static class LibrariesUsage
         BinaryFormatter bf = new BinaryFormatter();
     }
 
-    // 1. you can see example of project library (.net6) in project "CarLibrary"
-    // 2. you can see project dependency in another project in "CarClient"
+    // You can see example of Project as Class Library (.NET6, not .NET Standard) in "CarLibrary"
+    // You can see example of project library (.net6) in "CarLibrary" project
+    // You can see usage of "CarLibrary" project as dependency library in "CarClient" project
 
-    // 3. Pack project into nuget package !!!to test use CarLibrary project!!!
-    // !!! see nuget sources; Nuget.Config for CarLibrary project and solution path: sln/Nuget.Config
-    // cd <ProjectFolder>
+    // Nuget Package creation and usage example
+    // 1. Specify Nuget sources in Nuget.Config file
+    // There are several sources for CarLibrary nuget package 
+    // To reproduce package generation process use ".\CarLibrary\Publish" storage
+    // 2. Pack project into nuget package
+    // cd <ProjectFolder>                                    // cd .\CarLibrary
     // dotnet build -с Release
-    // dotnet pack -о.\Publish -c Debug
-    // dotnet add Learning package CarLibrary           // add to <Project> package <PackageName>
+    // dotnet pack -о .\Publish -c Debug
+    // cd <solution folder>                                  // cd ..
+    // dotnet add <Project> package <PackageName>            // dotnet add Learning package CarLibrary
+    // dotnet add (to) Learning package CarLibrary
+
+    // For convinience purposes after clean project start (after cloning for example)
+    // there are also ".\CarLibrary\bin\Debug" package source avaialable in Nuget.Config
 
     // Use created Nuget Package
     public static void UseNugetPackage()
@@ -73,7 +82,7 @@ public static class LibrariesUsage
         miniVan.TurboBoost();
     }
 
-    // 4. Publish executable project by using dotnet publish !!!to test use CarClient project!!!
+    // 4. Publish executable project by using dotnet publish ! to test use CarClient project !
     // cd .\CarLibrary
     // 4.1 Publish .net infrastructure dependent (require .net runtime and specific OS) build to Debug folder. 
     // Path: bin\Debug\net6.0\publish ->
