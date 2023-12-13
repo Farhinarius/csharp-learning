@@ -14,7 +14,7 @@ using figures = Learning.Classes.Resources.Figures;
 using bfHome = System.Runtime.Serialization.Formatters.Binary;
 // or
 using System.Runtime.Serialization.Formatters.Binary;
-
+using CarLibrary.Models;
 
 namespace Learning.Libraries;
 
@@ -46,7 +46,7 @@ public static class LibrariesUsage
         Circle3D с = new Circle3D();  
         Square3D s = new Square3D();  
     }
-
+    
     // use namespace aliases to shorten calls from similar namespaces
     public static void TestAliasNamespace()
     {
@@ -56,4 +56,42 @@ public static class LibrariesUsage
         BinaryFormatter bf = new BinaryFormatter();
     }
 
+    // You can see example of Project as Class Library (.NET6, not .NET Standard) in "CarLibrary"
+    // You can see example of project library (.net6) in "CarLibrary" project
+    // You can see usage of "CarLibrary" project as dependency library in "CarClient" project
+
+    // Nuget Package creation and usage example
+    // 1. Specify Nuget sources in Nuget.Config file
+    // There are several sources for CarLibrary nuget package 
+    // To reproduce package generation process use ".\CarLibrary\Publish" storage
+    // 2. Pack project into nuget package
+    // cd <ProjectFolder>                                    // cd .\CarLibrary
+    // dotnet build -с Release
+    // dotnet pack -о .\Publish -c Debug
+    // cd <solution folder>                                  // cd ..
+    // dotnet add <Project> package <PackageName>            // dotnet add Learning package CarLibrary
+    // dotnet add (to) Learning package CarLibrary
+
+    // For convinience purposes after clean project start (after cloning for example)
+    // there are also ".\CarLibrary\bin\Debug" package source avaialable in Nuget.Config
+
+    // Use created Nuget Package
+    public static void UseNugetPackage()
+    {
+        MiniVan miniVan = new MiniVan();
+        miniVan.TurboBoost();
+    }
+
+    // 4. Publish executable project by using dotnet publish ! to test use CarClient project !
+    // cd .\CarLibrary
+    // 4.1 Publish .net infrastructure dependent (require .net runtime and specific OS) build to Debug folder. 
+    // Path: bin\Debug\net6.0\publish ->
+    // dotnet publish                                                                   
+    // 4.2 Publish .net infrastructure dependent build to Release folder. Path: bin\Release\net6.0\publish
+    // dotnet publish -c release
+    // 4.3 Publish infrastructure independent (can work without .net runtime) build called self-contained build. 
+    // dotnet publish -r win-x64 -c release -o selfcontained --self-contained true
+    // 4.4 Publish self-contained and single file build. (Check option in project CarClient!!!) : <IncludeNativeLibrariesForSelfExtract>
+    // dotnet publish -r win-x64 -c release -o --singlefile-selfcontained --self-contained true p:PublishSingleFile=true
+    // prepare self-contained single file executable
 }

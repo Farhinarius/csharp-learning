@@ -34,7 +34,6 @@ public partial class MainWindow : Window
     private async void cmdFlipImagesAsync_Click(object sender, EventArgs e)
     {
         await ProcessFilesAsync();
-        
     }
 
     private void ProcessFilesParallel()
