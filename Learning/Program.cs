@@ -1,5 +1,4 @@
-﻿using Learning.Libraries;
-using System;
+﻿using Learning.Classes;
 using System.Threading.Tasks;
 
 namespace Learning
@@ -8,8 +7,7 @@ namespace Learning
     {
         private static async Task Main(string[] args)
         {
-            LibrariesUsage.UseNamespaceTypesWithoutUsingStatement();
+            ClassesUsage.TestSystemObjectMethods();
         }
-
     }
 }

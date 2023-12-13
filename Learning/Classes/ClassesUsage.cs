@@ -167,5 +167,31 @@ namespace Learning.Classes
             // p.Name = "Faarara"; -- cannot assign value in property Name
         }
 
+        public static void TestSystemObjectMethods()
+        {
+            Person homer = new Person("Homer", "Simpson", 50, "111-11-1111");
+            Person homerClone = new Person("Homer", "Simpson", 50, "111-11-1111");
+
+            // Получить строковые версии объектов.
+            Console.WriteLine("homer.ToString() = {0}", homer.ToString());
+            Console.WriteLine("homerClone.ToString() = {0}", homerClone.ToString());
+
+            // Протестировать переопределенный метод Equals().
+            Console.WriteLine("homer = homerClone? : {0}", homer.Equals(homerClone));
+
+            // Протестировать хеш-коды.
+            // По-прежнему используется хеш-значение SSN.
+            Console.WriteLine("Same hash codes?: {0}", homer.GetHashCode() == homerClone.GetHashCode());
+            Console.WriteLine();
+
+            homerClone.Age = 45;
+            Console.WriteLine("homer.ToString() = {0}", homer.ToString());
+            Console.WriteLine("homerClone.ToString() = {0}", homerClone.ToString());
+            Console.WriteLine("homer = homerClone? : {0}", homer.Equals(homerClone));
+
+            // По-прежнему используется хеш-значение SSN.
+            Console.WriteLine("Same hash codes?: {0}", homer.GetHashCode() == homerClone.GetHashCode());
+        }
+
     }
 }
