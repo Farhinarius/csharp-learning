@@ -69,8 +69,7 @@ public static class LibrariesUsage
     // dotnet build -с Release
     // dotnet pack -о .\Publish -c Debug
     // cd <solution folder>                                  // cd ..
-    // dotnet add <Project> package <PackageName>            // dotnet add Learning package CarLibrary
-    // dotnet add (to) Learning package CarLibrary
+    // dotnet add <Project> package <PackageName>            // dotnet add Learning package CarLibrary // dotnet add (to) Learning package CarLibrary
 
     // For convinience purposes after clean project start (after cloning for example)
     // there are also ".\CarLibrary\bin\Debug" package source avaialable in Nuget.Config
